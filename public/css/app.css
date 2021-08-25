@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('./bootstrap.css');
+
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.form-center {
+    position: relative;
+}
+
+.form-center form {
+    margin-top: 5rem;
+}
+
+.form-center button {
+    padding: 1rem 0;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .form-center {
+        height: 100vh;
+    }
+
+    .form-center form {
+        position: absolute;
+        margin-top: 0;
+        margin-right: auto;
+        margin-left: auto;
+        width: 50%;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .form-center button {
+        padding: 0.5rem 3rem;
+        width: unset;
+    }
+
+}

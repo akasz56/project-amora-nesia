@@ -20,6 +20,16 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('photoURL')->nullable();
+            $table->date('dateofbirth')->nullable();
+            $table->unsignedBigInteger('genderID')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->unsignedBigInteger('addressID')->nullable();
+            $table->unsignedBigInteger('BankID')->nullable();
+            $table->string('BankNum')->nullable();
+            $table->string('BankName')->nullable();
+            $table->unsignedBigInteger('storeID')->nullable();
             $table->timestamps();
         });
     }
