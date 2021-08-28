@@ -22,10 +22,12 @@ Route::middleware('auth')->name('verification.')->group(function () {
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
     })->name('notice');
+
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
         return redirect('/home');
     })->middleware('signed')->name('verify');
+    
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
         return back()->with('message', 'Verification link sent!');
