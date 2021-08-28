@@ -3,7 +3,7 @@
 @section('title', 'Masuk - Amora')
 
 @section('content')
-<div class="container form-center">
+<main class="container form-center">
     <form action="{{ route('login.post') }}" method="POST" class="card card-body shadow">
         @if ( session()->has('fail') )
         <div class="alert alert-danger">{{ session()->get('fail') }}</div>
@@ -29,5 +29,5 @@
             <button type="submit" class="btn btn-primary">Masuk</button>
         </div>
     </form>
-</div>
+</main>
 @endsection

@@ -3,7 +3,7 @@
 @section('title', 'Daftar - Amora')
 
 @section('content')
-<div class="container form-center">
+<main class="container form-center">
     <form action="{{ route('register.post') }}" method="POST" class="card card-body shadow">
         @csrf
         @if ( session()->has('fail') )
@@ -35,5 +35,5 @@
             <button type="submit" class="btn btn-primary">Daftar</button>
         </div>
     </form>
-</div>
+</main>
 @endsection
