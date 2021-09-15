@@ -20,14 +20,14 @@
             <div class="d-flex align-items-center">
                 <span class="me-1">Amorastore.id/shop/ </span>
                 <input type="text" class="form-control" name="url" value="{{ old('url') }}" required
-                placeholder="nama-toko">
+                    placeholder="nama-toko">
             </div>
             @error("url")<small class="text-danger">{{ $message }}</small>@enderror
         </div>
         <label class="form-label">Alamat Toko</label>
         <div class="mb-3 form-check">
             <label class="form-check-label" for="sameAddress">Sama dengan alamat saya saat ini</label>
-            <input class="form-check-input" type="checkbox" value="" name="sameAddress">
+            <input class="form-check-input" type="checkbox" value="true" name="sameAddress">
         </div>
         <div class="mt-2 mb-3 d-flex justify-content-end">
             <button type="submit" class="btn btn-primary">Daftarkan Toko</button>

@@ -18,7 +18,7 @@ class hasStore
     public function handle(Request $request, Closure $next)
     {
         $user = Auth::user();
-        if (!$user->storeID) {
+        if (!$user->shopID) {
             return redirect()->route('shop.register');
         }
 

@@ -1,9 +1,9 @@
 @extends('layouts.shop')
 
-@section('page', 'Dashboard')
+@section('page', 'Settings')
 
 @section('container')
 <main class="container">
-    <h1>Shop Dashboard</h1>
+    <h1>Shop Settings</h1>
 </main>
 @endsection

@@ -6,7 +6,7 @@
 <main class="container">
     <ul class="d-flex justify-content-evenly">
         <li>
-            <a class="btn btn-outline-dark" href="#">Wishlist</a>
+            <a class="btn btn-outline-dark" href="{{ route('user.wishlist') }}">Wishlist</a>
         </li>
         <li>
             <a class="btn btn-outline-dark" href="{{ route('user.cart') }}">Keranjang</a>
@@ -15,13 +15,13 @@
             <a class="btn btn-outline-dark" href="{{ route('user.dashboard') }}">Identitas Diri</a>
         </li>
         <li>
-            <a class="btn btn-outline-dark" href="#">Riwayat Pembelian</a>
+            <a class="btn btn-outline-dark" href="{{ route('user.history') }}">Riwayat Pembelian</a>
         </li>
         <li>
-            <a class="btn btn-outline-dark" href="#">Pengaturan Akun</a>
+            <a class="btn btn-outline-dark" href="{{ route('user.account-settings') }}">Pengaturan Akun</a>
         </li>
         <li>
-            <a class="btn btn-outline-dark" href="#">Pengaturan Notifikasi</a>
+            <a class="btn btn-outline-dark" href="{{ route('user.notification-settings') }}">Pengaturan Notifikasi</a>
         </li>
     </ul>
 </main>

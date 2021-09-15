@@ -1,38 +1,69 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-Route::view('/', 'home')->name('home');
+// Public Pages
+Route::view('/', 'home')
+    ->name('home');
 Route::get('/home', function () {
     return redirect('/');
 });
-Route::view('/categories', 'categories')->name('categories');
+Route::view('/categories', 'categories')
+    ->name('categories');
 
 require __DIR__ . '/auth.php';
 
 // User
-Route::prefix('u/')->middleware(['auth', 'verified'])->name('user.')->group(function () {
-    Route::view('/dashboard', 'user.dashboard')->name('dashboard');
-    Route::get('/cart', [UserController::class, 'Cart'])->name('cart');
-});
+Route::prefix('u/')->middleware(['auth', 'verified'])
+    ->name('user.')
+    ->group(function () {
+        Route::view('/dashboard', 'user.dashboard')
+            ->name('dashboard');
+        Route::get('/wishlist', [UserController::class, 'wishlist'])
+            ->name('wishlist');
+        Route::get('/cart', [UserController::class, 'cart'])
+            ->name('cart');
+        Route::get('/history', [UserController::class, 'history'])
+            ->name('history');
+        Route::get('/account-settings', [UserController::class, 'accSettings'])
+            ->name('account-settings');
+        Route::get('/notification-settings', [UserController::class, 'notifSettings'])
+            ->name('notification-settings');
+    });
 
 // Shop
-Route::view('/u/register-shop', 'auth.register-shop')->middleware(['auth', 'verified'])->name('shop.register');
-Route::post('/u/register-shop', [ShopController::class, 'register'])->name('shop.register');
+Route::prefix('u/')->middleware(['auth', 'verified'])
+    ->group(function () {
+        Route::view('/u/register-shop', 'auth.register-shop')
+            ->name('shop.register');
+        Route::post('/u/register-shop', [ShopController::class, 'register'])
+            ->name('shop.register');
+    });
+
 Route::prefix('s/')->middleware(['auth', 'verified', 'hasStore'])->name('shop.')->group(function () {
-    Route::get('/dashboard', [ShopController::class, 'dashboardView'])->name('dashboard');
+    Route::get('/dashboard', [ShopController::class, 'dashboardView'])
+        ->name('dashboard');
+    Route::get('/orders', [ShopController::class, 'ordersView'])
+        ->name('orders');
+    Route::get('/sales', [ShopController::class, 'salesView'])
+        ->name('sales');
+    Route::get('/about', [ShopController::class, 'aboutView'])
+        ->name('about');
+    Route::get('/shop-settings', [ShopController::class, 'shopSettings'])
+        ->name('shop-settings');
+
+    Route::get('/products', [ShopController::class, 'productlistView'])
+        ->name('product-list');
+    Route::get('/products/add', [ShopController::class, 'createProductView'])
+        ->name('product-add');
+    Route::post('/products/add', [ShopController::class, 'createProduct'])
+        ->name('product-add.post');
+    Route::get('/products/update', [ShopController::class, 'updateProductView'])
+        ->name('product-update');
+    Route::post('/products/update', [ShopController::class, 'updateProduct'])
+        ->name('product-update.post');
+    Route::get('/products/{id}', [ShopController::class, 'readProduct'])
+        ->name('product');
 });

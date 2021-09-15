@@ -15,10 +15,12 @@ class CreateShopsTable extends Migration
     {
         Schema::create('shops', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('userID')->unique();
             $table->string('name')->unique();
             $table->string('url')->unique();
             $table->unsignedBigInteger('addressID');
+            // $table->foreignId('addressID')
+            //     ->nullable()
+            //     ->constrained('address');
             $table->string('desc')->nullable();
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();

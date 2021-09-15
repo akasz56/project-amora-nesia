@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'BankID',
         'BankNum',
         'BankName',
-        'storeID',
+        'shopID',
     ];
 
     /**
