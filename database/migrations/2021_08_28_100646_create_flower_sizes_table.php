@@ -18,6 +18,8 @@ class CreateFlowerSizesTable extends Migration
             $table->unsignedBigInteger('product_specsID');
             $table->string('name');
             $table->string('flower_amount')->nullable();
+            $table->unsignedInteger('stock');
+            $table->unsignedInteger('price');
             $table->timestamps();
         });
     }

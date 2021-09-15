@@ -16,8 +16,6 @@ class CreateProductSpecsTable extends Migration
         Schema::create('product_specs', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('productID');
-            $table->unsignedInteger('stock');
-            $table->unsignedInteger('price');
             $table->unsignedInteger('flower_typeID');
             $table->unsignedInteger('flower_wrapID');
             $table->unsignedInteger('flower_sizeID');
