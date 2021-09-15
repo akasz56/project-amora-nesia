@@ -111,7 +111,9 @@ class ShopController extends Controller
         return redirect()->route('shop.product', ['id' => $product->id]);
     }
     
-    public function updateProduct() {}
+    public function updateProduct(Request $request) {
+        dd($request);
+    }
 
     public function deleteProduct() {}
 
@@ -123,7 +125,23 @@ class ShopController extends Controller
         ]);
     }
 
-    public function createProductSpec() {}
+    public function createProductSpec(Request $request) {
+        switch ($request->specification) {
+            case 'type':
+                // add type
+                break;
+            case 'wrap':
+                // add wrap
+                break;
+            case 'size':
+                // add size
+                break;
+            
+            default:
+                dd('Not Found');
+                break;
+        }
+    }
     
     public function updateProductSpec() {}
     

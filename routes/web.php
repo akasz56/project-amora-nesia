@@ -60,10 +60,11 @@ Route::prefix('s/')->middleware(['auth', 'verified', 'hasStore'])->name('shop.')
         ->name('product-add');
     Route::post('/products/add', [ShopController::class, 'createProduct'])
         ->name('product-add.post');
-    Route::get('/products/update', [ShopController::class, 'updateProductView'])
-        ->name('product-update');
     Route::post('/products/update', [ShopController::class, 'updateProduct'])
-        ->name('product-update.post');
+        ->name('product-update');
     Route::get('/products/{id}', [ShopController::class, 'readProduct'])
         ->name('product');
+
+    Route::post('/products-spec/add', [ShopController::class, 'createProductSpec'])
+        ->name('product-spec-add.post');
 });

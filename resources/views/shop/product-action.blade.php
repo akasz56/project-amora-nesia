@@ -16,23 +16,47 @@
 
     {{-- deskripsi --}}
     <h2 class="mt-5">Deskripsi Produk</h2>
-    @if (isset($product->desc))
-    <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6">{{ $product->desc }}</textarea>
-    @else
-    <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
-    @endif
+    <form action="{{ route('shop.product-update') }}" method="POST">
+        @csrf
+        <input type="hidden" name="productID" value="{{ $product->id }}">
+        @if (isset($product->desc))
+        <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk"
+            rows="6">{{ $product->desc }}</textarea>
+        @else
+        <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
+        @endif
+        <button type="submit">Submit</button>
+    </form>
+
 
     {{-- type --}}
-    <h2 class="mt-5">Jenis Bunga</h2>
-    <hr>
-    <a href="#">+ Tambah Jenis Bunga</a>
+    <form action="{{ route('shop.product-spec-add.post') }}" method="POST">
+        @csrf
+        <h2 class="mt-5">Jenis Bunga</h2>
+        <hr>
+        <input type="hidden" name="productID" value="{{ $product->id }}">
+        <input type="hidden" name="specification" value="type">
+        <button class="btn btn-primary" type="submit">+ Tambah Jenis Bunga</button>
+    </form>
+
     {{-- wrap --}}
-    <h2 class="mt-5">Jenis Bungkus</h2>
-    <hr>
-    <a href="#">+ Tambah Jenis Bungkus</a>
+    <form action="{{ route('shop.product-spec-add.post') }}" method="POST">
+        @csrf
+        <h2 class="mt-5">Jenis Bungkus</h2>
+        <hr>
+        <input type="hidden" name="productID" value="{{ $product->id }}">
+        <input type="hidden" name="specification" value="wrap">
+        <button class="btn btn-primary" type="submit">+ Tambah Jenis Bungkus</button>
+    </form>
+
     {{-- size --}}
-    <h2 class="mt-5">Ukuran</h2>
-    <hr>
-    <a href="#">+ Tambah Ukuran</a>
+    <form action="{{ route('shop.product-spec-add.post') }}" method="POST">
+        @csrf
+        <h2 class="mt-5">Ukuran</h2>
+        <hr>
+        <input type="hidden" name="productID" value="{{ $product->id }}">
+        <input type="hidden" name="specification" value="size">
+        <button class="btn btn-primary" type="submit">+ Tambah Ukuran</button>
+    </form>
 </main>
 @endsection
