@@ -15,7 +15,7 @@ class CreateFlowerTypesTable extends Migration
     {
         Schema::create('flower_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('product_specsID');
+            $table->unsignedBigInteger('productID');
             $table->string('name');
             $table->string('color');
             $table->unsignedInteger('stock');

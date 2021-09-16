@@ -23,7 +23,7 @@ Route::prefix('u/')->middleware(['auth', 'verified'])
             ->name('dashboard');
         Route::get('/wishlist', [UserController::class, 'wishlist'])
             ->name('wishlist');
-        Route::get('/cart', [UserController::class, 'cart'])
+        Route::get('/cart', [UserController::class, 'cartView'])
             ->name('cart');
         Route::get('/history', [UserController::class, 'history'])
             ->name('history');
