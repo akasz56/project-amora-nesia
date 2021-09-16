@@ -10,7 +10,6 @@ class Shop extends Model
     use HasFactory;
 
     protected $fillable = [
-        'userID',
         'name',
         'url',
         'addressID',
@@ -20,10 +19,6 @@ class Shop extends Model
         'email',
     ];
     
-    protected $hidden = [
-        'userID',
-    ];
-
     // public function getAddress() {}
     // public function getFullAddress() {}
     // public function getMaxRating() {}
