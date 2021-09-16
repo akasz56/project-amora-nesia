@@ -13,7 +13,15 @@ class ShopController extends Controller
 {
     public static function getShop(string $attr = null)
     {
+        if ($attr) {
+            dd($attr);
+        }
         return Shop::find(Auth::user()->shopID);
+    }
+
+    public static function searchShopbyURL($url)
+    {
+        return Shop::where('url', $url)->first();
     }
 
     public function register(Request $request)
@@ -110,12 +118,15 @@ class ShopController extends Controller
 
         return redirect()->route('shop.product', ['id' => $product->id]);
     }
-    
-    public function updateProduct(Request $request) {
+
+    public function updateProduct(Request $request)
+    {
         dd($request);
     }
 
-    public function deleteProduct() {}
+    public function deleteProduct()
+    {
+    }
 
     public function readProduct($id)
     {
@@ -125,7 +136,8 @@ class ShopController extends Controller
         ]);
     }
 
-    public function createProductSpec(Request $request) {
+    public function createProductSpec(Request $request)
+    {
         switch ($request->specification) {
             case 'type':
                 // add type
@@ -136,17 +148,22 @@ class ShopController extends Controller
             case 'size':
                 // add size
                 break;
-            
+
             default:
                 dd('Not Found');
                 break;
         }
     }
-    
-    public function updateProductSpec() {}
-    
-    public function deleteProductSpec() {}
-    
-    public function readProductSpec() {}
-    
+
+    public function updateProductSpec()
+    {
+    }
+
+    public function deleteProductSpec()
+    {
+    }
+
+    public function readProductSpec()
+    {
+    }
 }
