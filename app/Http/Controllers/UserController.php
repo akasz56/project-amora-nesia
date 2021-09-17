@@ -2,10 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function dashboardView() {
+        $address = Address::find(Auth::user()->addressID);
+        return view('user.dashboard', [
+            'user' => Auth::user(),
+            'address' => $address,
+        ]);
+    }
+
     public function wishlistView() {
         return view('user.wishlist');
     }
@@ -26,3 +37,4 @@ class UserController extends Controller
         return view('user.notifsettings');
     }
 }
+
