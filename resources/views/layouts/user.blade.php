@@ -3,7 +3,7 @@
 @section('title', 'Hi, ' . Auth::user()->name . ' - Amora')
 
 @section('content')
-<main class="container">
+<div class="container">
     <ul class="d-flex justify-content-evenly">
         <li>
             <a class="btn btn-outline-dark" href="{{ route('user.wishlist') }}">Wishlist</a>
@@ -24,6 +24,6 @@
             <a class="btn btn-outline-dark" href="{{ route('user.notification-settings') }}">Pengaturan Notifikasi</a>
         </li>
     </ul>
-</main>
+</div>
 @yield('container')
 @endsection

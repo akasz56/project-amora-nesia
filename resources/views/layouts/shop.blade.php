@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-<main class="container">
+<div class="container">
     <ul class="d-flex justify-content-evenly">
         <li>
             <a class="btn btn-outline-dark" href="{{ route('shop.dashboard') }}">Dashboard Toko</a>
@@ -30,6 +30,6 @@
             <a class="btn btn-outline-dark" href="{{ route('shop.settings') }}">Pengaturan Toko</a>
         </li>
     </ul>
-</main>
+</div>
 @yield('container')
 @endsection
