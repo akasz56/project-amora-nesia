@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class FlowerWrap extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'productID',
+        'name',
+        'color',
+        'stock',
+        'price',
+    ];
 }

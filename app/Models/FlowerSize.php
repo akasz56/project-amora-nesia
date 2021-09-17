@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class FlowerSize extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'productID',
+        'name',
+        'flower_amount',
+        'stock',
+        'price',
+    ];
 }

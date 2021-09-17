@@ -11,6 +11,7 @@ use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use League\CommonMark\Util\SpecReader;
 
 class ShopController extends Controller
 {
@@ -143,5 +144,51 @@ class ShopController extends Controller
 
     public function deleteProduct()
     {
+    }
+
+    public function createProductSpec(Request $request)
+    {
+        switch ($request->specification) {
+            case 'type':
+                $spec = 'type';
+                $object = FlowerType::create([
+                    'productID' => $request->productID,
+                    'name' => $request->name,
+                    'color' => $request->variable,
+                    'stock' => $request->stock,
+                    'price' => $request->price,
+                ]);
+                break;
+            case 'wrap':
+                $spec = 'wrap';
+                $object = FlowerWrap::create([
+                    'productID' => $request->productID,
+                    'name' => $request->name,
+                    'color' => $request->variable,
+                    'stock' => $request->stock,
+                    'price' => $request->price,
+                ]);
+                break;
+            case 'size':
+                $spec = 'size';
+                $object = FlowerSize::create([
+                    'productID' => $request->productID,
+                    'name' => $request->name,
+                    'flower_amount' => $request->variable,
+                    'stock' => $request->stock,
+                    'price' => $request->price,
+                ]);
+                break;
+
+            default:
+                $spec = null;
+                $object = null;
+                break;
+        }
+
+        if ($object)
+            return back()->with('done', "Product " . $spec . " sucessfully added");
+        else
+            return false;
     }
 }

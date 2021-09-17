@@ -4,6 +4,9 @@
 
 @section('container')
 <main class="container">
+    @if ( session()->has('done') )
+    <div class="alert alert-success">{{ session()->get('done') }}</div>
+    @endif
     {{-- nama --}}
     <h1>{{ ucwords($product->name) }}</h1>
     <a href="#">Ubah nama</a>
@@ -33,14 +36,14 @@
     <h2 class="mt-5">Jenis Bunga</h2>
     <hr>
     @foreach ($types as $item)
-        <p>{{ $item->name }} | {{ $item->color }} | {{ $item->stock }} | {{ $item->price }}</p>
+    <p>{{ $item->name }} | {{ $item->color }} | {{ $item->stock }} | {{ $item->price }}</p>
     @endforeach
-    <form action="{{ route('shop.product.spec.add.post') }}" method="POST">
+    <form action="{{ route('shop.product.spec.add') }}" method="POST">
         @csrf
         <input type="hidden" name="specification" value="type">
         <input type="hidden" name="productID" value="{{ $product->publicID }}">
         <input type="text" name="name" placeholder="name">
-        <input type="text" name="color" placeholder="color">
+        <input type="text" name="variable" placeholder="variable">
         <input type="number" name="stock" placeholder="stock">
         <input type="number" name="price" placeholder="price">
         <button class="btn btn-primary" type="submit">+ Tambah Jenis Bunga</button>
@@ -50,14 +53,14 @@
     <h2 class="mt-5">Jenis Bungkus</h2>
     <hr>
     @foreach ($wraps as $item)
-        <p>{{ $item->name }} | {{ $item->color }} | {{ $item->stock }} | {{ $item->price }}</p>
+    <p>{{ $item->name }} | {{ $item->color }} | {{ $item->stock }} | {{ $item->price }}</p>
     @endforeach
-    <form action="{{ route('shop.product.spec.add.post') }}" method="POST">
+    <form action="{{ route('shop.product.spec.add') }}" method="POST">
         @csrf
         <input type="hidden" name="specification" value="wrap">
         <input type="hidden" name="productID" value="{{ $product->publicID }}">
         <input type="text" name="name" placeholder="name">
-        <input type="text" name="color" placeholder="color">
+        <input type="text" name="variable" placeholder="variable">
         <input type="number" name="stock" placeholder="stock">
         <input type="number" name="price" placeholder="price">
         <button class="btn btn-primary" type="submit">+ Tambah Jenis Bungkus</button>
@@ -67,14 +70,14 @@
     <h2 class="mt-5">Ukuran</h2>
     <hr>
     @foreach ($sizes as $item)
-        <p>{{ $item->name }} | {{ $item->flower_amount }} | {{ $item->stock }} | {{ $item->price }}</p>
+    <p>{{ $item->name }} | {{ $item->flower_amount }} | {{ $item->stock }} | {{ $item->price }}</p>
     @endforeach
-    <form action="{{ route('shop.product.spec.add.post') }}" method="POST">
+    <form action="{{ route('shop.product.spec.add') }}" method="POST">
         @csrf
         <input type="hidden" name="specification" value="size">
         <input type="hidden" name="productID" value="{{ $product->publicID }}">
         <input type="text" name="name" placeholder="name">
-        <input type="text" name="color" placeholder="color">
+        <input type="text" name="variable" placeholder="variable">
         <input type="number" name="stock" placeholder="stock">
         <input type="number" name="price" placeholder="price">
         <button class="btn btn-primary" type="submit">+ Tambah Ukuran</button>
