@@ -11,7 +11,6 @@ use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use League\CommonMark\Util\SpecReader;
 
 class ShopController extends Controller
 {
@@ -127,15 +126,24 @@ class ShopController extends Controller
             'desc' => 'required|string',
         ]);
 
+        $shop = $this->getShop();
+
+        $lastproduct = Product::where('shopID', $shop->id)->get()->last();
+
+        $shopcode = strtoupper(substr($shop->name, 0, 3)) . $shop->id;
+        $prodID = (int)substr($lastproduct->publicID, 5, 6);
+        $prodID++;
+
         $product = Product::create([
-            'shopID' => $this->getShop()->id,
+            'publicID' => $shopcode . $prodID,
+            'shopID' => $shop->id,
             'name' => $request->nama,
             'description' => $request->desc,
             'rating' => 0,
             'viewers' => 0,
         ]);
 
-        return redirect()->route('shop.product.byID', ['id' => $product->id]);
+        return redirect()->route('shop.product.byID', ['prodID' => $product->publicID]);
     }
 
     public function updateProduct(Request $request)

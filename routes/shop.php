@@ -29,12 +29,6 @@ Route::prefix('s/')
         Route::prefix('products/')
             ->name('product.')
             ->group(function () {
-                Route::get('', [ShopController::class, 'readProductList'])
-                    ->name('list');
-
-                Route::get('/{prodID}', [ShopController::class, 'readProductByID'])
-                    ->name('byID');
-
                 Route::get('/add', [ShopController::class, 'createProductView'])
                     ->name('add');
 
@@ -43,6 +37,12 @@ Route::prefix('s/')
 
                 Route::post('/update', [ShopController::class, 'updateProduct'])
                     ->name('update');
+
+                Route::get('', [ShopController::class, 'readProductList'])
+                    ->name('list');
+
+                Route::get('/{prodID}', [ShopController::class, 'readProductByID'])
+                    ->name('byID');
             });
 
         Route::prefix('products/specifications/')
