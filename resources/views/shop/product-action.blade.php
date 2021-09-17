@@ -4,8 +4,11 @@
 
 @section('container')
 <main class="container">
-    @if ( session()->has('done') )
-    <div class="alert alert-success">{{ session()->get('done') }}</div>
+    @if ( session()->has('success') )
+    <div class="alert alert-success">{{ session()->get('success') }}</div>
+    @endif
+    @if ( session()->has('danger') )
+    <div class="alert alert-danger">{{ session()->get('danger') }}</div>
     @endif
     {{-- nama --}}
     <h1>{{ ucwords($product->name) }}</h1>

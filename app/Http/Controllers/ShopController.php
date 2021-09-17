@@ -159,6 +159,15 @@ class ShopController extends Controller
 
     public function updateProduct(Request $request)
     {
+        $product = Product::where('publicID', $request->productID)->first();
+
+        if (strcmp($product->description, $request->desc) == 0)
+            return back()->with('danger', "No changes found");
+
+        $product->description = $request->desc;
+        $product->save();
+        
+        return back()->with('success', "Product " . $product->name . " sucessfully updated");
     }
 
     public function deleteProduct(Request $request)
@@ -215,7 +224,7 @@ class ShopController extends Controller
         }
 
         if ($object)
-            return back()->with('done', "Product " . $spec . " sucessfully added");
+            return back()->with('success', "Product " . $spec . " sucessfully added");
         else
             return false;
     }
