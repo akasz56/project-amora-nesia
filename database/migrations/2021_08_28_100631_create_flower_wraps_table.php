@@ -15,7 +15,7 @@ class CreateFlowerWrapsTable extends Migration
     {
         Schema::create('flower_wraps', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productID');
+            $table->string('productID');
             $table->string('name');
             $table->string('color');
             $table->unsignedInteger('stock');
