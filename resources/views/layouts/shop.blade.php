@@ -21,13 +21,13 @@
             <a class="btn btn-outline-dark" href="{{ route('shop.sales') }}">Penjualan Toko</a>
         </li>
         <li>
-            <a class="btn btn-outline-dark" href="{{ route('shop.product-list') }}">Etalase Toko</a>
+            <a class="btn btn-outline-dark" href="{{ route('shop.product.list') }}">Etalase Toko</a>
         </li>
         <li>
             <a class="btn btn-outline-dark" href="{{ route('shop.about') }}">Identitas Toko</a>
         </li>
         <li>
-            <a class="btn btn-outline-dark" href="{{ route('shop.shop-settings') }}">Pengaturan Toko</a>
+            <a class="btn btn-outline-dark" href="{{ route('shop.settings') }}">Pengaturan Toko</a>
         </li>
     </ul>
 </main>

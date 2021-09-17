@@ -116,21 +116,20 @@ class ShopController extends Controller
             'viewers' => 0,
         ]);
 
-        return redirect()->route('shop.product', ['id' => $product->id]);
+        return redirect()->route('shop.product.byID', ['id' => $product->id]);
     }
 
     public function updateProduct(Request $request)
     {
-        dd($request);
     }
 
     public function deleteProduct()
     {
     }
 
-    public function readProduct($id)
+    public function readProduct($prodID)
     {
-        $product = Product::find($id);
+        $product = Product::where('publicID', $prodID)->first();
         return view('shop.product-action', [
             'product' => $product,
         ]);

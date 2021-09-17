@@ -11,29 +11,42 @@ Route::prefix('u/')->middleware(['auth', 'verified'])
             ->name('shop.register');
     });
 
-Route::prefix('s/')->middleware(['auth', 'verified', 'hasStore'])->name('shop.')->group(function () {
-    Route::get('/dashboard', [ShopController::class, 'dashboardView'])
-        ->name('dashboard');
-    Route::get('/orders', [ShopController::class, 'ordersView'])
-        ->name('orders');
-    Route::get('/sales', [ShopController::class, 'salesView'])
-        ->name('sales');
-    Route::get('/about', [ShopController::class, 'aboutView'])
-        ->name('about');
-    Route::get('/shop-settings', [ShopController::class, 'shopSettings'])
-        ->name('shop-settings');
+Route::prefix('s/')
+    ->middleware(['auth', 'verified', 'hasStore'])
+    ->name('shop.')
+    ->group(function () {
+        Route::get('/dashboard', [ShopController::class, 'dashboardView'])
+            ->name('dashboard');
+        Route::get('/orders', [ShopController::class, 'ordersView'])
+            ->name('orders');
+        Route::get('/sales', [ShopController::class, 'salesView'])
+            ->name('sales');
+        Route::get('/about', [ShopController::class, 'aboutView'])
+            ->name('about');
+        Route::get('/settings', [ShopController::class, 'shopSettings'])
+            ->name('settings');
 
-    Route::get('/products', [ShopController::class, 'productlistView'])
-        ->name('product-list');
-    Route::get('/products/add', [ShopController::class, 'createProductView'])
-        ->name('product-add');
-    Route::post('/products/add', [ShopController::class, 'createProduct'])
-        ->name('product-add.post');
-    Route::post('/products/update', [ShopController::class, 'updateProduct'])
-        ->name('product-update');
-    Route::get('/products/{id}', [ShopController::class, 'readProduct'])
-        ->name('product');
+        Route::prefix('products/')
+            ->name('product.')
+            ->group(function () {
+                Route::get('', [ShopController::class, 'productlistView'])
+                    ->name('list');
 
-    Route::post('/products-spec/add', [ShopController::class, 'createProductSpec'])
-        ->name('product-spec-add.post');
-});
+                Route::get('/{prodID}', [ShopController::class, 'readProduct'])
+                    ->name('byID');
+
+                Route::get('/add', [ShopController::class, 'createProductView'])
+                    ->name('add');
+
+                Route::post('/add', [ShopController::class, 'createProduct'])
+                    ->name('add.post');
+
+                Route::post('/update', [ShopController::class, 'updateProduct'])
+                    ->name('update');
+            });
+
+        Route::prefix('product/')->group(function () {
+            Route::post('/products-spec/add', [ShopController::class, 'createProductSpec'])
+                ->name('product-spec-add.post');
+        });
+    });

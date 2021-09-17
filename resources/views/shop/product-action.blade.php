@@ -16,7 +16,7 @@
 
     {{-- deskripsi --}}
     <h2 class="mt-5">Deskripsi Produk</h2>
-    <form action="{{ route('shop.product-update') }}" method="POST">
+    <form action="{{ route('shop.product.update') }}" method="POST">
         @csrf
         <input type="hidden" name="productID" value="{{ $product->id }}">
         @if (isset($product->description))
@@ -29,7 +29,8 @@
 
 
     {{-- type --}}
-    <form action="{{ route('shop.product-spec-add.post') }}" method="POST">
+    <form action="" method="POST">
+    {{-- <form action="{{ route('') }}" method="POST"> --}}
         @csrf
         <h2 class="mt-5">Jenis Bunga</h2>
         <hr>
@@ -39,7 +40,8 @@
     </form>
 
     {{-- wrap --}}
-    <form action="{{ route('shop.product-spec-add.post') }}" method="POST">
+    <form action="" method="POST">
+    {{-- <form action="{{ route('') }}" method="POST"> --}}
         @csrf
         <h2 class="mt-5">Jenis Bungkus</h2>
         <hr>
@@ -49,7 +51,8 @@
     </form>
 
     {{-- size --}}
-    <form action="{{ route('shop.product-spec-add.post') }}" method="POST">
+    <form action="" method="POST">
+    {{-- <form action="{{ route('') }}" method="POST"> --}}
         @csrf
         <h2 class="mt-5">Ukuran</h2>
         <hr>

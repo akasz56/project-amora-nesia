@@ -4,7 +4,7 @@
 
 @section('container')
 <section class="form-center">
-    <form action="{{ route('shop.product-add.post') }}" method="POST" class="card card-body shadow">
+    <form action="{{ route('shop.product.add.post') }}" method="POST" class="card card-body shadow">
         @csrf
         @if ( session()->has('fail') )
         <div class="alert alert-danger">{{ session()->get('fail') }}</div>
