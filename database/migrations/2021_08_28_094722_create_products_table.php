@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('publicID');
+            $table->string('publicID')->unique();
             $table->unsignedBigInteger('shopID');
             // $table->foreignId('shopID')
             //     ->nullable()
