@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
+use App\Models\FlowerSize;
+use App\Models\FlowerType;
+use App\Models\FlowerWrap;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\User;
@@ -89,10 +92,25 @@ class ShopController extends Controller
         return view('shop.shopsettings');
     }
 
-    public function productlistView()
+    public function readProductList()
     {
+        $product = Product::where('shopID', $this->getShop()->id)->get();
         return view('shop.product-list', [
-            'products' => Product::where('shopID', $this->getShop()->id)->get()->toArray(),
+            'products' => $product->toArray(),
+        ]);
+    }
+
+    public function readProductByID($prodID)
+    {
+        $product = Product::where('publicID', $prodID)->first();
+        $types = FlowerType::where('productID', $product->publicID)->get();
+        $wraps = FlowerWrap::where('productID', $product->publicID)->get();
+        $sizes = FlowerSize::where('productID', $product->publicID)->get();
+        return view('shop.product-action', [
+            'product' => $product,
+            'types' => $types,
+            'wraps' => $wraps,
+            'sizes' => $sizes,
         ]);
     }
 
@@ -126,13 +144,4 @@ class ShopController extends Controller
     public function deleteProduct()
     {
     }
-
-    public function readProduct($prodID)
-    {
-        $product = Product::where('publicID', $prodID)->first();
-        return view('shop.product-action', [
-            'product' => $product,
-        ]);
-    }
-
 }
