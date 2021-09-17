@@ -19,9 +19,8 @@
     <form action="{{ route('shop.product-update') }}" method="POST">
         @csrf
         <input type="hidden" name="productID" value="{{ $product->id }}">
-        @if (isset($product->desc))
-        <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk"
-            rows="6">{{ $product->desc }}</textarea>
+        @if (isset($product->description))
+        <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6">{{ $product->description }}</textarea>
         @else
         <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
         @endif

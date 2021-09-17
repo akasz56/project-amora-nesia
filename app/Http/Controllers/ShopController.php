@@ -136,34 +136,4 @@ class ShopController extends Controller
         ]);
     }
 
-    public function createProductSpec(Request $request)
-    {
-        switch ($request->specification) {
-            case 'type':
-                // add type
-                break;
-            case 'wrap':
-                // add wrap
-                break;
-            case 'size':
-                // add size
-                break;
-
-            default:
-                dd('Not Found');
-                break;
-        }
-    }
-
-    public function updateProductSpec()
-    {
-    }
-
-    public function deleteProductSpec()
-    {
-    }
-
-    public function readProductSpec()
-    {
-    }
 }
