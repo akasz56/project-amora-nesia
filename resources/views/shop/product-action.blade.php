@@ -82,5 +82,13 @@
         <input type="number" name="price" placeholder="price">
         <button class="btn btn-primary" type="submit">+ Tambah Ukuran</button>
     </form>
+    
+    <h2 class="mt-5">Danger Zone</h2>
+    <hr>
+    <form action="{{ route('shop.product.delete') }}" method="POST">
+        @csrf
+        <input type="hidden" name="productID" value="{{ $product->publicID }}">
+        <button type="submit" class="btn btn-danger">Delete Product</button>
+    </form>
 </main>
 @endsection

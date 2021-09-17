@@ -102,6 +102,17 @@ class ShopController extends Controller
 
     public function readProductByID($prodID)
     {
+        switch ($prodID) {
+            case 'add':
+                abort('404');
+            case 'update':
+                abort('404');
+            case 'delete':
+                abort('404');
+
+            default:
+                break;
+        }
         $product = Product::where('publicID', $prodID)->first();
         $types = FlowerType::where('productID', $product->publicID)->get();
         $wraps = FlowerWrap::where('productID', $product->publicID)->get();
@@ -130,9 +141,9 @@ class ShopController extends Controller
 
         $lastproduct = Product::where('shopID', $shop->id)->get()->last();
 
-        $shopcode = strtoupper(substr($shop->name, 0, 3)) . $shop->id;
+        $shopcode = strtoupper(substr($shop->name, 0, 3)) . rand(0, 9);
         $prodID = (int)substr($lastproduct->publicID, 5, 6);
-        $prodID++;
+        $prodID += 301;
 
         $product = Product::create([
             'publicID' => $shopcode . $prodID,
@@ -150,8 +161,17 @@ class ShopController extends Controller
     {
     }
 
-    public function deleteProduct()
+    public function deleteProduct(Request $request)
     {
+        FlowerType::where('productID', $request->productID)->delete();
+        FlowerWrap::where('productID', $request->productID)->delete();
+        FlowerSize::where('productID', $request->productID)->delete();
+
+        $product = Product::where('publicID', $request->productID)->delete();
+        if ($product == 0)
+            return "None Deleted";
+
+        return redirect()->route('shop.product.list');
     }
 
     public function createProductSpec(Request $request)

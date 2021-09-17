@@ -38,6 +38,9 @@ Route::prefix('s/')
                 Route::post('/update', [ShopController::class, 'updateProduct'])
                     ->name('update');
 
+                Route::post('/delete', [ShopController::class, 'deleteProduct'])
+                    ->name('delete');
+
                 Route::get('', [ShopController::class, 'readProductList'])
                     ->name('list');
 
