@@ -6,7 +6,7 @@
 <main class="container">
     <h1>{{ $shop->name }}</h1>
     @foreach ($product as $item)
-    <h2>{{ $item->name }}</h2>
+    <h2><a href="{{ route('product', ['id' => $item->publicID]) }}">{{ $item->name }}</a></h2>
     <p>{{ $item->description }}</p>
     @endforeach
 </main>

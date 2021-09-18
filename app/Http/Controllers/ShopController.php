@@ -27,7 +27,7 @@ class ShopController extends Controller
         return Shop::where('url', $url)->first();
     }
 
-    public static function getProductbyShopID($shopID)
+    public static function getProductsbyShopID($shopID)
     {
         return Product::where('shopID', $shopID)->get();
     }
