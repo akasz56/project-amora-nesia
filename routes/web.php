@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
 use App\Models\FlowerSize;
 use App\Models\FlowerType;
@@ -43,3 +44,5 @@ Route::get('/product/{id}', function ($id) {
         'sizes' => $sizes,
     ]);
 })->name('product');
+
+Route::post('/product', [OrderController::class, 'test'])->name('product.buy');
