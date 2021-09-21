@@ -3,27 +3,27 @@
 @section('title', 'Hi, ' . Auth::user()->name . ' - Amora')
 
 @section('content')
-<div class="container">
-    <ul class="d-flex justify-content-evenly">
-        <li>
-            <a class="btn btn-outline-dark" href="{{ route('user.wishlist') }}">Wishlist</a>
+<section>
+    <ul class="d-flex flex-row dashboard-nav">
+        <li class="p-2">
+            <a href="{{ route('user.wishlist') }}">Wishlist</a>
         </li>
-        <li>
-            <a class="btn btn-outline-dark" href="{{ route('user.cart') }}">Keranjang</a>
+        <li class="p-2">
+            <a href="{{ route('user.cart') }}">Keranjang</a>
         </li>
-        <li>
-            <a class="btn btn-outline-dark" href="{{ route('user.dashboard') }}">Identitas Diri</a>
+        <li class="p-2">
+            <a href="{{ route('user.dashboard') }}">Identitas Diri</a>
         </li>
-        <li>
-            <a class="btn btn-outline-dark" href="{{ route('user.history') }}">Riwayat Pembelian</a>
+        <li class="p-2">
+            <a href="{{ route('user.history') }}">Riwayat Pembelian</a>
         </li>
-        <li>
-            <a class="btn btn-outline-dark" href="{{ route('user.account-settings') }}">Pengaturan Akun</a>
+        <li class="p-2">
+            <a href="{{ route('user.account-settings') }}">Pengaturan Akun</a>
         </li>
-        <li>
-            <a class="btn btn-outline-dark" href="{{ route('user.notification-settings') }}">Pengaturan Notifikasi</a>
+        <li class="p-2">
+            <a href="{{ route('user.notification-settings') }}">Pengaturan Notifikasi</a>
         </li>
     </ul>
-</div>
+</section>
 @yield('container')
 @endsection

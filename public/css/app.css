@@ -82,3 +82,9 @@ body {
     }
 
 }
+
+/* users */
+
+.dashboard-nav {
+    list-style-type: none;
+}
