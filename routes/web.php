@@ -2,10 +2,8 @@
 
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShopController;
-use App\Models\FlowerSize;
-use App\Models\FlowerType;
-use App\Models\FlowerWrap;
 use App\Models\Product;
+use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
 
 use function PHPUnit\Framework\returnSelf;
@@ -22,14 +20,20 @@ Route::get('/home', function () {
     return redirect('/');
 });
 
-Route::view('/categories', 'categories')
-    ->name('categories');
+
+Route::get('/categories', function () {
+    $shops = Shop::all();
+
+    return view('categories', [
+        'shops' => $shops,
+    ]);
+})->name('categories');
 
 Route::get('/{shopURL}', function ($shopURL) {
     $shop = ShopController::searchShopbyURL($shopURL);
 
     $product = ShopController::getProductsbyShopID($shop->id);
-    
+
     return view('shop', [
         'shop' => $shop,
         'product' => $product,
@@ -43,9 +47,10 @@ Route::get('/{shopURL}/{prodName}', function ($shopURL, $prodName) {
     $prodName = str_replace("-", " ", $prodName);
     $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();
 
-    $types = FlowerType::where('productID', $product->id)->get();
-    $wraps = FlowerWrap::where('productID', $product->id)->get();
-    $sizes = FlowerSize::where('productID', $product->id)->get();
+    $types = $product->types;
+    $wraps = $product->wraps;
+    $sizes = $product->sizes;
+    
     return view('product', [
         'product' => $product,
         'types' => $types,
