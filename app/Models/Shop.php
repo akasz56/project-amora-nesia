@@ -18,7 +18,12 @@ class Shop extends Model
         'whatsapp',
         'email',
     ];
-    
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'shopID');
+    }
+
     // public function getAddress() {}
     // public function getFullAddress() {}
     // public function getMaxRating() {}

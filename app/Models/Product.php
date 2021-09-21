@@ -16,4 +16,17 @@ class Product extends Model
         'rating',
         'viewers',
     ];
+
+    public function types()
+    {
+        return $this->hasMany(FlowerType::class, 'productID');
+    }
+    public function wraps()
+    {
+        return $this->hasMany(FlowerWrap::class, 'productID');
+    }
+    public function sizes()
+    {
+        return $this->hasMany(FlowerSize::class, 'productID');
+    }
 }
