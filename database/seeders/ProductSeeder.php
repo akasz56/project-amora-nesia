@@ -23,15 +23,15 @@ class ProductSeeder extends Seeder
             Product::factory()->create();
         }
 
-        for ($i = 0; $i < rand(100, 300); $i++) {
+        for ($i = 0; $i < rand($products, $products*3); $i++) {
             FlowerType::factory(rand(1,3))->create([
-                'productID' => rand(0, $products),
+                'productID' => $i,
             ]);
             FlowerSize::factory(rand(1,3))->create([
-                'productID' => rand(0, $products),
+                'productID' => $i,
             ]);
             FlowerWrap::factory(rand(1,3))->create([
-                'productID' => rand(0, $products),
+                'productID' => $i,
             ]);
         }
     }
