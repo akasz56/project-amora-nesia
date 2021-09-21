@@ -22,7 +22,6 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            // 'publicID' => null,
             'shopID' => rand(1,50),
             'name' => $this->faker->words(rand(1,4), true),
             'description' => $this->faker->text(),

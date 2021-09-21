@@ -9,10 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    // PublicID = [3 substr pertama toko] + [angka 1] + [productID + 300]
-
     protected $fillable = [
-        'publicID',
         'shopID',
         'name',
         'description',

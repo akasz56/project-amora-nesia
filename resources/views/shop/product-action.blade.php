@@ -24,7 +24,7 @@
     <h2 class="mt-5">Deskripsi Produk</h2>
     <form action="{{ route('shop.product.update') }}" method="POST">
         @csrf
-        <input type="hidden" name="productID" value="{{ $product->publicID }}">
+        <input type="hidden" name="productID" value="{{ $product->id }}">
         @if (isset($product->description))
         <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk"
             rows="6">{{ $product->description }}</textarea>
@@ -44,7 +44,7 @@
     <form action="{{ route('shop.product.spec.add') }}" method="POST">
         @csrf
         <input type="hidden" name="specification" value="type">
-        <input type="hidden" name="productID" value="{{ $product->publicID }}">
+        <input type="hidden" name="productID" value="{{ $product->id }}">
         <input type="text" name="name" placeholder="name">
         <input type="text" name="variable" placeholder="variable">
         <input type="number" name="stock" placeholder="stock">
@@ -61,7 +61,7 @@
     <form action="{{ route('shop.product.spec.add') }}" method="POST">
         @csrf
         <input type="hidden" name="specification" value="wrap">
-        <input type="hidden" name="productID" value="{{ $product->publicID }}">
+        <input type="hidden" name="productID" value="{{ $product->id }}">
         <input type="text" name="name" placeholder="name">
         <input type="text" name="variable" placeholder="variable">
         <input type="number" name="stock" placeholder="stock">
@@ -78,7 +78,7 @@
     <form action="{{ route('shop.product.spec.add') }}" method="POST">
         @csrf
         <input type="hidden" name="specification" value="size">
-        <input type="hidden" name="productID" value="{{ $product->publicID }}">
+        <input type="hidden" name="productID" value="{{ $product->id }}">
         <input type="text" name="name" placeholder="name">
         <input type="text" name="variable" placeholder="variable">
         <input type="number" name="stock" placeholder="stock">
@@ -90,7 +90,7 @@
     <hr>
     <form action="{{ route('shop.product.delete') }}" method="POST">
         @csrf
-        <input type="hidden" name="productID" value="{{ $product->publicID }}">
+        <input type="hidden" name="productID" value="{{ $product->id }}">
         <button type="submit" class="btn btn-danger">Delete Product</button>
     </form>
 </main>

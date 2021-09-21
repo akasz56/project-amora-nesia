@@ -23,8 +23,8 @@ Route::get('/home', function () {
 Route::view('/categories', 'categories')
     ->name('categories');
 
-Route::get('/shop/{url}', function ($url) {
-    $shop = ShopController::searchShopbyURL($url);
+Route::get('/{shopURL}', function ($shopURL) {
+    $shop = ShopController::searchShopbyURL($shopURL);
     $product = ShopController::getProductsbyShopID($shop->id);
     return view('shop', [
         'shop' => $shop,
@@ -32,11 +32,12 @@ Route::get('/shop/{url}', function ($url) {
     ]);
 })->name('shop');
 
-Route::get('/product/{id}', function ($id) {
-    $product = Product::where('publicID', $id)->first();
-    $types = FlowerType::where('productID', $product->publicID)->get();
-    $wraps = FlowerWrap::where('productID', $product->publicID)->get();
-    $sizes = FlowerSize::where('productID', $product->publicID)->get();
+Route::get('/{shopURL}/{prodName}', function ($shopURL, $prodName) {
+    $shop = ShopController::searchShopbyURL($shopURL);
+    $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();
+    $types = FlowerType::where('productID', $product->id)->get();
+    $wraps = FlowerWrap::where('productID', $product->id)->get();
+    $sizes = FlowerSize::where('productID', $product->id)->get();
     return view('product', [
         'product' => $product,
         'types' => $types,

@@ -44,7 +44,7 @@ Route::prefix('s/')
                 Route::get('', [ShopController::class, 'readProductList'])
                     ->name('list');
 
-                Route::get('/{prodID}', [ShopController::class, 'readProductByID'])
+                Route::get('/{id}', [ShopController::class, 'readProductByID'])
                     ->name('byID');
             });
 

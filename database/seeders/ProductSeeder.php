@@ -17,22 +17,21 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
+        $products = 100;
         
-        for ($i = 1; $i <= 100; $i++) {
-            Product::factory()->create([
-                'publicID' => 'KOM1' . ($i + 300),
-            ]);
+        for ($i = 1; $i <= $products; $i++) {
+            Product::factory()->create();
         }
 
         for ($i = 0; $i < rand(100, 300); $i++) {
             FlowerType::factory(rand(1,3))->create([
-                'productID' => 'KOM1' . ($i + 300),
+                'productID' => rand(0, $products),
             ]);
             FlowerSize::factory(rand(1,3))->create([
-                'productID' => 'KOM1' . ($i + 300),
+                'productID' => rand(0, $products),
             ]);
             FlowerWrap::factory(rand(1,3))->create([
-                'productID' => 'KOM1' . ($i + 300),
+                'productID' => rand(0, $products),
             ]);
         }
     }

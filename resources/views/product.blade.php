@@ -4,7 +4,6 @@
 
 @section('content')
 <main class="container">
-    <p>{{ $product->publicID }}</p>
     <h1>{{ $product->name }}</h1>
     <hr>
     <p>{{ $product->description }}</p>
@@ -12,7 +11,7 @@
     <p>viewers : {{ $product->viewers }}</p>
 
     <form action="{{ route('product.buy') }}" method="POST" class="row">
-        <input type="hidden" name="ID" value="{{ $product->publicID }}">
+        <input type="hidden" name="ID" value="{{ $product->id }}">
         @csrf
 
         <div class="col-4">

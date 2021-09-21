@@ -105,23 +105,12 @@ class ShopController extends Controller
         ]);
     }
 
-    public function readProductByID($prodID)
+    public function readProductByID($id)
     {
-        switch ($prodID) {
-            case 'add':
-                abort('404');
-            case 'update':
-                abort('404');
-            case 'delete':
-                abort('404');
-
-            default:
-                break;
-        }
-        $product = Product::where('publicID', $prodID)->first();
-        $types = FlowerType::where('productID', $product->publicID)->get();
-        $wraps = FlowerWrap::where('productID', $product->publicID)->get();
-        $sizes = FlowerSize::where('productID', $product->publicID)->get();
+        $product = Product::find($id);
+        $types = FlowerType::where('productID', $product->id)->get();
+        $wraps = FlowerWrap::where('productID', $product->id)->get();
+        $sizes = FlowerSize::where('productID', $product->id)->get();
         return view('shop.product-action', [
             'product' => $product,
             'types' => $types,
@@ -144,14 +133,7 @@ class ShopController extends Controller
 
         $shop = $this->getShop();
 
-        $lastproduct = Product::where('shopID', $shop->id)->get()->last();
-
-        $shopcode = strtoupper(substr($shop->name, 0, 3)) . rand(0, 9);
-        $prodID = (int)substr($lastproduct->publicID, 5, 6);
-        $prodID += 301;
-
         $product = Product::create([
-            'publicID' => $shopcode . $prodID,
             'shopID' => $shop->id,
             'name' => $request->nama,
             'description' => $request->desc,
@@ -159,12 +141,12 @@ class ShopController extends Controller
             'viewers' => 0,
         ]);
 
-        return redirect()->route('shop.product.byID', ['prodID' => $product->publicID]);
+        return redirect()->route('shop.product.byID', ['id' => $product->id]);
     }
 
     public function updateProduct(Request $request)
     {
-        $product = Product::where('publicID', $request->productID)->first();
+        $product = Product::find($request->productID);
 
         if (strcmp($product->description, $request->desc) == 0)
             return back()->with('danger', "No changes found");
@@ -181,7 +163,7 @@ class ShopController extends Controller
         FlowerWrap::where('productID', $request->productID)->delete();
         FlowerSize::where('productID', $request->productID)->delete();
 
-        $product = Product::where('publicID', $request->productID)->delete();
+        $product = Product::find($request->productID)->delete();
         if ($product == 0)
             return "None Deleted";
 

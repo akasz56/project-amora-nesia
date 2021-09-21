@@ -19,7 +19,7 @@ class OrderController extends Controller
             'size' => 'required',
         ]);
         
-        $product = Product::where('publicID',$request->ID)->first();
+        $product = Product::find($request->ID);
         $type = FlowerType::where('productID',$request->ID)->where('name', $request->type)->first();
         $wrap = FlowerWrap::where('productID',$request->ID)->where('name', $request->wrap)->first();
         $size = FlowerSize::where('productID',$request->ID)->where('name', $request->size)->first();
