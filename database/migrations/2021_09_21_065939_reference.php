@@ -14,45 +14,82 @@ class Reference extends Migration
      */
     public function up()
     {
-        Schema::create('bank', function (Blueprint $table) {
+        Schema::create('ref_bank', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('province', function (Blueprint $table) {
+        Schema::create('ref_province', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('gender', function (Blueprint $table) {
+        Schema::create('ref_gender', function (Blueprint $table) {
             $table->id();
             $table->string('name');
         });
 
-        Schema::create('order_status', function (Blueprint $table) {
+        Schema::create('ref_order_status', function (Blueprint $table) {
             $table->id();
             $table->string('name');
         });
 
-        $this->customSeed('bank', [
+        $this->customSeed('ref_bank', [
             ['name' => 'Mandiri'],
             ['name' => 'BNI'],
             ['name' => 'BCA'],
         ]);
 
-        $this->customSeed('gender', [
+        $this->customSeed('ref_province', [
+            ['name' => 'Aceh'],
+            ['name' => 'Sumatra Utara'],
+            ['name' => 'Sumatra Barat'],
+            ['name' => 'Riau'],
+            ['name' => 'Kepulauan Riau'],
+            ['name' => 'Jambi'],
+            ['name' => 'Bengkulu'],
+            ['name' => 'Sumatra Selatan'],
+            ['name' => 'Kepulauan Bangka Belitung'],
+            ['name' => 'Lampung'],
+            ['name' => 'Daerah Khusus Ibukota Jakarta'],
+            ['name' => 'Banten'],
+            ['name' => 'Jawa Barat'],
+            ['name' => 'Jawa Tengah'],
+            ['name' => 'Daerah Istimewa Yogyakarta'],
+            ['name' => 'Jawa Timur'],
+            ['name' => 'Bali'],
+            ['name' => 'Nusa Tenggara Barat'],
+            ['name' => 'Nusa Tenggara Timur'],
+            ['name' => 'Kalimantan Barat'],
+            ['name' => 'Kalimantan Tengah'],
+            ['name' => 'Kalimantan Selatan'],
+            ['name' => 'Kalimantan Timur'],
+            ['name' => 'Kalimantan Utara'],
+            ['name' => 'Sulawesi Utara'],
+            ['name' => 'Gorontalo'],
+            ['name' => 'Sulawesi Tengah'],
+            ['name' => 'Sulawesi Barat'],
+            ['name' => 'Sulawesi Selatan'],
+            ['name' => 'Sulawesi Tenggara'],
+            ['name' => 'Maluku Utara'],
+            ['name' => 'Maluku'],
+            ['name' => 'Papua Barat'],
+            ['name' => 'Papua'],
+        ]);
+
+        $this->customSeed('ref_gender', [
             ['name' => 'Laki-Laki'],
             ['name' => 'Perempuan'],
         ]);
 
-        $this->customSeed('order_status', [
-            ['name' => 'pending'],
-            ['name' => 'menunggu'],
-            ['name' => 'diproses'],
-            ['name' => 'dikirim'],
-            ['name' => 'selesai'],
+        $this->customSeed('ref_order_status', [
+            ['name' => 'pending'],  // 1
+            ['name' => 'menunggu'], // 2
+            ['name' => 'diproses'], // 3
+            ['name' => 'dikirim'],  // 4
+            ['name' => 'selesai'],  // 5
         ]);
     }
 
@@ -63,7 +100,10 @@ class Reference extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('ref_bank');
+        Schema::dropIfExists('ref_province');
+        Schema::dropIfExists('ref_gender');
+        Schema::dropIfExists('ref_order_status');
     }
 
     public function customSeed($table, $data)
