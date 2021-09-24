@@ -17,13 +17,11 @@ class Reference extends Migration
         Schema::create('ref_bank', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
         });
 
         Schema::create('ref_province', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->timestamps();
         });
 
         Schema::create('ref_gender', function (Blueprint $table) {
