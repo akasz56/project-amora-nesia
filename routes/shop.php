@@ -5,9 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('u/')->middleware(['auth', 'verified'])
     ->group(function () {
-        Route::view('/u/register-shop', 'auth.register-shop')
+        Route::view('/register-shop', 'auth.register-shop')
             ->name('shop.register');
-        Route::post('/u/register-shop', [ShopController::class, 'register'])
+        Route::post('/register-shop', [ShopController::class, 'register'])
             ->name('shop.register');
     });
 

@@ -18,10 +18,12 @@ Route::prefix('u/')->middleware(['auth', 'verified'])
         Route::get('/history', [UserController::class, 'historyView'])
             ->name('history');
 
+        // Route::get('/myOrder/{uuid}', [UserController::class, 'myOrder'])
+        //     ->name('myOrder');
+
         Route::get('/account-settings', [UserController::class, 'accSettings'])
             ->name('account-settings');
 
         Route::get('/notification-settings', [UserController::class, 'notifSettings'])
             ->name('notification-settings');
-
     });

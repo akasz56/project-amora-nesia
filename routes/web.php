@@ -1,62 +1,56 @@
 <?php
 
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ShopController;
-use App\Models\Product;
+use App\Http\Controllers\PublicController;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
-
-use function PHPUnit\Framework\returnSelf;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/user.php';
 require __DIR__ . '/shop.php';
 
 
-Route::view('/', 'home')
-    ->name('home');
-
-Route::get('/home', function () {
-    return redirect('/');
+/* -------------------------------------
+Test Routes
+------------------------------------- */
+Route::get('/delete/{id}', function ($id) {
+    $order = Order::find($id);
+    if ($order) {
+        $orderItems = OrderItem::where('orderID', $order->id)->get();
+        foreach ($orderItems as $item) {
+            OrderItem::find($item->id)->delete();
+        }
+        Order::find($id)->delete();
+        return "done";
+    } else {
+        return "Gaada gan";
+    }
 });
 
 
-Route::get('/categories', function () {
-    $shops = Shop::all();
 
-    return view('categories', [
-        'shops' => $shops,
-    ]);
-})->name('categories');
+/* -------------------------------------
+Main Routes
+------------------------------------- */
+Route::view('/', 'home')->name('home');
+Route::get('/home', function () {
+    return redirect('/');
+});
+Route::get('/categories', [PublicController::class, 'categoriesView'])->name('categories');
 
-Route::get('/{shopURL}', function ($shopURL) {
-    $shop = ShopController::searchShopbyURL($shopURL);
 
-    $product = ShopController::getProductsbyShopID($shop->id);
+/* -------------------------------------
+Orders Routes
+------------------------------------- */
+Route::middleware('auth')->group(function () {
+    Route::post('/order', [OrderController::class, 'createOrder'])->name('product.buy');
+});
 
-    return view('shop', [
-        'shop' => $shop,
-        'product' => $product,
-    ]);
-})->name('shop');
 
-Route::get('/{shopURL}/{prodName}', function ($shopURL, $prodName) {
-
-    $shop = ShopController::searchShopbyURL($shopURL);
-
-    $prodName = str_replace("-", " ", $prodName);
-    $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();
-
-    $types = $product->types;
-    $wraps = $product->wraps;
-    $sizes = $product->sizes;
-    
-    return view('product', [
-        'product' => $product,
-        'types' => $types,
-        'wraps' => $wraps,
-        'sizes' => $sizes,
-    ]);
-})->name('product');
-
-Route::post('/product', [OrderController::class, 'test'])->name('product.buy');
+/* -------------------------------------
+Shop n Product Routes
+------------------------------------- */
+Route::get('/{shopURL}', [PublicController::class, 'shopView'])->name('shop');
+Route::get('/{shopURL}/{prodName}', [PublicController::class, 'productView'])->name('product');
