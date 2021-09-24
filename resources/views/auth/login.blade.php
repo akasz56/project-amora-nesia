@@ -21,7 +21,7 @@
             @error("password")<small class="text-danger">{{ $message }}</small>@enderror
         </div>
         <div class="mb-3 form-check">
-            <input class="form-check-input" type="checkbox" value="" name="remmember">
+            <input class="form-check-input" type="checkbox" id="remmember" name="remmember">
             <label class="form-check-label" for="remmember">Ingat Saya</label>
         </div>
         <div class="mt-2 mb-3 d-flex flex-column flex-md-row justify-content-end align-items-end">

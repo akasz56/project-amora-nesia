@@ -18,7 +18,7 @@
             <h2 class="mt-5">Types</h2>
             <hr>
             @foreach ($types as $item)
-            <div class="">
+            <div>
                 <input type="radio" name="type" id="{{ $item->name }}" value="{{ $item->name }}"
                     <?php if ($types->first() == $item) echo 'required' ?>>
                 <label for="{{ $item->name }}">
@@ -32,7 +32,7 @@
             <h2 class="mt-5">Wraps</h2>
             <hr>
             @foreach ($wraps as $item)
-            <div class="">
+            <div>
                 <input type="radio" name="wrap" id="{{ $item->name }}" value="{{ $item->name }}"
                     <?php if ($wraps->first() == $item) echo 'required' ?>>
                 <label for="{{ $item->name }}">
@@ -46,7 +46,7 @@
             <h2 class="mt-5">Sizes</h2>
             <hr>
             @foreach ($sizes as $item)
-            <div class="">
+            <div>
                 <input type="radio" name="size" id="{{ $item->name }}" value="{{ $item->name }}"
                     <?php if ($sizes->first() == $item) echo 'required' ?>>
                 <label for="{{ $item->name }}">

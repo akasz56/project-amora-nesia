@@ -15,6 +15,19 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->uuid('orderUUID');
+            $table->unsignedBigInteger('userID');
+            $table->unsignedBigInteger('invoiceID');
+            $table->string('status');
+            $table->string('nameSend');
+            $table->string('phone');
+            $table->string('whatsapp')->nullable();
+            $table->unsignedBigInteger('provinceID');
+            $table->string('city');
+            $table->string('rt');
+            $table->string('rw');
+            $table->string('address');
+            $table->string('postcode');
             $table->timestamps();
         });
     }
