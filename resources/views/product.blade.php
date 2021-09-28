@@ -10,7 +10,7 @@
     <p>rating : {{ $product->rating }}</p>
     <p>viewers : {{ $product->viewers }}</p>
 
-    <form action="{{ route('product.buy') }}" method="POST" class="row">
+    <form action="{{ route('product.order') }}" method="POST" class="row">
         <input type="hidden" name="ID" value="{{ $product->id }}">
         @csrf
 

@@ -4,7 +4,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use App\Models\Order;
 use App\Models\OrderItem;
-use App\Models\Shop;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -45,7 +44,9 @@ Route::get('/categories', [PublicController::class, 'categoriesView'])->name('ca
 Orders Routes
 ------------------------------------- */
 Route::middleware('auth')->group(function () {
-    Route::post('/order', [OrderController::class, 'createOrder'])->name('product.buy');
+    Route::post('/confirm-order', [OrderController::class, 'confirmOrder'])->name('product.order');
+    Route::post('/create-order', [OrderController::class, 'createOrder'])->name('order.create');
+    Route::post('/order/{uuid}', [OrderController::class, 'orderActions'])->name('order.actions');
 });
 
 
