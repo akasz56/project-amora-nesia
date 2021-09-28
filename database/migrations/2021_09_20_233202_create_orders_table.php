@@ -17,11 +17,13 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->uuid('orderUUID');
             $table->unsignedBigInteger('userID');
+            $table->unsignedBigInteger('bankID')->nullable();
             $table->unsignedBigInteger('invoiceID');
             $table->string('status');
             $table->string('nameSend');
             $table->string('phone');
             $table->string('whatsapp')->nullable();
+            $table->unsignedBigInteger('shipmentID');
             $table->unsignedBigInteger('provinceID');
             $table->string('city');
             $table->string('rt');
