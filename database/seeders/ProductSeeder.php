@@ -17,22 +17,39 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
-        $products = 100;
-        
-        for ($i = 1; $i <= $products; $i++) {
-            Product::factory()->create();
-        }
+        $users = 25;
 
-        for ($i = 0; $i < rand($products, $products*3); $i++) {
-            FlowerType::factory(rand(1,3))->create([
-                'productID' => $i,
-            ]);
-            FlowerSize::factory(rand(1,3))->create([
-                'productID' => $i,
-            ]);
-            FlowerWrap::factory(rand(1,3))->create([
-                'productID' => $i,
-            ]);
+        for ($i = 1; $i <= $users; $i++) {
+            for ($j = 1; $j <= 3; $j++) {
+                $prodID = Product::factory()->create([
+                    'shopID' => $i,
+                ]);
+
+                for ($k = 1; $k <= 3; $k++) {
+                    FlowerType::factory()->create([
+                        'productID' => $prodID,
+                    ]);
+                    FlowerWrap::factory()->create([
+                        'productID' => $prodID,
+                    ]);
+                }
+
+                FlowerSize::factory()->create([
+                    'productID' => $prodID,
+                    'name' => 'S',
+                    'flower_amount' => rand(5, 7),
+                ]);
+                FlowerSize::factory()->create([
+                    'productID' => $prodID,
+                    'name' => 'M',
+                    'flower_amount' => rand(8, 12),
+                ]);
+                FlowerSize::factory()->create([
+                    'productID' => $prodID,
+                    'name' => 'L',
+                    'flower_amount' => rand(13, 15),
+                ]);
+            }
         }
     }
 }

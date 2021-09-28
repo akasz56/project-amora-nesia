@@ -25,8 +25,8 @@ class ProductFactory extends Factory
             'shopID' => rand(1,50),
             'name' => $this->faker->words(rand(1,4), true),
             'description' => $this->faker->text(),
-            'rating' => rand(0,5),
-            'viewers' => rand(0,5000),
+            'rating' => rand(1,5),
+            'viewers' => rand(100,5000),
         ];
     }
 }
