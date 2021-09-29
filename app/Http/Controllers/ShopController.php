@@ -6,11 +6,14 @@ use App\Models\Address;
 use App\Models\FlowerSize;
 use App\Models\FlowerType;
 use App\Models\FlowerWrap;
+use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -79,7 +82,18 @@ class ShopController extends Controller
 
     public function ordersView()
     {
-        return view('shop.orders');
+        $shopID = $this->getShop()->id;
+        $orderitems = DB::table('order_items')->select('orderID')->where('shopID', $shopID)->get();
+
+        $orders = array();
+        foreach ($orderitems as $item) {
+            $order = Order::find($item->orderID);
+            $order->orderitems;
+            $orders[] = $order;
+        }
+        return view('shop.orders', [
+            'orders' => $orders,
+        ]);
     }
 
     public function salesView()
@@ -153,7 +167,7 @@ class ShopController extends Controller
 
         $product->description = $request->desc;
         $product->save();
-        
+
         return back()->with('success', "Product " . $product->name . " sucessfully updated");
     }
 

@@ -56,7 +56,7 @@ class OrderController extends Controller
         $order = Order::create([
             'orderUUID' => Str::uuid(),
             'userID' => $user->id,
-            'bankID' => ($request->payment) ? rand(1, 3) : 0,
+            'bankID' => ($request->payment == 1) ? rand(1, 3) : 0,
             'invoiceID' => rand(111111,999999),
             'status' => 1,
             'nameSend' => 'Nama dikirim',

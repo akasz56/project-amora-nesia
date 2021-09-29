@@ -24,11 +24,11 @@
 
         <h2>Pembayaran</h2>
         <hr>
-        <input type="radio" name="payment" id="bank" required>
+        <input type="radio" name="payment" value="1" id="bank" required>
         <label for="bank">bank</label><br>
-        <input type="radio" name="payment" id="ewallet">
+        <input type="radio" name="payment" value="2" id="ewallet">
         <label for="ewallet">ewallet</label><br>
-        <input type="radio" name="payment" id="indomaret">
+        <input type="radio" name="payment" value="3" id="indomaret">
         <label for="indomaret">indomaret/alfamart</label><br>
 
         <h2>Pengiriman</h2>
