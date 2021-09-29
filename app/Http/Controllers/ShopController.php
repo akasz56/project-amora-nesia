@@ -88,7 +88,7 @@ class ShopController extends Controller
         $orders = array();
         foreach ($orderitems as $item) {
             $order = Order::find($item->orderID);
-            $order->orderitems;
+            $order->orderItems;
             $orders[] = $order;
         }
         return view('shop.orders', [

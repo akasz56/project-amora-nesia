@@ -28,8 +28,13 @@ class Order extends Model
         'postcode',
     ];
 
-    public function orderitems()
+    public function orderItems()
     {
         return $this->hasMany(OrderItem::class, 'orderID');
+    }
+
+    public function orderItemByShop($shopID)
+    {
+        return $this->orderItems()->where('shopID', $shopID);
     }
 }

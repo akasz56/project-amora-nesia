@@ -9,7 +9,7 @@
     <div class="mt-5">
         <h2>{{ $order->orderUUID }}</h2>
         <hr>
-        @foreach ($order->orderitems as $item)
+        @foreach ($order->orderItems as $item)
         <h3>{{ $item->product->name }}</h3>
         <p>{{ $item->product_type->name }} | {{ $item->product_wrap->name }} | {{ $item->product_size->name }}</p>
         @endforeach
