@@ -4,11 +4,16 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 Route::middleware(['guest'])->group(function () {
-    Route::view('register', 'auth.register')
-        ->name('register');
+    Route::get('register', function () {
+        $provinces = DB::table('ref_province')->select('*')->get()->toArray();
+        return view('auth.register', [
+            'provinces' => $provinces,
+        ]);
+    })->name('register');
+
     Route::post('register', [AuthController::class, 'register'])
         ->name('register.post');
 

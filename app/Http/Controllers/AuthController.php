@@ -17,15 +17,21 @@ class AuthController extends Controller
             'nama' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
+            'provinceID' => 'required|numeric',
+            'city' => 'required',
+            'rw' => 'required',
+            'rt' => 'required',
+            'address' => 'required',
+            'postcode' => 'required',
         ]);
 
         $address = Address::create([
-            'provinceID' => null,
-            'city' => null,
-            'rt' => null,
-            'rw' => null,
-            'address' => null,
-            'postcode' => null,
+            'provinceID' => $request->provinceID,
+            'city' => $request->city,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'address' => $request->address,
+            'postcode' => $request->postcode,
         ]);
         
         $user = User::create([
