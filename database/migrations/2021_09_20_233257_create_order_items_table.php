@@ -15,10 +15,12 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('statusID');
             $table->unsignedBigInteger('orderID');
             $table->uuid('orderUUID');
             $table->unsignedBigInteger('userID');
             $table->unsignedBigInteger('shopID');
+            $table->unsignedBigInteger('shipmentID')->nullable();
             $table->unsignedBigInteger('productID');
             $table->unsignedBigInteger('productTypeID');
             $table->unsignedBigInteger('productWrapID');
