@@ -24,8 +24,6 @@ class Shop extends Model
         return $this->hasMany(Product::class, 'shopID');
     }
 
-    // public function getAddress() {}
-    // public function getFullAddress() {}
     // public function getMaxRating() {}
     // public function getAvgRating() {}
     // public function getOrderItems($status = 'pending','done') {}

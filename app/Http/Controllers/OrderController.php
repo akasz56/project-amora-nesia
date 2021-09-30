@@ -62,7 +62,6 @@ class OrderController extends Controller
             'nameSend' => 'Nama dikirim',
             'phone' => ($user->phone) ? $user->phone : "088888888888",
             'whatsapp' => ($user->whatsapp) ? $user->whatsapp : "088888888888",
-            'shipmentID' => rand(111111,999999),
             'provinceID' => $address->provinceID,
             'city' => $address->city,
             'rt' => $address->rt,
@@ -73,6 +72,7 @@ class OrderController extends Controller
 
         $product = Product::find($request->product);
         OrderItem::create([
+            'statusID' => 1,
             'orderID' => $order->id,
             'orderUUID' => $order->orderUUID,
             'userID' => $order->userID,

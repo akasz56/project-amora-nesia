@@ -14,12 +14,11 @@ class Order extends Model
         'orderUUID',
         'userID',
         'bankID',
-        'invoiceID',
         'status',
+        'invoiceID',
         'nameSend',
         'phone',
         'whatsapp',
-        'shipmentID',
         'provinceID',
         'city',
         'rt',
@@ -32,7 +31,6 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class, 'orderID');
     }
-
     public function orderItemByShop($shopID)
     {
         return $this->orderItems()->where('shopID', $shopID);
