@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ShopController;
+use App\Models\Order;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('u/')->middleware(['auth', 'verified'])
@@ -17,8 +19,12 @@ Route::prefix('s/')
     ->group(function () {
         Route::get('/dashboard', [ShopController::class, 'dashboardView'])
             ->name('dashboard');
-        Route::get('/orders', [ShopController::class, 'ordersView'])
+        Route::get('/orders', [ShopController::class, 'orderListView'])
             ->name('orders');
+        Route::get('orders/{uuid}', [ShopController::class, 'orderView'])
+            ->name('orderUUID');
+        Route::post('orders/{uuid}/actions', [ShopController::class, 'orderActions'])
+            ->name('orderAction');
         Route::get('/sales', [ShopController::class, 'salesView'])
             ->name('sales');
         Route::get('/about', [ShopController::class, 'aboutView'])

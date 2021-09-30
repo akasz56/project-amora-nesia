@@ -20,7 +20,8 @@ class ShopController extends Controller
     public static function getShop(string $attr = null)
     {
         if ($attr) {
-            dd($attr);
+            $shop = Shop::find(Auth::user()->shopID)->toArray();
+            return $shop[$attr];
         }
         return Shop::find(Auth::user()->shopID);
     }
@@ -43,24 +44,28 @@ class ShopController extends Controller
         ]);
         $sameAddress = (isset($request->sameAddress)) ? true : false;
 
-        if ($sameAddress) $addressID = Auth::user()->addressID;
+        if ($sameAddress) {
+            $address = Address::find(Auth::user()->addressID);
+            $address = Address::create([
+                'provinceID' => $address->provinceID,
+                'city' => $address->city,
+                'rt' => $address->rt,
+                'rw' => $address->rw,
+                'address' => $address->address,
+                'postcode' => $address->postcode,
+            ]);
+        }
         else {
             $address = Address::create([
-                'provinceID' => null,
-                // 'provinceID' => $request->provinceID,
-                'city' => null,
-                // 'city' => $request->city,
-                'rt' => null,
-                // 'rt' => $request->rt,
-                'rw' => null,
-                // 'rw' => $request->rw,
-                'address' => null,
-                // 'address' => $request->address,
-                'postcode' => null,
-                // 'postcode' => $request->postcode,
+                'provinceID' => $request->provinceID,
+                'city' => $request->city,
+                'rt' => $request->rt,
+                'rw' => $request->rw,
+                'address' => $request->address,
+                'postcode' => $request->postcode,
             ]);
-            $addressID = $address->id;
         }
+        $addressID = $address->id;
 
         $shop = Shop::create([
             'name' => $request->nama,
@@ -77,15 +82,23 @@ class ShopController extends Controller
 
     public function dashboardView()
     {
-        return view('shop.dashboard');
+        $shop = $this->getShop();
+        $address = Address::find($shop->addressID);
+        return view('shop.dashboard', [
+            'shop' => $shop,
+            'address' => $address,
+        ]);
     }
 
-    public function ordersView()
+    public function orderListView()
     {
-        $shopID = $this->getShop()->id;
-        $orderitems = DB::table('order_items')->select('orderID')->where('shopID', $shopID)->get();
-
+        $shopID = $this->getShop('id');
+        $orderitems = DB::table('order_items')
+            ->select('orderID')
+            ->where('shopID', $shopID)
+            ->get();
         $orders = array();
+
         foreach ($orderitems as $item) {
             $order = Order::find($item->orderID);
             $order->orderItems;
@@ -94,6 +107,28 @@ class ShopController extends Controller
         return view('shop.orders', [
             'orders' => $orders,
         ]);
+    }
+
+    public function orderView($uuid)
+    {
+        $order = Order::where('orderUUID', $uuid)->first();
+        if ($order == null)
+            return redirect()->route('shop.orders')->with('noOrder', 'Order tersebut tidak ditemukan');
+        $orderitems = OrderItem::where('orderUUID', $uuid)
+            ->where('shopID', $this->getShop()->id)
+            ->get();
+        return view('shop.order', [
+            'order' => $order,
+            'orderitems' => $orderitems,
+        ]);
+    }
+
+    public function orderActions($uuid, Request $request)
+    {
+        $orderitem = OrderItem::find($request->orderItemID);
+        $orderitem->statusID = $request->statusID;
+        $orderitem->save();
+        return redirect()->route('shop.orderUUID', ['uuid' => $uuid]);
     }
 
     public function salesView()
