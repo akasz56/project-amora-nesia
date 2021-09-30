@@ -8,10 +8,8 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('register', function () {
-        $provinces = DB::table('ref_province')->select('*')->get()->toArray();
-        return view('auth.register', [
-            'provinces' => $provinces,
-        ]);
+        
+        return view('auth.register');
     })->name('register');
 
     Route::post('register', [AuthController::class, 'register'])
