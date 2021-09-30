@@ -33,7 +33,7 @@ Route::get('/delete/{id}', function ($id) {
 /* -------------------------------------
 Main Routes
 ------------------------------------- */
-Route::view('/', 'home')->name('home');
+Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/home', function () {
     return redirect('/');
 });

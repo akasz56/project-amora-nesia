@@ -17,6 +17,11 @@ class Product extends Model
         'viewers',
     ];
 
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class, 'shopID');
+    }
+
     public function types()
     {
         return $this->hasMany(FlowerType::class, 'productID');

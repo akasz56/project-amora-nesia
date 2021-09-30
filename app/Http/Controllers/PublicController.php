@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Shop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PublicController extends Controller
 {
+    public function home()
+    {
+        $products = Product::inRandomOrder()->limit(12)->get();
+        return view('home', [
+            'products' => $products,
+        ]);
+    }
+
     public function categoriesView()
     {
         $shops = Shop::all();
