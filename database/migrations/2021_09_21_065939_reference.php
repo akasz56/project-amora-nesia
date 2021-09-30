@@ -88,6 +88,11 @@ class Reference extends Migration
             ['name' => 'diproses'], // 3
             ['name' => 'dikirim'],  // 4
             ['name' => 'selesai'],  // 5
+            ['name' => 'Error'],  // 6
+            ['name' => 'Error'],  // 7
+            ['name' => 'Error'],  // 8
+            ['name' => 'Error'],  // 9
+            ['name' => 'dibatalkan'],  // 10
         ]);
     }
 
