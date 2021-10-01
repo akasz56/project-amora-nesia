@@ -31,7 +31,8 @@ class UserController extends Controller
     public function historyView()
     {
         $orders = Order::where('userID', Auth::user()->id)->get();
-
+        if ($orders)
+            dd($orders);
         return view('user.buyhistory', [
             'orders' => $orders,
         ]);
@@ -46,5 +47,4 @@ class UserController extends Controller
     {
         return view('user.notifsettings');
     }
-
 }
