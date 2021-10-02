@@ -20,7 +20,6 @@
 - (test) nunggu 5 menit
 
 # max
-riwayat pembelian user functions
 
 # high
 opsi pembayaran
