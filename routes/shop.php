@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\ShopController;
-use App\Models\Order;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('u/')->middleware(['auth', 'verified'])
@@ -59,5 +57,7 @@ Route::prefix('s/')
             ->group(function () {
                 Route::post('add', [ShopController::class, 'createProductSpec'])
                     ->name('add');
+                Route::post('update', [ShopController::class, 'updateProductSpec'])
+                    ->name('update');
             });
     });

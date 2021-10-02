@@ -54,8 +54,7 @@ class ShopController extends Controller
                 'address' => $address->address,
                 'postcode' => $address->postcode,
             ]);
-        }
-        else {
+        } else {
             $address = Address::create([
                 'provinceID' => $request->provinceID,
                 'city' => $request->city,
@@ -221,6 +220,8 @@ class ShopController extends Controller
 
     public function createProductSpec(Request $request)
     {
+        if ($request->price < 1000)
+            return back()->with($request->specification . 'Error', 'Harga tidak boleh kurang dari Rp1000');
         switch ($request->specification) {
             case 'type':
                 $spec = 'type';
@@ -260,8 +261,13 @@ class ShopController extends Controller
         }
 
         if ($object)
-            return back()->with('success', "Product " . $spec . " sucessfully added");
+            return back()->with('success', "Produk " . $spec . " berhasil ditambahkan");
         else
-            return false;
+            return back()->with('error', "an Error occured");
+    }
+
+    public function updateProductSpec(Request $request)
+    {
+        dd($request);
     }
 }
