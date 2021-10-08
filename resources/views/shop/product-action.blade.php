@@ -128,7 +128,7 @@
             <input type="hidden" name="specification" value="size">
             <input type="hidden" name="productID" value="{{ $product->id }}">
             <input type="text" name="name" class="col-2 me-2" placeholder="Nama Produk">
-            <input type="text" name="variable" class="col-2 me-2" placeholder="Warna">
+            <input type="text" name="variable" class="col-2 me-2" placeholder="Jumlah Bunga">
             <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Produk">
             <input type="number" name="price" class="col-2 me-2" placeholder="Harga Produk">
             <button class="btn btn-primary" type="submit">+ Tambah Ukuran</button>
