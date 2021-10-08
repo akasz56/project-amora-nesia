@@ -221,7 +221,7 @@ class ShopController extends Controller
     public function createProductSpec(Request $request)
     {
         if ($request->price < 1000)
-            return back()->with($request->specification . 'Error', 'Harga tidak boleh kurang dari Rp1000');
+            return back()->with($request->specification . 'Danger', 'Harga tidak boleh kurang dari Rp1000');
         switch ($request->specification) {
             case 'type':
                 $spec = 'type';
@@ -263,11 +263,89 @@ class ShopController extends Controller
         if ($object)
             return back()->with('success', "Produk " . $spec . " berhasil ditambahkan");
         else
-            return back()->with('error', "an Error occured");
+            return back()->with('danger', "an Error occured");
     }
 
     public function updateProductSpec(Request $request)
     {
-        dd($request);
+        switch ($request->btn) {
+            case 'edit':
+                $return = $this->editProductSpec($request);
+                break;
+            case 'delete':
+                $return = $this->deleteProductSpec($request->specification, $request->specID);
+                break;
+
+            default:
+                return back()->with('danger', "No Action Found");
+                break;
+        }
+
+        if ($return == -5) return back()->with('danger', "No Specification Found");
+        return back()->with('success', "Product " . ucwords($return) . " Successfully");
+    }
+
+    public function editProductSpec($request)
+    {
+        switch ($request->specification) {
+            case 'type':
+                $spec = FlowerType::find($request->specID);
+                $spec->name = $request->name;
+                $spec->color = $request->variable;
+                $spec->stock = $request->stock;
+                $spec->price = $request->price;
+                $spec->save();
+                $message = 'type';
+                break;
+
+            case 'wrap':
+                $spec = FlowerWrap::find($request->specID);
+                $spec->name = $request->name;
+                $spec->color = $request->variable;
+                $spec->stock = $request->stock;
+                $spec->price = $request->price;
+                $spec->save();
+                $message = 'wrap';
+                break;
+
+            case 'size':
+                $spec = FlowerSize::find($request->specID);
+                $spec->name = $request->name;
+                $spec->flower_amount = $request->variable;
+                $spec->stock = $request->stock;
+                $spec->price = $request->price;
+                $spec->save();
+                $message = 'size';
+                break;
+
+            default:
+                $message = '';
+                return -5;
+        }
+        return $message . " updated";
+    }
+
+    public function deleteProductSpec($spec, $id)
+    {
+        switch ($spec) {
+            case 'type':
+                FlowerType::find($id)->delete();
+                $message = 'type';
+                break;
+            case 'wrap':
+                FlowerWrap::find($id)->delete();
+                $message = 'wrap';
+                break;
+            case 'size':
+                FlowerSize::find($id)->delete();
+                $message = 'size';
+                break;
+
+            default:
+                return -5;
+                break;
+        }
+
+        return $message . " deleted";
     }
 }

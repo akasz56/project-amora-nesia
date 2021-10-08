@@ -38,20 +38,20 @@
         {{-- type --}}
         <h2 class="mt-5">Jenis Bunga</h2>
         <hr>
-        @if (session()->has('typeError'))
-            <div class="alert alert-danger">{{ session()->get('typeError') }}</div>
+        @if (session()->has('typeDanger'))
+            <div class="alert alert-danger">{{ session()->get('typeDanger') }}</div>
         @endif
         @foreach ($types as $item)
             <div class="row my-3">
-                <div class="col-2 me-2">{{ $item->name }}</div>
-                <div class="col-2 me-2">{{ $item->color }}</div>
-                <div class="col-2 me-2">{{ $item->stock }}</div>
-                <div class="col-2 me-2">{{ $item->price }}</div>
-                <form action="{{ route('shop.product.spec.update') }}" method="POST" class="col-2 me-2">
+                <form action="{{ route('shop.product.spec.update') }}" method="POST">
                     @csrf
+                    <input type="text" name="name" class="col-2 me-2" value="{{ $item->name }}">
+                    <input type="text" name="variable" class="col-2 me-2" value="{{ $item->color }}">
+                    <input type="number" name="stock" class="col-2 me-2" value="{{ $item->stock }}">
+                    <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="type">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-primary">Edit</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-success">Save</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-danger"
                         onclick="return confirm('Yakin menghapus?')">Hapus</button>
                 </form>
@@ -71,20 +71,20 @@
         {{-- wrap --}}
         <h2 class="mt-5">Jenis Bungkus</h2>
         <hr>
-        @if (session()->has('wrapError'))
-            <div class="alert alert-danger">{{ session()->get('wrapError') }}</div>
+        @if (session()->has('wrapDanger'))
+            <div class="alert alert-danger">{{ session()->get('wrapDanger') }}</div>
         @endif
         @foreach ($wraps as $item)
             <div class="row my-3">
-                <div class="col-2 me-2">{{ $item->name }}</div>
-                <div class="col-2 me-2">{{ $item->color }}</div>
-                <div class="col-2 me-2">{{ $item->stock }}</div>
-                <div class="col-2 me-2">{{ $item->price }}</div>
-                <form action="{{ route('shop.product.spec.update') }}" method="POST" class="col-2 me-2">
+                <form action="{{ route('shop.product.spec.update') }}" method="POST">
                     @csrf
+                    <input type="text" name="name" class="col-2 me-2" value="{{ $item->name }}">
+                    <input type="text" name="variable" class="col-2 me-2" value="{{ $item->color }}">
+                    <input type="number" name="stock" class="col-2 me-2" value="{{ $item->stock }}">
+                    <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="wrap">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-primary">Edit</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-success">Save</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-danger"
                         onclick="return confirm('Yakin menghapus?')">Hapus</button>
                 </form>
@@ -104,20 +104,20 @@
         {{-- size --}}
         <h2 class="mt-5">Ukuran</h2>
         <hr>
-        @if (session()->has('sizeError'))
-            <div class="alert alert-danger">{{ session()->get('sizeError') }}</div>
+        @if (session()->has('sizeDanger'))
+            <div class="alert alert-danger">{{ session()->get('sizeDanger') }}</div>
         @endif
         @foreach ($sizes as $item)
             <div class="row my-3">
-                <div class="col-2 me-2">{{ $item->name }}</div>
-                <div class="col-2 me-2">{{ $item->flower_amount }}</div>
-                <div class="col-2 me-2">{{ $item->stock }}</div>
-                <div class="col-2 me-2">{{ $item->price }}</div>
-                <form action="{{ route('shop.product.spec.update') }}" method="POST" class="col-2 me-2">
+                <form action="{{ route('shop.product.spec.update') }}" method="POST">
                     @csrf
+                    <input type="text" name="name" class="col-2 me-2" value="{{ $item->name }}">
+                    <input type="text" name="variable" class="col-2 me-2" value="{{ $item->flower_amount }}">
+                    <input type="number" name="stock" class="col-2 me-2" value="{{ $item->stock }}">
+                    <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="size">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-primary">Edit</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-success">Save</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-danger"
                         onclick="return confirm('Yakin menghapus?')">Hapus</button>
                 </form>
@@ -139,7 +139,8 @@
         <form action="{{ route('shop.product.delete') }}" method="POST">
             @csrf
             <input type="hidden" name="productID" value="{{ $product->id }}">
-            <button type="submit" class="btn btn-danger">Delete Product</button>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin menghapus?')">Delete
+                Product</button>
         </form>
     </main>
 @endsection

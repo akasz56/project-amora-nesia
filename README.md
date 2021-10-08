@@ -24,7 +24,6 @@
 # high
 opsi pembayaran
 opsi pengiriman
-product CRUD
 product spec CRUD
 order CRUD for users
 order CRUD for shops
