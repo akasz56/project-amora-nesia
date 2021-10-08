@@ -5,9 +5,39 @@
 @section('content')
     <main class="container">
         <section class="jumbotron-poster">
-            <img class="img-fluid"
+            {{-- <img class="img-fluid"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg"
-                alt="" width="720" height="340">
+                alt="" width="720" height="340"> --}}
+            <div id="carouselExampleControls" class="carousel slide docs" data-bs-ride="carousel">
+                <div class="carousel-inner docs-car">
+                    <div class="carousel-item active">
+                        <img src={{ asset('/assets/jumbotron-banner/banner1.jpg') }} class="img-fluid"
+                            alt="Jumbotron Banner" width="720" height="340">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={{ asset('/assets/jumbotron-banner/banner2.jpg') }} class="img-fluid"
+                            alt="Jumbotron Banner" width="720" height="340">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={{ asset('/assets/jumbotron-banner/banner3.jpg') }} class="img-fluid"
+                            alt="Jumbotron Banner" width="720" height="340">
+                    </div>
+                    <div class="carousel-item">
+                        <img src={{ asset('/assets/jumbotron-banner/banner4.jpg') }} class="img-fluid"
+                            alt="Jumbotron Banner" width="720" height="340">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
         </section>
         <hr>
         <section class="d-flex justify-content-around">
