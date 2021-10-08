@@ -31,7 +31,7 @@
             @else
                 <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
             @endif
-            <button type="submit">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
         </form>
 
 
