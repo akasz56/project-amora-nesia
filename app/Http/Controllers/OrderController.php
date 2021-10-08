@@ -26,7 +26,7 @@ class OrderController extends Controller
         $wrap = $product->wraps->where('name', $request->wrap)->first();
         $size = $product->sizes->where('name', $request->size)->first();
 
-        return view('confirmorder', [
+        return view('order.confirm', [
             'product' => $product,
             'type' => $type,
             'wrap' => $wrap,
@@ -57,7 +57,7 @@ class OrderController extends Controller
             'orderUUID' => Str::uuid(),
             'userID' => $user->id,
             'bankID' => ($request->payment == 1) ? rand(1, 3) : 0,
-            'invoiceID' => rand(111111,999999),
+            'invoiceID' => rand(111111, 999999),
             'status' => 1,
             'nameSend' => 'Nama dikirim',
             'phone' => ($user->phone) ? $user->phone : "088888888888",
@@ -83,7 +83,8 @@ class OrderController extends Controller
             'productSizeID' => $request->size,
         ]);
 
-        return redirect()->route('user.history');
+        // return redirect()->route('user.history');
+        return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);
     }
 
     public function createOrderfromCart(Request $request)
@@ -92,15 +93,35 @@ class OrderController extends Controller
 
     public function orderActions($uuid)
     {
+        // Not found
         $order = Order::where('orderUUID', $uuid)->first();
         if ($order == null)
-            return "Ganemu";
-
+        return view('order.error', [
+            'message' => "Order tidak ditemukan!",
+        ]);
+        
+        // Doesnt belong to the user
         $userID = Auth::user()->id;
         if ($order->userID != $userID)
-            return "Bukan punya lu";
+            return view('order.error', [
+                'message' => "Ordernya tidak ditemukan!",
+            ]);
 
-        // payment page
-        // order status page
+        // payment pending
+        if ($order->status == 1) {
+            return view('order.payment');
+        }
+        
+        // order canceled page
+        if ($order->status == 10) {
+            return view('order.details', [
+                'order' => $order,
+            ]);
+        }
+        
+        // order details page
+        return view('order.details', [
+            'order' => $order,
+        ]);
     }
 }

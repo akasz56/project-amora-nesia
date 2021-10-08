@@ -22,7 +22,8 @@
                     <strong>Alamat Tujuan</strong> : {{ $order->address }} <br>
                     <strong>Kode Pos</strong> : {{ $order->postcode }}
                 </p>
-                <a href="#" class="btn btn-primary">Detail Pesanan</a>
+                <a href="{{ route('order.actions', ['uuid' => $order->orderUUID]) }}" class="btn btn-primary">Detail
+                    Pesanan</a>
                 <a href="#" class="btn btn-danger">Batalkan Pesanan</a>
                 @foreach ($order->orderItems as $item)
                     <div class="border border-primary border-1 p-3">

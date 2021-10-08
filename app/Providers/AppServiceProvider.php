@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $provinces = DB::table('ref_province')->select('*')->get()->toArray();
+        $orderstatuses = DB::table('ref_order_status')->select('*')->get()->toArray();
         view()->share('provinces', $provinces);
+        view()->share('orderstatuses', $orderstatuses);
     }
 }
