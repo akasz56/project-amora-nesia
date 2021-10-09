@@ -91,6 +91,14 @@ class OrderController extends Controller
     {
     }
 
+    public function cancelOrder(Request $request)
+    {
+        $order = Order::where('orderUUID', $request->uuid)->first();
+        $order->status = 10;
+        $order->save();
+        return back()->with('success', "Order Canceled");
+    }
+
     public function orderActions($uuid)
     {
         // Not found

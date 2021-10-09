@@ -44,8 +44,9 @@ Route::get('/categories', [PublicController::class, 'categoriesView'])->name('ca
 Orders Routes
 ------------------------------------- */
 Route::middleware('auth')->group(function () {
-    Route::post('/confirm-order', [OrderController::class, 'confirmOrder'])->name('product.order');
-    Route::post('/create-order', [OrderController::class, 'createOrder'])->name('order.create');
+    Route::post('/order/confirm', [OrderController::class, 'confirmOrder'])->name('product.order');
+    Route::post('/order/create', [OrderController::class, 'createOrder'])->name('order.create');
+    Route::post('/order/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
     Route::get('/order/{uuid}', [OrderController::class, 'orderActions'])->name('order.actions');
 });
 

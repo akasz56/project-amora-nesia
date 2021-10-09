@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         $orders = Order::where('userID', Auth::user()->id)->get();
         return view('user.buyhistory', [
-            'orders' => $orders,
+            'orders' => $orders->sortDesc(),
         ]);
     }
 

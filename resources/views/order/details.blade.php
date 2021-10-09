@@ -1,12 +1,41 @@
 <section>
-    <h3>Details</h3>
+
+    <h3 class="mt-5">Details</h3>
     @dump($order->toArray())
     <p>{{ $order->orderUUID }}</p>
     <p><strong>Invoice ID :</strong> {{ $order->invoiceID }}</p>
-    <h3>Pembeli</h3>
+
+    <h3 class="mt-5">Pembeli</h3>
     <hr>
     <p><strong>Nama :</strong> {{ $order->user->name }}</p>
     <p><strong>Email :</strong> {{ $order->user->email }}</p>
     <p><strong>Phone :</strong> {{ $order->user->phone }}</p>
     <p><strong>Whatsapp :</strong> {{ $order->user->whatsapp }}</p>
+
+    <h3 class="mt-5">Item Pesanan</h3>
+    <hr>
+    @foreach ($order->orderitems as $item)
+        <section class="border border-primary border-1 p-3">
+            <a
+                href="{{ route('product', ['shopURL' => $item->shop->url, 'prodName' => str_replace(' ', '-', $item->product->name)]) }}">
+                {{ $item->product->name }}
+            </a>
+            from
+            <a href="{{ route('shop', ['shopURL' => $item->shop->url]) }}">
+                <strong>{{ $item->shop->name }}</strong>
+            </a>
+            <p>
+                Nama : {{ $item->product_type->name }}<br>
+                Warna : {{ $item->product_type->color }}
+            </p>
+            <p>
+                Nama : {{ $item->product_wrap->name }}<br>
+                Warna : {{ $item->product_wrap->color }}
+            </p>
+            <p>
+                Name : {{ $item->product_size->name }}<br>
+                Jumlah Bunga : {{ $item->product_size->flower_amount }}
+            </p>
+        </section>
+    @endforeach
 </section>
