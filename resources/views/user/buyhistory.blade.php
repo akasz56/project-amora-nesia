@@ -34,7 +34,7 @@
                     <h5><strong>Status Pesanan</strong> : {{ $orderstatuses[$order->status - 1]->name }}</h5>
                     <a href="{{ route('order.actions', ['uuid' => $order->orderUUID]) }}" class="btn btn-primary">Detail
                         Pesanan</a>
-                    @if ($order->status < 10)
+                    @if ($order->status < 5)
                         <form action="{{ route('order.cancel') }}" method="POST">
                             @csrf
                             <button type="submit" name="uuid" value="{{ $order->orderUUID }}" class="btn btn-danger"

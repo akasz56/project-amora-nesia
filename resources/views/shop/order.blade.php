@@ -5,6 +5,9 @@
 @section('container')
     <main class="container">
         <h1>{{ $order->orderUUID }}</h1>
+        @if (session()->has('danger'))
+            <div class="alert alert-danger">{{ session()->get('danger') }}</div>
+        @endif
         <p>Nama Tujuan : {{ $order->nameSend }}</p>
         <p>Nomor Telepon : {{ $order->phone }}</p>
         <p>Nomor Whatsapp : {{ $order->whatsapp }}</p>
@@ -21,7 +24,7 @@
 
             {{-- OrderItem Actions --}}
             @if ($item->statusID < 4)
-                <form action="{{ route('order.actions', ['uuid' => $order->orderUUID]) }}" method="POST">
+                <form action="{{ route('shop.orderAction', ['uuid' => $order->orderUUID]) }}" method="POST">
                     @csrf
                     <input type="hidden" name="orderItemID" value="{{ $item->id }}">
                     @if ($item->statusID == 1)
@@ -44,7 +47,7 @@
                 </form>
             @else
                 @if ($item->statusID == 4)
-                    <div class="alert alert-success">Menunggu Pengiriman</div>
+                    <div class="alert alert-success">Produk dalam Perjalanan</div>
                 @elseif ($item->statusID == 5)
                     <div class="alert alert-success">Pesanan Selesai</div>
                 @elseif ($item->statusID == 10)

@@ -94,16 +94,54 @@ class OrderController extends Controller
     public function cancelOrder(Request $request)
     {
         $order = Order::where('orderUUID', $request->uuid)->first();
-        
+
         foreach ($order->orderitems as $item) {
             $item->statusID = 10;
             $item->save();
         }
-        
+
         $order->status = 10;
         $order->save();
-        
+
         return back()->with('success', "Order Canceled");
+    }
+
+    public function updateOrder(Request $request)
+    {
+        switch ($request->status) {
+            case 'paid':
+                $status = 2;
+                break;
+
+            case 'accepted':
+                $status = 3;
+                break;
+
+            case 'processed':
+                $status = 4;
+                break;
+
+            case 'done':
+                $status = 5;
+                break;
+
+            default:
+                dd("error");
+                return redirect()->route('order.actions', ['uuid' => $request->uuid])->with('danger', "Action not Found");
+                break;
+        }
+
+        $order = Order::where('orderUUID', $request->uuid)->first();
+
+        foreach ($order->orderitems as $item) {
+            $item->statusID = $status;
+            $item->save();
+        }
+
+        $order->status = $status;
+        $order->save();
+
+        return back()->with('success', "Order " . ucwords($request->status) . " Sucessfully");
     }
 
     public function orderActions($uuid)
@@ -140,5 +178,16 @@ class OrderController extends Controller
         return view('order.page', [
             'order' => $order,
         ]);
+    }
+
+    public static function checkOrder($order, $status)
+    {
+        foreach ($order->orderItems as $item) {
+            if ($item->statusID != $status)
+            return 0;
+        }
+        $order->status = $status;
+        $order->save();
+        return 1;
     }
 }

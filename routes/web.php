@@ -47,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/confirm', [OrderController::class, 'confirmOrder'])->name('product.order');
     Route::post('/order/create', [OrderController::class, 'createOrder'])->name('order.create');
     Route::post('/order/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
+    Route::post('/order/update', [OrderController::class, 'updateOrder'])->name('order.update');
     Route::get('/order/{uuid}', [OrderController::class, 'orderActions'])->name('order.actions');
 });
 

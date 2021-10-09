@@ -25,7 +25,7 @@ tambahin page pembayaran abis confirm order
 - (test) nunggu 5 menit
 
 # max
-order CRUD for shops
+order CRUD for shop (tinggal cancel order)
 
 # high
 opsi pembayaran

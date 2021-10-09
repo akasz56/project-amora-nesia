@@ -103,6 +103,7 @@ class ShopController extends Controller
             $order->orderItems;
             $orders[] = $order;
         }
+        rsort($orders);
         return view('shop.orders', [
             'orders' => $orders,
         ]);
@@ -112,10 +113,14 @@ class ShopController extends Controller
     {
         $order = Order::where('orderUUID', $uuid)->first();
         if ($order == null)
-            return redirect()->route('shop.orders')->with('noOrder', 'Order tersebut tidak ditemukan');
+            return redirect()->route('shop.orders')->with('danger', 'Order tersebut tidak ditemukan');
+
         $orderitems = OrderItem::where('orderUUID', $uuid)
             ->where('shopID', $this->getShop()->id)
             ->get();
+        if ($orderitems == null)
+            return redirect()->route('shop.orders')->with('danger', 'Order tersebut tidak ditemukan');
+
         return view('shop.order', [
             'order' => $order,
             'orderitems' => $orderitems,
@@ -127,6 +132,9 @@ class ShopController extends Controller
         $orderitem = OrderItem::find($request->orderItemID);
         $orderitem->statusID = $request->statusID;
         $orderitem->save();
+
+        OrderController::checkOrder($orderitem->orders, $request->statusID);
+        
         return redirect()->route('shop.orderUUID', ['uuid' => $uuid]);
     }
 
