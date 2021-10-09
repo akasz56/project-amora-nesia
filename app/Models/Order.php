@@ -31,8 +31,14 @@ class Order extends Model
     {
         return $this->hasMany(OrderItem::class, 'orderID');
     }
+
     public function orderItemByShop($shopID)
     {
         return $this->orderItems()->where('shopID', $shopID);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'userID');
     }
 }

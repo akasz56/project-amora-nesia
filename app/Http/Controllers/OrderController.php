@@ -96,10 +96,10 @@ class OrderController extends Controller
         // Not found
         $order = Order::where('orderUUID', $uuid)->first();
         if ($order == null)
-        return view('order.error', [
-            'message' => "Order tidak ditemukan!",
-        ]);
-        
+            return view('order.error', [
+                'message' => "Order tidak ditemukan!",
+            ]);
+
         // Doesnt belong to the user
         $userID = Auth::user()->id;
         if ($order->userID != $userID)
@@ -109,18 +109,20 @@ class OrderController extends Controller
 
         // payment pending
         if ($order->status == 1) {
-            return view('order.payment');
-        }
-        
-        // order canceled page
-        if ($order->status == 10) {
-            return view('order.details', [
+            return view('order.payment', [
                 'order' => $order,
             ]);
         }
-        
+
+        // order canceled page
+        if ($order->status == 10) {
+            return view('order.page', [
+                'order' => $order,
+            ]);
+        }
+
         // order details page
-        return view('order.details', [
+        return view('order.page', [
             'order' => $order,
         ]);
     }

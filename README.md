@@ -1,3 +1,8 @@
+product extras pas mau ngorder di product page
+input alamat di confirm order page
+promo code dd
+tambahin page pembayaran abis confirm order
+
 # product page
 - pilih type
 - pilih wrap
@@ -20,12 +25,12 @@
 - (test) nunggu 5 menit
 
 # max
+order CRUD for users
+order CRUD for shops
 
 # high
 opsi pembayaran
 opsi pengiriman
-order CRUD for users
-order CRUD for shops
 shop views
 product views
 product extras functions

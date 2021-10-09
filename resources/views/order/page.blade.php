@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Payment Page - Amora Store')
+@section('title', 'Order Page - Amora Store')
 
 @section('content')
     <main class="container">
-        <h2>Payment Page</h2>
+        <h2>Order Page</h2>
         @include('order.details')
     </main>
 @endsection
