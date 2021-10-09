@@ -94,8 +94,15 @@ class OrderController extends Controller
     public function cancelOrder(Request $request)
     {
         $order = Order::where('orderUUID', $request->uuid)->first();
+        
+        foreach ($order->orderitems as $item) {
+            $item->statusID = 10;
+            $item->save();
+        }
+        
         $order->status = 10;
         $order->save();
+        
         return back()->with('success', "Order Canceled");
     }
 

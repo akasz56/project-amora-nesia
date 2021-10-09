@@ -25,7 +25,6 @@ tambahin page pembayaran abis confirm order
 - (test) nunggu 5 menit
 
 # max
-order CRUD for users
 order CRUD for shops
 
 # high
@@ -37,6 +36,7 @@ product extras functions
 
 # med
 cart functions
+order CRUD for users
 wishlist functions
 kategori functions
 recommendations at home functions
