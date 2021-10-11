@@ -20,6 +20,10 @@
             <div class="col-6">Rating Produk : {{ $product->rating }}</div>
         </div>
 
+        {{-- Foto --}}
+        <h2 class="mt-5">Foto Produk</h2>
+        <a href="" class="btn btn-primary p-2">+ Tambah Foto Produk</a>
+
         {{-- deskripsi --}}
         <h2 class="mt-5">Deskripsi Produk</h2>
         <form action="{{ route('shop.product.update') }}" method="POST">
@@ -31,7 +35,7 @@
             @else
                 <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
             @endif
-            <button type="submit" class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success mt-2">Simpan Deskripsi</button>
         </form>
 
 
@@ -51,7 +55,7 @@
                     <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="type">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-success">Save</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-success">Simpan</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-danger"
                         onclick="return confirm('Yakin menghapus?')">Hapus</button>
                 </form>
@@ -61,10 +65,10 @@
             @csrf
             <input type="hidden" name="specification" value="type">
             <input type="hidden" name="productID" value="{{ $product->id }}">
-            <input type="text" name="name" class="col-2 me-2" placeholder="Nama Produk">
+            <input type="text" name="name" class="col-2 me-2" placeholder="Nama">
             <input type="text" name="variable" class="col-2 me-2" placeholder="Warna">
-            <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Produk">
-            <input type="number" name="price" class="col-2 me-2" placeholder="Harga Produk">
+            <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Barang">
+            <input type="number" name="price" class="col-2 me-2" placeholder="Harga">
             <button class="btn btn-primary" type="submit">+ Tambah Jenis Bunga</button>
         </form>
 
@@ -84,7 +88,7 @@
                     <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="wrap">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-success">Save</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-success">Simpan</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-danger"
                         onclick="return confirm('Yakin menghapus?')">Hapus</button>
                 </form>
@@ -94,10 +98,10 @@
             @csrf
             <input type="hidden" name="specification" value="wrap">
             <input type="hidden" name="productID" value="{{ $product->id }}">
-            <input type="text" name="name" class="col-2 me-2" placeholder="Nama Produk">
+            <input type="text" name="name" class="col-2 me-2" placeholder="Nama">
             <input type="text" name="variable" class="col-2 me-2" placeholder="Warna">
-            <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Produk">
-            <input type="number" name="price" class="col-2 me-2" placeholder="Harga Produk">
+            <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Barang">
+            <input type="number" name="price" class="col-2 me-2" placeholder="Harga">
             <button class="btn btn-primary" type="submit">+ Tambah Jenis Bungkus</button>
         </form>
 
@@ -117,7 +121,7 @@
                     <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="size">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-success">Save</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-success">Simpan</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-danger"
                         onclick="return confirm('Yakin menghapus?')">Hapus</button>
                 </form>
@@ -127,10 +131,10 @@
             @csrf
             <input type="hidden" name="specification" value="size">
             <input type="hidden" name="productID" value="{{ $product->id }}">
-            <input type="text" name="name" class="col-2 me-2" placeholder="Nama Produk">
+            <input type="text" name="name" class="col-2 me-2" placeholder="Nama">
             <input type="text" name="variable" class="col-2 me-2" placeholder="Jumlah Bunga">
-            <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Produk">
-            <input type="number" name="price" class="col-2 me-2" placeholder="Harga Produk">
+            <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Barang">
+            <input type="number" name="price" class="col-2 me-2" placeholder="Harga">
             <button class="btn btn-primary" type="submit">+ Tambah Ukuran</button>
         </form>
 

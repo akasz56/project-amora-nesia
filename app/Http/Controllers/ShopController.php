@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
+    // -------------------------------------------------------- Statics
+
     public static function getShop(string $attr = null)
     {
         if ($attr) {
@@ -35,6 +37,8 @@ class ShopController extends Controller
     {
         return Product::where('shopID', $shopID)->get();
     }
+
+    // -------------------------------------------------------- Misc
 
     public function register(Request $request)
     {
@@ -78,6 +82,8 @@ class ShopController extends Controller
 
         return redirect()->route('shop.dashboard');
     }
+    
+    // -------------------------------------------------------- Views
 
     public function dashboardView()
     {
@@ -88,6 +94,23 @@ class ShopController extends Controller
             'address' => $address,
         ]);
     }
+
+    public function salesView()
+    {
+        return view('shop.sales');
+    }
+
+    public function aboutView()
+    {
+        return view('shop.about');
+    }
+
+    public function shopSettings()
+    {
+        return view('shop.shopsettings');
+    }
+
+    // -------------------------------------------------------- ShopOrderViews + CRUD
 
     public function orderListView()
     {
@@ -138,20 +161,7 @@ class ShopController extends Controller
         return redirect()->route('shop.orderUUID', ['uuid' => $uuid]);
     }
 
-    public function salesView()
-    {
-        return view('shop.sales');
-    }
-
-    public function aboutView()
-    {
-        return view('shop.about');
-    }
-
-    public function shopSettings()
-    {
-        return view('shop.shopsettings');
-    }
+    // -------------------------------------------------------- ProductCRUD
 
     public function readProductList()
     {
@@ -225,6 +235,9 @@ class ShopController extends Controller
 
         return redirect()->route('shop.product.list');
     }
+
+
+    // -------------------------------------------------------- ProductSpecCRUD
 
     public function createProductSpec(Request $request)
     {
