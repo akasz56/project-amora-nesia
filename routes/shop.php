@@ -60,4 +60,13 @@ Route::prefix('s/')
                 Route::post('update', [ShopController::class, 'updateProductSpec'])
                     ->name('update');
             });
+
+        Route::prefix('products/photos/')
+            ->name('product.photo.')
+            ->group(function () {
+                Route::post('add', [ShopController::class, 'postProductPhoto'])
+                    ->name('add');
+                Route::post('update', [ShopController::class, 'updateProductPhoto'])
+                    ->name('update');
+            });
     });

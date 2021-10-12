@@ -9,9 +9,11 @@ use App\Models\FlowerWrap;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ProductPhoto;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -82,7 +84,7 @@ class ShopController extends Controller
 
         return redirect()->route('shop.dashboard');
     }
-    
+
     // -------------------------------------------------------- Views
 
     public function dashboardView()
@@ -157,7 +159,7 @@ class ShopController extends Controller
         $orderitem->save();
 
         OrderController::checkOrder($orderitem->orders, $request->statusID);
-        
+
         return redirect()->route('shop.orderUUID', ['uuid' => $uuid]);
     }
 
@@ -174,14 +176,8 @@ class ShopController extends Controller
     public function readProductByID($id)
     {
         $product = Product::find($id);
-        $types = FlowerType::where('productID', $product->id)->get();
-        $wraps = FlowerWrap::where('productID', $product->id)->get();
-        $sizes = FlowerSize::where('productID', $product->id)->get();
         return view('shop.product-action', [
             'product' => $product,
-            'types' => $types,
-            'wraps' => $wraps,
-            'sizes' => $sizes,
         ]);
     }
 
@@ -236,6 +232,52 @@ class ShopController extends Controller
         return redirect()->route('shop.product.list');
     }
 
+    // -------------------------------------------------------- ProductPhotoCRUD
+
+    public function postProductPhoto(Request $request)
+    {
+        $request->validate([
+            'productID' => 'required',
+            'photo' => 'required|mimes:jpeg,jpg,png,pdf',
+        ]);
+
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $file_path = "public/images/products";
+            $file_name = Str::random("25") . "." . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->storeAs($file_path, $file_name);
+
+            ProductPhoto::create([
+                'productID' => $request->productID,
+                'blob' => "storage\images\products\\" . $file_name,
+                'caption' => (isset($request->caption)) ? $request->caption : null,
+            ]);
+            return back()->with('success', 'Upload foto berhasil');
+        } else {
+            return back()->with('danger', 'Kesalahan dalam upload file, Silahkan coba lagi');
+        }
+    }
+
+    public function updateProductPhoto(Request $request)
+    {
+        switch ($request->btn) {
+            case 'edit':
+                $photo = ProductPhoto::find($request->photoID);
+                $photo->caption = $request->caption;
+                $photo->save();
+                $message = "Caption Foto berhasil diubah";
+                break;
+
+            case 'delete':
+                $photo = ProductPhoto::find($request->photoID)->delete();
+                $message = "Foto berhasil dihapus";
+                break;
+
+            default:
+                return back()->with('danger', "No Action Found");
+                break;
+        }
+        return back()->with('success', $message);
+    }
 
     // -------------------------------------------------------- ProductSpecCRUD
 

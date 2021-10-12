@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Shop;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class PublicController extends Controller
 {
@@ -41,14 +39,8 @@ class PublicController extends Controller
         $shop = ShopController::searchShopbyURL($shopURL);
         $prodName = str_replace("-", " ", $prodName);
         $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();
-        $types = $product->types;
-        $wraps = $product->wraps;
-        $sizes = $product->sizes;
         return view('product', [
             'product' => $product,
-            'types' => $types,
-            'wraps' => $wraps,
-            'sizes' => $sizes,
         ]);
     }
 }

@@ -22,7 +22,19 @@
 
         {{-- Foto --}}
         <h2 class="mt-5">Foto Produk</h2>
-        <a href="" class="btn btn-primary p-2">+ Tambah Foto Produk</a>
+        <div class="row">
+            @foreach ($product->photos as $photo)
+                <div class="col-2">
+                    <button type="button" class="btn p-0" data-bs-toggle="modal"
+                        data-bs-target="{{ '#editPhoto' . $photo->id }}">
+                        <img src="{{ asset($photo->blob) }}" alt="Foto Produk" class="img-fluid">
+                    </button>
+                </div>
+            @endforeach
+        </div>
+        <button type="button" class="btn btn-primary p-2" data-bs-toggle="modal" data-bs-target="#addPhoto">
+            + Tambah Foto Produk
+        </button>
 
         {{-- deskripsi --}}
         <h2 class="mt-5">Deskripsi Produk</h2>
@@ -45,7 +57,7 @@
         @if (session()->has('typeDanger'))
             <div class="alert alert-danger">{{ session()->get('typeDanger') }}</div>
         @endif
-        @foreach ($types as $item)
+        @foreach ($product->types as $item)
             <div class="row my-3">
                 <form action="{{ route('shop.product.spec.update') }}" method="POST">
                     @csrf
@@ -78,7 +90,7 @@
         @if (session()->has('wrapDanger'))
             <div class="alert alert-danger">{{ session()->get('wrapDanger') }}</div>
         @endif
-        @foreach ($wraps as $item)
+        @foreach ($product->wraps as $item)
             <div class="row my-3">
                 <form action="{{ route('shop.product.spec.update') }}" method="POST">
                     @csrf
@@ -111,7 +123,7 @@
         @if (session()->has('sizeDanger'))
             <div class="alert alert-danger">{{ session()->get('sizeDanger') }}</div>
         @endif
-        @foreach ($sizes as $item)
+        @foreach ($product->sizes as $item)
             <div class="row my-3">
                 <form action="{{ route('shop.product.spec.update') }}" method="POST">
                     @csrf
@@ -146,5 +158,70 @@
             <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin menghapus?')">Delete
                 Product</button>
         </form>
+
+        {{-- JavaScripts --}}
+        <div class="modal fade" id="addPhoto" tabindex="-1" aria-labelledby="addPhotoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('shop.product.photo.add') }}" method="POST" enctype="multipart/form-data"
+                    class="modal-content">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addPhotoLabel">Add Product Photo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <input type="hidden" name="productID" value="{{ $product->id }}">
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">File Foto</label>
+                            <input type="file" name="photo" id="photo" class="border border-dark p-2">
+                            @error('photo')<small class="text-danger">{{ $message }}</small>@enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="caption" class="form-label">Caption foto</label>
+                            <input type="text" class="form-control" name="caption" value="{{ old('caption') }}"
+                                placeholder="Caption Foto">
+                            @error('caption')<small class="text-danger">{{ $message }}</small>@enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @foreach ($product->photos as $photo)
+            <div class="modal fade" id="{{ 'editPhoto' . $photo->id }}" tabindex="-1"
+                aria-labelledby="{{ 'editPhoto' . $photo->id . 'Label' }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form action="{{ route('shop.product.photo.update') }}" method="POST" class="modal-content">
+                        @csrf
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="{{ 'editPhoto' . $photo->id . 'Label' }}">
+                                Edit Foto
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                            <input type="hidden" name="photoID" value="{{ $photo->id }}">
+                        </div>
+                        <div class="modal-body">
+                            <img src="{{ asset($photo->blob) }}" alt="Foto Produk" class="img-fluid mb-5">
+                            <label for="caption" class="form-label">Caption foto</label>
+                            <input type="text" class="form-control" name="caption" value="{{ $photo->caption }}"
+                                placeholder="Caption Foto">
+                            @error('caption')<small class="text-danger">{{ $message }}</small>@enderror
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger" name="btn" value="delete"
+                                onclick="return confirm('Yakin menghapus foto?')">Hapus Foto</button>
+                            <button type="submit" class="btn btn-primary" name="btn" value="edit">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endforeach
+
     </main>
 @endsection

@@ -22,6 +22,10 @@ class Product extends Model
         return $this->belongsTo(Shop::class, 'shopID');
     }
 
+    public function photos() {
+        return $this->hasMany(ProductPhoto::class, 'productID');
+    }
+
     public function types()
     {
         return $this->hasMany(FlowerType::class, 'productID');
