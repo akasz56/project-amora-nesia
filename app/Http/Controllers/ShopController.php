@@ -90,10 +90,9 @@ class ShopController extends Controller
     public function dashboardView()
     {
         $shop = $this->getShop();
-        $address = Address::find($shop->addressID);
         return view('shop.dashboard', [
             'shop' => $shop,
-            'address' => $address,
+            'isAddressSame' => ($shop->addressID == Auth::user()->addressID) ? true : false,
         ]);
     }
 
