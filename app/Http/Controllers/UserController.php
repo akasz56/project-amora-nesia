@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Address;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,10 +10,10 @@ class UserController extends Controller
 {
     public function dashboardView()
     {
-        $address = Address::find(Auth::user()->addressID);
+        $shop = ShopController::getShop();
         return view('user.dashboard', [
             'user' => Auth::user(),
-            'address' => $address,
+            'isAddressSame' => ($shop->addressID == Auth::user()->addressID) ? true : false,
         ]);
     }
 
@@ -44,5 +43,30 @@ class UserController extends Controller
     public function notifSettings()
     {
         return view('user.notifsettings');
+    }
+
+    // -------------------------------------------------------- ShopIdentity
+
+    public function updateAddress(Request $request)
+    {
+        $request->validate([
+            'provinceID' => 'required|numeric',
+            'city' => 'required',
+            'rw' => 'required|numeric',
+            'rt' => 'required|numeric',
+            'address' => 'required',
+            'postcode' => 'required|numeric',
+        ]);
+
+        $address = Auth::user()->address;
+        $address->provinceID = $request->provinceID;
+        $address->city = $request->city;
+        $address->rw = $request->rw;
+        $address->rt = $request->rt;
+        $address->address = $request->address;
+        $address->postcode = $request->postcode;
+        $address->save();
+
+        return back()->with('success', 'Alamat berhasil diubah');
     }
 }
