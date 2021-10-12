@@ -26,52 +26,36 @@
             @csrf
 
             <div class="col-4">
-                <h2 class="mt-5">Types</h2>
-                <hr>
-                @foreach ($product->types as $item)
-                    <div>
-                        <input type="radio" name="type" id="{{ $item->name }}" value="{{ $item->name }}"
-                            <?php if ($product->types->first() == $item) {
-                                echo 'required';
-                            } ?>>
-                        <label for="{{ $item->name }}">
-                            {{ $item->name }} | {{ $item->color }} | {{ $item->stock }} | {{ $item->price }}
-                        </label>
-                    </div>
-                @endforeach
+                <label for="type" class="mt-5 form-label">Jenis Bunga</label>
+                <select class="form-select" id="type" name="type">
+                    <option value="" hidden>Pilih satu</option>
+                    @foreach ($product->types as $item)
+                        <option value="{{ $item->name }}">{{ $item->name }} | {{ $item->color }} |
+                            {{ $item->stock }} | {{ $item->price }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="col-4">
-                <h2 class="mt-5">Wraps</h2>
-                <hr>
-                @foreach ($product->wraps as $item)
-                    <div>
-                        <input type="radio" name="wrap" id="{{ $item->name }}" value="{{ $item->name }}"
-                            <?php if ($product->wraps->first() == $item) {
-                                echo 'required';
-                            } ?>>
-                        <label for="{{ $item->name }}">
-                            {{ $item->name }} | {{ $item->color }} | {{ $item->stock }} | {{ $item->price }}
-                        </label>
-                    </div>
-                @endforeach
+                <label for="wrap" class="mt-5 form-label">Jenis Bungkus</label>
+                <select class="form-select" id="wrap" name="wrap">
+                    <option value="" hidden>Pilih satu</option>
+                    @foreach ($product->wraps as $item)
+                        <option value="{{ $item->name }}">{{ $item->name }} | {{ $item->color }} |
+                            {{ $item->stock }} | {{ $item->price }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <div class="col-4">
-                <h2 class="mt-5">Sizes</h2>
-                <hr>
-                @foreach ($product->sizes as $item)
-                    <div>
-                        <input type="radio" name="size" id="{{ $item->name }}" value="{{ $item->name }}"
-                            <?php if ($product->sizes->first() == $item) {
-                                echo 'required';
-                            } ?>>
-                        <label for="{{ $item->name }}">
-                            {{ $item->name }} | {{ $item->flower_amount }} | {{ $item->stock }} |
-                            {{ $item->price }}
-                        </label>
-                    </div>
-                @endforeach
+                <label for="size" class="mt-5 form-label">Ukuran</label>
+                <select class="form-select" id="size" name="size">
+                    <option value="" hidden>Pilih satu</option>
+                    @foreach ($product->sizes as $item)
+                        <option value="{{ $item->name }}">{{ $item->name }} | {{ $item->color }} |
+                            {{ $item->stock }} | {{ $item->price }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <button type="submit" class="mt-5 btn btn-primary">Buy</button>
