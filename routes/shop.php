@@ -70,7 +70,9 @@ Route::prefix('s/')
             ->group(function () {
                 Route::post('addEmail/', [ShopController::class, 'addShopEmail'])
                     ->name('addEmail');
-                Route::post('update/', [ShopController::class, 'updateBiodata'])
-                    ->name('update');
+                Route::post('updateBiodata/', [ShopController::class, 'updateBiodata'])
+                    ->name('updateBiodata');
+                Route::post('updateAddress/', [ShopController::class, 'updateAddress'])
+                    ->name('updateAddress');
             });
     });

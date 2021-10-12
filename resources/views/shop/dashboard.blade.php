@@ -30,7 +30,7 @@
             </form>
         @endif
 
-        <form action="{{ route('shop.bio.update') }}" method="POST">
+        <form action="{{ route('shop.bio.updateBiodata') }}" method="POST">
             @csrf
             <label for="url" class="form-label">URL</label>
             <div class="mb-3 d-flex align-baseline">
@@ -62,7 +62,8 @@
         {{-- address --}}
         <h2 class="mt-5">Alamat</h2>
         <hr>
-        <form action="#" method="POST">
+        <form action="{{ route('shop.bio.updateAddress') }}" method="POST">
+            @csrf
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="provinceID" class="form-label">Provinsi</label>
@@ -84,7 +85,6 @@
                     @error('city')<small class="text-danger">{{ $message }}</small>@enderror
                 </div>
             </div>
-            {{-- rt  rw --}}
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="rw" class="form-label">RW</label>
@@ -97,7 +97,6 @@
                     @error('rt')<small class="text-danger">{{ $message }}</small>@enderror
                 </div>
             </div>
-            {{-- address  postcode --}}
             <div class="mb-3 row">
                 <div class="col-8">
                     <label for="address" class="form-label">Alamat</label>

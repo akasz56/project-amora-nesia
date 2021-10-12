@@ -157,6 +157,29 @@ class ShopController extends Controller
         return back()->with('success', 'Perubahan ' . $changes . 'berhasil tersimpan');
     }
 
+    public function updateAddress(Request $request)
+    {
+        $request->validate([
+            'provinceID' => 'required|numeric',
+            'city' => 'required',
+            'rw' => 'required|numeric',
+            'rt' => 'required|numeric',
+            'address' => 'required',
+            'postcode' => 'required|numeric',
+        ]);
+
+        $address = $this->getShop()->address;
+        $address->provinceID = $request->provinceID;
+        $address->city = $request->city;
+        $address->rw = $request->rw;
+        $address->rt = $request->rt;
+        $address->address = $request->address;
+        $address->postcode = $request->postcode;
+        $address->save();
+
+        return back()->with('success', 'Alamat berhasil diubah');
+    }
+
     // -------------------------------------------------------- ShopOrderViews + CRUD
 
     public function orderListView()
