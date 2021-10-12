@@ -35,38 +35,42 @@ Route::prefix('s/')
             ->group(function () {
                 Route::get('/add', [ShopController::class, 'createProductView'])
                     ->name('add');
-
                 Route::post('/add', [ShopController::class, 'createProduct'])
                     ->name('add.post');
-
                 Route::post('/update', [ShopController::class, 'updateProduct'])
                     ->name('update');
-
                 Route::post('/delete', [ShopController::class, 'deleteProduct'])
                     ->name('delete');
-
                 Route::get('', [ShopController::class, 'readProductList'])
                     ->name('list');
-
                 Route::get('/{id}', [ShopController::class, 'readProductByID'])
                     ->name('byID');
+
+                Route::prefix('specifications/')
+                    ->name('spec.')
+                    ->group(function () {
+                        Route::post('add', [ShopController::class, 'createProductSpec'])
+                            ->name('add');
+                        Route::post('update', [ShopController::class, 'updateProductSpec'])
+                            ->name('update');
+                    });
+
+                Route::prefix('photos/')
+                    ->name('photo.')
+                    ->group(function () {
+                        Route::post('add', [ShopController::class, 'postProductPhoto'])
+                            ->name('add');
+                        Route::post('update', [ShopController::class, 'updateProductPhoto'])
+                            ->name('update');
+                    });
             });
 
-        Route::prefix('products/specifications/')
-            ->name('product.spec.')
+        Route::prefix('biodata/')
+            ->name('bio.')
             ->group(function () {
-                Route::post('add', [ShopController::class, 'createProductSpec'])
-                    ->name('add');
-                Route::post('update', [ShopController::class, 'updateProductSpec'])
-                    ->name('update');
-            });
-
-        Route::prefix('products/photos/')
-            ->name('product.photo.')
-            ->group(function () {
-                Route::post('add', [ShopController::class, 'postProductPhoto'])
-                    ->name('add');
-                Route::post('update', [ShopController::class, 'updateProductPhoto'])
+                Route::post('addEmail/', [ShopController::class, 'addShopEmail'])
+                    ->name('addEmail');
+                Route::post('update/', [ShopController::class, 'updateBiodata'])
                     ->name('update');
             });
     });

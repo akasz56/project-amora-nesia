@@ -6,12 +6,22 @@
     <main class="container">
         <h1>{{ $shop->name }} Dashboard</h1>
 
+        @if (session()->has('success'))
+            <div class="alert alert-success">{{ session()->get('success') }}</div>
+        @endif
+        @if (session()->has('danger'))
+            <div class="alert alert-danger">{{ session()->get('danger') }}</div>
+        @endif
+
+        {{-- Identity --}}
         <h2>Identitas</h2>
         <hr>
         @if ($shop->email == null)
             <div class="mb-3">
                 <label for="email" class="form-label d-block">Email Toko</label>
-                <a href="#" class="btn btn-primary">+ Isi Email Toko</a>
+                <button type="button" class="btn btn-primary p-2" data-bs-toggle="modal" data-bs-target="#addEmail">
+                    + Isi Email Toko
+                </button>
             </div>
         @else
             <form action="#" method="POST" class="mb-3">
@@ -20,7 +30,8 @@
             </form>
         @endif
 
-        <form action="#" method="POST">
+        <form action="{{ route('shop.bio.update') }}" method="POST">
+            @csrf
             <label for="url" class="form-label">URL</label>
             <div class="mb-3 d-flex align-baseline">
                 <div class="align-self-center me-1">Amorastore.id/shop/</div>
@@ -28,30 +39,29 @@
             </div>
             <div class="mb-3">
                 <label for="desc" class="form-label">Deskripsi Toko</label>
-                <textarea class="form-control" id="desc" name="desc" value="{{ $shop->desc }}" required
-                    placeholder="Deskripsi Toko" rows="6"></textarea>
+                <textarea class="form-control" id="desc" name="desc" placeholder="Deskripsi Toko"
+                    rows="6">{{ $shop->desc }}</textarea>
                 @error('desc')<small class="text-danger">{{ $message }}</small>@enderror
             </div>
             <div class="mb-3 row">
                 <div class="col-6">
                     <label for="phone" class="form-label">No. Telepon</label>
-                    <input type="number" class="form-control" id="phone" name="phone" value="{{ $shop->phone }}"
-                        required>
+                    <input type="number" class="form-control" id="phone" name="phone" value="{{ $shop->phone }}">
                     @error('phone')<small class="text-danger">{{ $message }}</small>@enderror
                 </div>
                 <div class="col-6">
                     <label for="whatsapp" class="form-label">No. Whatsapp</label>
                     <input type="number" class="form-control" id="whatsapp" name="whatsapp"
-                        value="{{ $shop->whatsapp }}" required>
+                        value="{{ $shop->whatsapp }}">
                     @error('whatsapp')<small class="text-danger">{{ $message }}</small>@enderror
                 </div>
             </div>
             <button type="submit" class="btn btn-success">Simpan Identitas</button>
         </form>
 
+        {{-- address --}}
         <h2 class="mt-5">Alamat</h2>
         <hr>
-        {{-- address --}}
         <form action="#" method="POST">
             <div class="mb-3 row">
                 <div class="col-6">
@@ -104,5 +114,29 @@
             </div>
             <button type="submit" class="btn btn-success">Simpan Alamat</button>
         </form>
+
+        {{-- JavaScripts --}}
+        <div class="modal fade" id="addEmail" tabindex="-1" aria-labelledby="addEmailLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <form action="{{ route('shop.bio.addEmail') }}" method="POST" class="modal-content">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEmailLabel">Tambah Email Toko</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label for="email" class="form-label">Email Toko</label>
+                        <input type="email" class="form-control" name="email" value="{{ old('email') }}"
+                            placeholder="test@example.com">
+                        @error('email')<small class="text-danger">{{ $message }}</small>@enderror
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary"
+                            onclick="return confirm('yakin menambahkan email tersebut? Email tidak bisa diubah setelah disimpan')">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </main>
 @endsection

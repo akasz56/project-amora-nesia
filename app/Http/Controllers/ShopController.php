@@ -112,6 +112,51 @@ class ShopController extends Controller
         return view('shop.shopsettings');
     }
 
+    // -------------------------------------------------------- ShopIdentity
+
+    public function addShopEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $shop = $this->getShop();
+        $shop->email = $request->email;
+        $shop->save();
+
+        return back()->with('success', 'Email toko berhasil ditambahkan');
+    }
+
+    public function updateBiodata(Request $request)
+    {
+        if (!isset($request->desc) && !isset($request->phone) && !isset($request->whatsapp))
+            return back()->with('danger', "Tidak ada perubahan yg disimpan");
+        else
+            $shop = $this->getShop();
+
+        $changes = '';
+
+        if (isset($request->whatsapp)) {
+            $request->validate(['whatsapp' => 'numeric|digits_between:10,15']);
+            $shop->whatsapp = $request->whatsapp;
+            $shop->save();
+            $changes = "Nomor Whatsapp, " . $changes;
+        }
+        if (isset($request->phone)) {
+            $request->validate(['phone' => 'numeric|digits_between:10,15']);
+            $shop->phone = $request->phone;
+            $shop->save();
+            $changes = "Nomor Telepon, " . $changes;
+        }
+        if (isset($request->desc)) {
+            $request->validate(['desc' => 'required']);
+            $shop->desc = $request->desc;
+            $shop->save();
+            $changes = "Deskripsi Toko, " . $changes;
+        }
+        return back()->with('success', 'Perubahan ' . $changes . 'berhasil tersimpan');
+    }
+
     // -------------------------------------------------------- ShopOrderViews + CRUD
 
     public function orderListView()
@@ -230,53 +275,6 @@ class ShopController extends Controller
             return "None Deleted";
 
         return redirect()->route('shop.product.list');
-    }
-
-    // -------------------------------------------------------- ProductPhotoCRUD
-
-    public function postProductPhoto(Request $request)
-    {
-        $request->validate([
-            'productID' => 'required',
-            'photo' => 'required|mimes:jpeg,jpg,png,pdf',
-        ]);
-
-        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
-            $file_path = "public/images/products";
-            $file_name = Str::random("25") . "." . $request->file('photo')->getClientOriginalExtension();
-            $request->file('photo')->storeAs($file_path, $file_name);
-
-            ProductPhoto::create([
-                'productID' => $request->productID,
-                'blob' => "storage\images\products\\" . $file_name,
-                'caption' => (isset($request->caption)) ? $request->caption : null,
-            ]);
-            return back()->with('success', 'Upload foto berhasil');
-        } else {
-            return back()->with('danger', 'Kesalahan dalam upload file, Silahkan coba lagi');
-        }
-    }
-
-    public function updateProductPhoto(Request $request)
-    {
-        switch ($request->btn) {
-            case 'edit':
-                $photo = ProductPhoto::find($request->photoID);
-                $photo->caption = $request->caption;
-                $photo->save();
-                $message = "Caption Foto berhasil diubah";
-                break;
-
-            case 'delete':
-                $photo = ProductPhoto::find($request->photoID)->delete();
-                $message = "Foto berhasil dihapus";
-                break;
-
-            default:
-                return back()->with('danger', "No Action Found");
-                break;
-        }
-        return back()->with('success', $message);
     }
 
     // -------------------------------------------------------- ProductSpecCRUD
@@ -410,5 +408,52 @@ class ShopController extends Controller
         }
 
         return $message . " deleted";
+    }
+
+    // -------------------------------------------------------- ProductPhotoCRUD
+
+    public function postProductPhoto(Request $request)
+    {
+        $request->validate([
+            'productID' => 'required',
+            'photo' => 'required|mimes:jpeg,jpg,png,pdf',
+        ]);
+
+        if ($request->hasFile('photo') && $request->file('photo')->isValid()) {
+            $file_path = "public/images/products";
+            $file_name = Str::random("25") . "." . $request->file('photo')->getClientOriginalExtension();
+            $request->file('photo')->storeAs($file_path, $file_name);
+
+            ProductPhoto::create([
+                'productID' => $request->productID,
+                'blob' => "storage\images\products\\" . $file_name,
+                'caption' => (isset($request->caption)) ? $request->caption : null,
+            ]);
+            return back()->with('success', 'Upload foto berhasil');
+        } else {
+            return back()->with('danger', 'Kesalahan dalam upload file, Silahkan coba lagi');
+        }
+    }
+
+    public function updateProductPhoto(Request $request)
+    {
+        switch ($request->btn) {
+            case 'edit':
+                $photo = ProductPhoto::find($request->photoID);
+                $photo->caption = $request->caption;
+                $photo->save();
+                $message = "Caption Foto berhasil diubah";
+                break;
+
+            case 'delete':
+                $photo = ProductPhoto::find($request->photoID)->delete();
+                $message = "Foto berhasil dihapus";
+                break;
+
+            default:
+                return back()->with('danger', "No Action Found");
+                break;
+        }
+        return back()->with('success', $message);
     }
 }
