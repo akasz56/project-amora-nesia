@@ -38,6 +38,7 @@ Route::get('/home', function () {
     return redirect('/');
 });
 Route::get('/categories', [PublicController::class, 'categoriesView'])->name('categories');
+Route::get('/catalog', [PublicController::class, 'catalogView'])->name('catalog');
 
 
 /* -------------------------------------

@@ -4,79 +4,97 @@
 
 @section('content')
     <main class="container">
-        <section class="jumbotron-poster">
-            {{-- <img class="img-fluid"
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg"
-                alt="" width="720" height="340"> --}}
-            <div id="carouselExampleControls" class="carousel slide docs" data-bs-ride="carousel">
-                <div class="carousel-inner docs-car">
-                    <div class="carousel-item active">
-                        <img src={{ asset('/assets/jumbotron-banner/banner1.jpg') }} class="img-fluid"
-                            alt="Jumbotron Banner" width="720" height="340">
-                    </div>
-                    <div class="carousel-item">
-                        <img src={{ asset('/assets/jumbotron-banner/banner2.jpg') }} class="img-fluid"
-                            alt="Jumbotron Banner" width="720" height="340">
-                    </div>
-                    <div class="carousel-item">
-                        <img src={{ asset('/assets/jumbotron-banner/banner3.jpg') }} class="img-fluid"
-                            alt="Jumbotron Banner" width="720" height="340">
-                    </div>
-                    <div class="carousel-item">
-                        <img src={{ asset('/assets/jumbotron-banner/banner4.jpg') }} class="img-fluid"
-                            alt="Jumbotron Banner" width="720" height="340">
+
+        @if (session()->has('verified'))
+            <button type="button" id="verifBtn" class="d-none" data-bs-toggle="modal"
+                data-bs-target="#verifModal">Launch demo modal</button>
+            <div class="modal fade" id="verifModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body alert alert-success">
+                            Email anda berhasil di Verifikasi!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                        </div>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
+            <script>
+                window.onload = () => {
+                    document.getElementById('verifBtn').click();
+                }
+            </script>
+        @endif
+
+        {{-- Banners --}}
+        <section id="homeBanner" class="jumbotron-poster carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src={{ asset('/assets/jumbotron-banner/banner1.jpg') }} class="d-block w-100"
+                        alt="Jumbotron Banner">
+                </div>
+                <div class="carousel-item">
+                    <img src={{ asset('/assets/jumbotron-banner/banner2.jpg') }} class="d-block w-100"
+                        alt="Jumbotron Banner">
+                </div>
+                <div class="carousel-item">
+                    <img src={{ asset('/assets/jumbotron-banner/banner3.jpg') }} class="d-block w-100"
+                        alt="Jumbotron Banner">
+                </div>
+                <div class="carousel-item">
+                    <img src={{ asset('/assets/jumbotron-banner/banner4.jpg') }} class="d-block w-100"
+                        alt="Jumbotron Banner">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#homeBanner" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#homeBanner" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </section>
+
+        {{-- Categories --}}
         <hr>
         <section class="d-flex justify-content-around">
             <a href="#" class="category-card">
-                <img class="img-fluid" src="https://image.flaticon.com/icons/png/512/678/678100.png" alt="Logo">
-                <p>Flower icon</p>
+                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
+                <p class="display-6">Category 1</p>
             </a>
             <a href="#" class="category-card">
-                <img class="img-fluid" src="https://image.flaticon.com/icons/png/512/678/678100.png" alt="Logo">
-                <p>Flower icon</p>
+                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
+                <p class="display-6">Category 2</p>
             </a>
             <a href="#" class="category-card">
-                <img class="img-fluid" src="https://image.flaticon.com/icons/png/512/678/678100.png" alt="Logo">
-                <p>Flower icon</p>
+                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
+                <p class="display-6">Category 3</p>
             </a>
             <a href="#" class="category-card">
-                <img class="img-fluid" src="https://image.flaticon.com/icons/png/512/678/678100.png" alt="Logo">
-                <p>Flower icon</p>
+                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
+                <p class="display-6">Category 4</p>
             </a>
         </section>
         <hr>
+
+        {{-- Recommendations --}}
         <section class="recommendations row">
+            <h1 class="fw-bold text-center">Terbanyak dilihat</h1>
+            <hr class="mb-5">
             <?php $chunk = $products->split(2); ?>
-            <div class="col-6">
+            <div class="col-md-6">
                 @foreach ($chunk[0] as $item)
-                    <a class="d-block"
-                        href="{{ route('product', ['shopURL' => $item->shop->url, 'prodName' => str_replace(' ', '-', $item->name)]) }}">
-                        {{ $item->name }}
-                    </a>
+                    @include('components.product-preview', ['item' => $item])
                 @endforeach
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
                 @foreach ($chunk[1] as $item)
-                    <a class="d-block"
-                        href="{{ route('product', ['shopURL' => $item->shop->url, 'prodName' => str_replace(' ', '-', $item->name)]) }}">
-                        {{ $item->name }}
-                    </a>
+                    @include('components.product-preview', ['item' => $item])
                 @endforeach
             </div>
         </section>
+
     </main>
 @endsection

@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Shop;
+use Illuminate\Support\Facades\Auth;
 
 class PublicController extends Controller
 {
     public function home()
     {
-        $products = Product::inRandomOrder()->limit(12)->get();
+        $products = Product::orderBy('viewers', 'desc')->limit(20)->get();
         return view('home', [
             'products' => $products,
         ]);
@@ -17,10 +18,13 @@ class PublicController extends Controller
 
     public function categoriesView()
     {
-        $shops = Shop::all();
+        return view('categories');
+    }
 
-        return view('categories', [
-            'shops' => $shops,
+    public function catalogView()
+    {
+        return view('catalog', [
+            'shops' => Shop::all(),
         ]);
     }
 
@@ -38,7 +42,11 @@ class PublicController extends Controller
     {
         $shop = ShopController::searchShopbyURL($shopURL);
         $prodName = str_replace("-", " ", $prodName);
+
         $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();
+        $product->viewers++;
+        $product->save();
+
         return view('product', [
             'product' => $product,
         ]);

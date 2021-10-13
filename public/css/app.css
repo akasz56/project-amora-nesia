@@ -11,10 +11,9 @@ body {
 
 /*------------------------------------- home */
 .jumbotron-poster {
-    margin: 3rem;
+    margin: 5vw;
     padding: 1rem;
-    border: solid 1px rgba(0, 0, 0, 0.25);
-    border-radius: 2rem;
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     background-color: #fff;
@@ -31,8 +30,8 @@ body {
 }
 
 .category-card p {
-    margin-top: 1.5rem;
-    font-size: 2rem;
+    font-size: 3vw;
+    margin-top: 2vw;
     font-weight: bold;
     text-align: center;
 }
@@ -44,12 +43,36 @@ body {
     background-color: #fff;
 }
 
+@media (min-width: 426px) {
+    .jumbotron-poster {
+        margin: 3rem;
+    }
+
+    .category-card p {
+        font-size: 1rem;
+        margin-top: 1rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .category-card p {
+        font-size: 1.2rem;
+        margin-top: 1.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .category-card p {
+        font-size: 1.7rem;
+    }
+}
+
 /*------------------------------------- forms */
 .form-required::after {
     font-weight: bold;
-    content:" *";
-    color:red;
-  }
+    content: " *";
+    color: red;
+}
 
 .form-center {
     position: relative;

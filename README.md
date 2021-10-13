@@ -10,9 +10,9 @@ product views
 product extras functions
 
 ## med
-cart functions
 order CRUD for shop
 order CRUD for users
+cart functions
 wishlist functions
 kategori functions
 recommendations at home functions

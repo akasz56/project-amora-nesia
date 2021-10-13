@@ -16,6 +16,11 @@
 
     @include('components.navbar')
 
+    @auth
+        @if (Auth::user()->email_verified_at == null)
+            <div class="alert alert-warning">Email anda belum terverifikasi</div>
+        @endif
+    @endauth
     @yield('content')
 
     @include('components.footer')

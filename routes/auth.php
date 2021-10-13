@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::middleware(['guest'])->group(function () {
     Route::get('register', function () {
-        
+
         return view('auth.register');
     })->name('register');
 
@@ -36,7 +36,7 @@ Route::middleware('auth')
 
         Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
             $request->fulfill();
-            return redirect('/home');
+            return redirect('/home')->with('verified', 'Akun anda berhasil diVerifikasi');
         })->middleware('signed')
             ->name('verify');
 
