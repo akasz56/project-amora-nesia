@@ -3,23 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\UserWishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    // -------------------------------------------------------- Views
+
     public function dashboardView()
     {
         $shop = ShopController::getShop();
         return view('user.dashboard', [
             'user' => Auth::user(),
-            'isAddressSame' => ($shop->addressID == Auth::user()->addressID) ? true : false,
+            'isAddressSame' => ($shop && $shop->addressID == Auth::user()->addressID) ? true : false,
         ]);
     }
 
     public function wishlistView()
     {
-        return view('user.wishlist');
+        $wishlist = UserWishlist::where('userID', Auth::user()->id)->get();
+        return view('user.wishlist', [
+            'wishlist' => $wishlist,
+        ]);
     }
 
     public function cartView()
@@ -45,7 +52,7 @@ class UserController extends Controller
         return view('user.notifsettings');
     }
 
-    // -------------------------------------------------------- ShopIdentity
+    // -------------------------------------------------------- UserIdentity
 
     public function updateAddress(Request $request)
     {
@@ -68,5 +75,35 @@ class UserController extends Controller
         $address->save();
 
         return back()->with('success', 'Alamat berhasil diubah');
+    }
+
+    // -------------------------------------------------------- UserIdentity
+
+    public function addWishlist(Request $request)
+    {
+        $exists =
+            UserWishlist::where('userID', Auth::user()->id)
+            ->where('productID', 5)
+            ->first();
+        if ($exists) {
+            return back()->with('danger', 'Produk ini sudah ada dalam Wishlist');
+        }
+
+        UserWishlist::create([
+            'userID' => Auth::user()->id,
+            'productID' => $request->productID,
+        ]);
+        return back()->with('success', 'Produk berhasil ditambahkan ke dalam Wishlist');
+    }
+
+    public function deleteWishlist(Request $request)
+    {
+        $exists = UserWishlist::find($request->wishlistID);
+        if (!$exists) {
+            return redirect()->route('user.wishlist')->with('danger', 'Wishlist tersebut tidak ada');
+        }
+
+        $exists->delete();
+        return back()->with('success', 'Produk berhasil dihapus dari Wishlist');
     }
 }

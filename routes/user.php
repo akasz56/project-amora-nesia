@@ -25,4 +25,13 @@ Route::prefix('u/')->middleware(['auth', 'verified'])
                 Route::post('updateAddress/', [UserController::class, 'updateAddress'])
                     ->name('updateAddress');
             });
+
+        Route::prefix('wishlist/')
+            ->name('wishlist.')
+            ->group(function () {
+                Route::post('addWishlist/', [UserController::class, 'addWishlist'])
+                    ->name('addWishlist');
+                Route::post('deleteWishlist/', [UserController::class, 'deleteWishlist'])
+                    ->name('deleteWishlist');
+            });
     });

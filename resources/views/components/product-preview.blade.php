@@ -3,12 +3,12 @@
     <div class="row g-0">
         @if ($item->photos->isNotEmpty())
             <div class="col-md-4">
-                <img class="img-fluid rounded-start" src={{ $item->photos->first()->blob }}
-                    alt="{{ $item->name }} Thumbnail">
+                <img class="img-fluid rounded-start" src={{ asset($item->photos->first()->blob) }}
+                    alt="{{ $item->name }} thumbnail">
             </div>
         @else
-            <div class="col-md-4 position-relative">
-                <p class="position-absolute top-50 start-50 translate-middle w-100">Tidak ada gambar</p>
+            <div class="col-md-4 position-relative p-3">
+                <span class="position-absolute top-50 start-50 translate-middle w-100">Tidak ada gambar</span>
             </div>
         @endif
         <div class="col-md-8">

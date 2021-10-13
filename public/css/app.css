@@ -113,3 +113,18 @@ body {
 .dashboard-nav {
     list-style-type: none;
 }
+
+.wishlist-remove {
+    width: 100%;
+    margin-bottom: 3rem;
+    padding: 1rem;
+}
+
+@media (min-width: 992px) {
+    .wishlist-remove {
+        width: initial;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}

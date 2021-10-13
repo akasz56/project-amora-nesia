@@ -4,6 +4,13 @@
 
 @section('content')
     <main class="container">
+        @if (session()->has('success'))
+            <div class="alert alert-success">{{ session()->get('success') }}</div>
+        @endif
+        @if (session()->has('danger'))
+            <div class="alert alert-danger">{{ session()->get('danger') }}</div>
+        @endif
+
         <h1>{{ $product->name }}</h1>
         <hr>
         <p>{{ $product->description }}</p>
@@ -20,6 +27,12 @@
                 </div>
             @endforeach
         </div>
+        <form action="{{ route('user.wishlist.addWishlist') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-primary" name="productID" value="{{ $product->id }}">
+                Tambahkan ke Wishlist
+            </button>
+        </form>
 
         <form action="{{ route('product.order') }}" method="POST" class="row">
             <input type="hidden" name="ID" value="{{ $product->id }}">
