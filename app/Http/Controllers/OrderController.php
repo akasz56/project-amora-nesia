@@ -41,50 +41,139 @@ class OrderController extends Controller
     public function createOrder(Request $request)
     {
         $request->validate([
-            'product' => 'required',
-            'type' => 'required',
-            'wrap' => 'required',
-            'size' => 'required',
-            'payment' => 'required',
-            'alamat' => 'required',
-            'pengiriman' => 'required',
+            'product' => 'required|numeric',
+            'type' => 'required|numeric',
+            'wrap' => 'required|numeric',
+            'size' => 'required|numeric',
+            'payment' => 'required|numeric',
+            'pengiriman' => 'required|numeric',
+            'nameSend' => 'required|alpha',
+            'phone' => 'required|numeric'
         ]);
 
-        $address = Address::find(Auth::user()->addressID);
+        // Order Identity Check
+        if (isset($request->whatsapp)) {
+            $request->validate(['whatsapp' => 'required|numeric']);
+        }
+
+        // Promo Code
+        if ($request->promo) {
+            dump("Promo Found");
+            dd($request->promo);
+        }
+
+        // Alamat
+        if (isset($request->sendToAcc)) {
+            $address = Address::find(Auth::user()->addressID);
+        } else {
+            $address = new Address();
+            $address->provinceID = $request->provinceID;
+            $address->city = $request->city;
+            $address->rt = $request->rt;
+            $address->rw = $request->rw;
+            $address->address = $request->address;
+            $address->postcode = $request->postcode;
+        }
+
+        // Pembayaran
+        switch ($request->payment) {
+            case 1:
+                dump('Bank');
+                break;
+            case 2:
+                dump('Ewallet');
+                break;
+
+            default:
+                dd("Opsi Pengiriman not Found");
+                break;
+        }
+
+        // Pengiriman
+        switch ($request->pengiriman) {
+            case 1:
+                dump('Kurir');
+                break;
+            case 2:
+                dump('Agen');
+                break;
+            case 3:
+                dump('COD');
+                // Cek bisa COD apa ngga
+                break;
+
+            default:
+                dd("Opsi Pengiriman not Found");
+                break;
+        }
+
         $user = Auth::user();
 
-        $order = Order::create([
-            'orderUUID' => Str::uuid(),
-            'userID' => $user->id,
-            'bankID' => ($request->payment == 1) ? rand(1, 3) : 0,
-            'invoiceID' => rand(111111, 999999),
-            'status' => 1,
-            'nameSend' => 'Nama dikirim',
-            'phone' => ($user->phone) ? $user->phone : "088888888888",
-            'whatsapp' => ($user->whatsapp) ? $user->whatsapp : "088888888888",
-            'provinceID' => $address->provinceID,
-            'city' => $address->city,
-            'rt' => $address->rt,
-            'rw' => $address->rw,
-            'address' => $address->address,
-            'postcode' => $address->postcode,
-        ]);
+        $order = new Order();
+        $order->orderUUID = Str::uuid();
+        $order->userID = $user->id;
+        $order->bankID = ($request->payment == 1) ? rand(1, 3) : 0;
+        $order->invoiceID = rand(111111, 999999);
+        $order->status = 1;
+        $order->nameSend = $request->nameSend;
+        $order->phone = $request->phone;
+        $order->whatsapp = ($request->whatsapp) ? $request->whatsapp : null;
+        $order->provinceID = $address->provinceID;
+        $order->city = $address->city;
+        $order->rt = $address->rt;
+        $order->rw = $address->rw;
+        $order->address = $address->address;
+        $order->postcode = $address->postcode;
 
         $product = Product::find($request->product);
-        OrderItem::create([
-            'statusID' => 1,
-            'orderID' => $order->id,
-            'orderUUID' => $order->orderUUID,
-            'userID' => $order->userID,
-            'shopID' => $product->shopID,
-            'productID' => $product->id,
-            'productTypeID' => $request->type,
-            'productWrapID' => $request->wrap,
-            'productSizeID' => $request->size,
-        ]);
+        $orderitem = new OrderItem();
+        $orderitem->statusID = 1;
+        $orderitem->orderID = $order->id;
+        $orderitem->orderUUID = $order->orderUUID;
+        $orderitem->userID = $order->userID;
+        $orderitem->shopID = $product->shopID;
+        $orderitem->productID = $product->id;
+        $orderitem->productTypeID = $request->type;
+        $orderitem->productWrapID = $request->wrap;
+        $orderitem->productSizeID = $request->size;
 
-        // return redirect()->route('user.history');
-        return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);
+        dump($address);
+        dump($order);
+        dd($orderitem);
+
+        // $order = Order::create([
+        //     'orderUUID' => Str::uuid(),
+        //     'userID' => $user->id,
+        //     'bankID' => ($request->payment == 1) ? rand(1, 3) : 0,
+        //     'invoiceID' => rand(111111, 999999),
+        //     'status' => 1,
+        //     'nameSend' => $request->nameSend,
+        //     'phone' => $request->phone,
+        //     'whatsapp' => ($request->whatsapp) ? $request->whatsapp : null,
+        //     'provinceID' => $address->provinceID,
+        //     'city' => $address->city,
+        //     'rt' => $address->rt,
+        //     'rw' => $address->rw,
+        //     'address' => $address->address,
+        //     'postcode' => $address->postcode,
+        // ]);
+
+        // foreach(???????)
+
+        // $product = Product::find($request->product);
+        // OrderItem::create([
+        //     'statusID' => 1,
+        //     'orderID' => $order->id,
+        //     'orderUUID' => $order->orderUUID,
+        //     'userID' => $order->userID,
+        //     'shopID' => $product->shopID,
+        //     'productID' => $product->id,
+        //     'productTypeID' => $request->type,
+        //     'productWrapID' => $request->wrap,
+        //     'productSizeID' => $request->size,
+        // ]);
+
+        // return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);
     }
 
     public function createOrderfromCart(Request $request)
@@ -184,7 +273,7 @@ class OrderController extends Controller
     {
         foreach ($order->orderItems as $item) {
             if ($item->statusID != $status)
-            return 0;
+                return 0;
         }
         $order->status = $status;
         $order->save();

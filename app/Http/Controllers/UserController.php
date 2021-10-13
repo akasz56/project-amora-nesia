@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         $orders = Order::where('userID', Auth::user()->id)->get();
         return view('user.orderhistory', [
-            'orders' => $orders->sortDesc(),
+            'orders' => ($orders->isEmpty()) ? null : $orders->sortDesc(),
         ]);
     }
 

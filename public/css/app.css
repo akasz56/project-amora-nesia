@@ -9,8 +9,7 @@ body {
     background-color: #ddd;
 }
 
-/* home */
-
+/*------------------------------------- home */
 .jumbotron-poster {
     margin: 3rem;
     padding: 1rem;
@@ -45,7 +44,12 @@ body {
     background-color: #fff;
 }
 
-/* forms */
+/*------------------------------------- forms */
+.form-required::after {
+    font-weight: bold;
+    content:" *";
+    color:red;
+  }
 
 .form-center {
     position: relative;
@@ -80,11 +84,9 @@ body {
         padding: 0.5rem 3rem;
         width: unset;
     }
-
 }
 
-/* users */
-
+/*------------------------------------- users */
 .dashboard-nav {
     list-style-type: none;
 }

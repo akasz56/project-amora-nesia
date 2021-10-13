@@ -1,8 +1,39 @@
-product extras pas mau ngorder di product page
-input alamat di confirm order page
-promo code dd
-tambahin page pembayaran abis confirm order
+# --------------- To Do
+## max
+Order Process including
+- opsi pembayaran
+- opsi pengiriman
 
+## high
+shop views
+product views
+product extras functions
+
+## med
+cart functions
+order CRUD for shop
+order CRUD for users
+wishlist functions
+kategori functions
+recommendations at home functions
+category recommendations at home functions
+banner home functions
+foto produk functions
+search bar
+
+## low
+promo code
+shop sales functions
+
+## min
+pengaturan akun functions
+pengaturan notifikasi functions
+foto akun functions
+
+# --------------- Iterations
+add product bisa pake modal
+
+# --------------- Order Process
 # product page
 - pilih type
 - pilih wrap
@@ -23,36 +54,3 @@ tambahin page pembayaran abis confirm order
 # order status page
 - info seputar order
 - (test) nunggu 5 menit
-
-# max
-
-# high
-opsi pembayaran
-opsi pengiriman
-shop views
-product views
-product extras functions
-
-# med
-cart functions
-order CRUD for shop
-order CRUD for users
-wishlist functions
-kategori functions
-recommendations at home functions
-category recommendations at home functions
-banner home functions
-foto produk functions
-search bar
-
-# low
-promo code
-update user biodata at user.dashboard functions
-update shop biodata at user.dashboard functions
-shop order functions update(?)
-shop sales functions
-
-# min
-pengaturan akun functions
-pengaturan notifikasi functions
-foto akun functions
