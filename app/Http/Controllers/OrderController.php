@@ -6,49 +6,90 @@ use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\UserCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
+    // -------------------------------------------------------- Statics
+
+    public static function checkOrder($order, $status)
+    {
+        foreach ($order->orderItems as $item) {
+            if ($item->statusID != $status)
+                return 0;
+        }
+        $order->status = $status;
+        $order->save();
+        return 1;
+    }
+
+    public static function deleteAllCart(Request $request)
+    {
+        dump("deleteAllCart");
+        dd($request);
+    }
+
+    // -------------------------------------------------------- Actions
+
+    public function submitOrderOrCart(Request $request)
+    {
+        if ($request->type == 0) return back()->with('typeError', "Silahkan Pilih Jenis Bunga");
+        if ($request->wrap == 0) return back()->with('wrapError', "Silahkan Pilih Jenis Bungkus");
+        if ($request->size == 0) return back()->with('sizeError', "Silahkan Pilih Ukuran");
+
+        switch ($request->btn) {
+            case 'order':
+                return $this->confirmOrder($request);
+                break;
+            case 'cart':
+                return $this->addToCart($request);
+                break;
+
+            default:
+                return back()->with('danger', "No Action Found");
+                break;
+        }
+        dd("Error Occured - OC101");
+    }
+
     public function confirmOrder(Request $request)
     {
-        $request->validate([
-            'ID' => 'required',
-            'type' => 'required',
-            'wrap' => 'required',
-            'size' => 'required',
-        ]);
-
-        $product = Product::find($request->ID);
-        $type = $product->types->where('name', $request->type)->first();
-        $wrap = $product->wraps->where('name', $request->wrap)->first();
-        $size = $product->sizes->where('name', $request->size)->first();
+        $basket = new UserCart();
+        $basket->userID = Auth::user()->id;
+        $basket->productID = $request->ID;
+        $basket->productTypeID = $request->type;
+        $basket->productWrapID = $request->wrap;
+        $basket->productSizeID = $request->size;
+        $basket = collect([$basket]);
 
         return view('order.confirm', [
-            'product' => $product,
-            'type' => $type,
-            'wrap' => $wrap,
-            'size' => $size,
+            'basket' => $basket,
         ]);
     }
 
-    public function confirmOrderfromCart(Request $request)
+    public function confirmOrderfromCart()
     {
+        $basket = UserCart::where('userID', Auth::user()->id)->get();
+        $basket = collect($basket);
+
+        return view('order.confirm', [
+            'basket' => $basket,
+        ]);
     }
+
+    // -------------------------------------------------------- OrderCRUD
 
     public function createOrder(Request $request)
     {
         $request->validate([
-            'product' => 'required|numeric',
-            'type' => 'required|numeric',
-            'wrap' => 'required|numeric',
-            'size' => 'required|numeric',
+            'nameSend' => 'required|alpha',
+            'phone' => 'required|numeric',
+
             'payment' => 'required|numeric',
             'pengiriman' => 'required|numeric',
-            'nameSend' => 'required|alpha',
-            'phone' => 'required|numeric'
         ]);
 
         // Order Identity Check
@@ -125,21 +166,30 @@ class OrderController extends Controller
         $order->address = $address->address;
         $order->postcode = $address->postcode;
 
-        $product = Product::find($request->product);
-        $orderitem = new OrderItem();
-        $orderitem->statusID = 1;
-        $orderitem->orderID = $order->id;
-        $orderitem->orderUUID = $order->orderUUID;
-        $orderitem->userID = $order->userID;
-        $orderitem->shopID = $product->shopID;
-        $orderitem->productID = $product->id;
-        $orderitem->productTypeID = $request->type;
-        $orderitem->productWrapID = $request->wrap;
-        $orderitem->productSizeID = $request->size;
+        // OrderItems
+        $productIDs = collect($request);
+        $productIDs = $productIDs->filter(function ($value, $key) {
+            return strpos($key, "product") !== false;
+        });
 
+        // Each OrderItem
+        $orderitem = new OrderItem();
+        for ($i = 1; $i <= $productIDs->count(); $i++) {
+            $product = Product::find($request['productID-' . $i]);
+
+            $orderitem->statusID = 1;
+            $orderitem->orderID = $order->id;
+            $orderitem->orderUUID = $order->orderUUID;
+            $orderitem->userID = $order->userID;
+            $orderitem->shopID = $product->shopID;
+            $orderitem->productID = $product->id;
+            $orderitem->productTypeID = $request['typeID-' . $i];
+            $orderitem->productWrapID = $request['wrapID-' . $i];
+            $orderitem->productSizeID = $request['sizeID-' . $i];
+            dump($orderitem);
+        }
         dump($address);
-        dump($order);
-        dd($orderitem);
+        dd($order);
 
         // $order = Order::create([
         //     'orderUUID' => Str::uuid(),
@@ -174,10 +224,6 @@ class OrderController extends Controller
         // ]);
 
         // return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);
-    }
-
-    public function createOrderfromCart(Request $request)
-    {
     }
 
     public function cancelOrder(Request $request)
@@ -269,14 +315,46 @@ class OrderController extends Controller
         ]);
     }
 
-    public static function checkOrder($order, $status)
+    // -------------------------------------------------------- UserCart
+
+    public function addToCart(Request $request)
     {
-        foreach ($order->orderItems as $item) {
-            if ($item->statusID != $status)
-                return 0;
+        $cart = UserCart::where('userID', Auth::user()->id)->get();
+        if ($cart->count() > 10) {
+            return back()->with('danger', 'Produk ini sudah ada dalam Keranjang');
         }
-        $order->status = $status;
-        $order->save();
-        return 1;
+
+        $exists =
+            $cart->where('productID', $request->ID)
+            ->where('productTypeID', $request->type)
+            ->where('productWrapID', $request->wrap)
+            ->where('productSizeID', $request->size)
+            ->first();
+        if ($exists) {
+            return back()->with('danger', 'Produk ini sudah ada dalam Keranjang');
+        }
+
+        $cart = UserCart::create([
+            'userID' => Auth::user()->id,
+            'productID' => $request->ID,
+            'productTypeID' => $request->type,
+            'productWrapID' => $request->wrap,
+            'productSizeID' => $request->size,
+        ]);
+        if ($cart) {
+            return redirect()->route('user.cart')->with('success', 'Produk berhasil ditambahkan ke dalam Keranjang');
+        }
+        return back()->with('danger', 'Terjadi kesalahan, mohon coba lagi');
+    }
+
+    public function deleteCart(Request $request)
+    {
+        $exists = UserCart::find($request->cartID);
+        if (!$exists) {
+            return redirect()->route('user.cart')->with('danger', 'Produk tersebut tidak ada dalam keranjang');
+        }
+
+        $exists->delete();
+        return back()->with('success', 'Produk berhasil dihapus dari Keranjang');
     }
 }

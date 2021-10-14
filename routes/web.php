@@ -45,7 +45,8 @@ Route::get('/catalog', [PublicController::class, 'catalogView'])->name('catalog'
 Orders Routes
 ------------------------------------- */
 Route::middleware('auth')->group(function () {
-    Route::post('/order/confirm', [OrderController::class, 'confirmOrder'])->name('product.order');
+    Route::post('/order/submit', [OrderController::class, 'submitOrderOrCart'])->name('product.submit');
+    Route::post('/order/submit-cart', [OrderController::class, 'confirmOrderfromCart'])->name('cart.submit');
     Route::post('/order/create', [OrderController::class, 'createOrder'])->name('order.create');
     Route::post('/order/cancel', [OrderController::class, 'cancelOrder'])->name('order.cancel');
     Route::post('/order/update', [OrderController::class, 'updateOrder'])->name('order.update');

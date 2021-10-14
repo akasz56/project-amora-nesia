@@ -27,51 +27,64 @@
                 </div>
             @endforeach
         </div>
-        <form action="{{ route('user.wishlist.addWishlist') }}" method="POST">
+
+        <form action="{{ route('user.wishlist.add') }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-primary" name="productID" value="{{ $product->id }}">
+            <button type="submit" class="btn btn-secondary p-3" name="productID" value="{{ $product->id }}">
                 Tambahkan ke Wishlist
             </button>
         </form>
 
-        <form action="{{ route('product.order') }}" method="POST" class="row">
-            <input type="hidden" name="ID" value="{{ $product->id }}">
-            @csrf
+        <form action="{{ route('product.submit') }}" method="POST">
+            <section class="row">
+                <input type="hidden" name="ID" value="{{ $product->id }}">
+                @csrf
 
-            <div class="col-4">
-                <label for="type" class="mt-5 form-label">Jenis Bunga</label>
-                <select class="form-select" id="type" name="type">
-                    <option value="" hidden>Pilih satu</option>
-                    @foreach ($product->types as $item)
-                        <option value="{{ $item->name }}">{{ $item->name }} | {{ $item->color }} |
-                            {{ $item->stock }} | {{ $item->price }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="col-4">
+                    <label for="type" class="mt-5 form-label">Jenis Bunga</label>
+                    <select class="form-select" id="type" name="type" required>
+                        <option value="0" hidden>Pilih satu</option>
+                        @foreach ($product->types as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }} | {{ $item->color }} |
+                                {{ $item->stock }} | {{ $item->price }}</option>
+                        @endforeach
+                    </select>
+                    @if (session()->has('typeError'))<small class="text-danger">{{ session()->get('typeError') }}</small>@endif
+                </div>
 
-            <div class="col-4">
-                <label for="wrap" class="mt-5 form-label">Jenis Bungkus</label>
-                <select class="form-select" id="wrap" name="wrap">
-                    <option value="" hidden>Pilih satu</option>
-                    @foreach ($product->wraps as $item)
-                        <option value="{{ $item->name }}">{{ $item->name }} | {{ $item->color }} |
-                            {{ $item->stock }} | {{ $item->price }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="col-4">
+                    <label for="wrap" class="mt-5 form-label">Jenis Bungkus</label>
+                    <select class="form-select" id="wrap" name="wrap" required>
+                        <option value="0" hidden>Pilih satu</option>
+                        @foreach ($product->wraps as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }} | {{ $item->color }} |
+                                {{ $item->stock }} | {{ $item->price }}</option>
+                        @endforeach
+                    </select>
+                    @if (session()->has('wrapError'))<small class="text-danger">{{ session()->get('wrapError') }}</small>@endif
+                </div>
 
-            <div class="col-4">
-                <label for="size" class="mt-5 form-label">Ukuran</label>
-                <select class="form-select" id="size" name="size">
-                    <option value="" hidden>Pilih satu</option>
-                    @foreach ($product->sizes as $item)
-                        <option value="{{ $item->name }}">{{ $item->name }} | {{ $item->color }} |
-                            {{ $item->stock }} | {{ $item->price }}</option>
-                    @endforeach
-                </select>
-            </div>
+                <div class="col-4">
+                    <label for="size" class="mt-5 form-label">Ukuran</label>
+                    <select class="form-select" id="size" name="size" required>
+                        <option value="0" hidden>Pilih satu</option>
+                        @foreach ($product->sizes as $item)
+                            <option value="{{ $item->id }}">{{ $item->name }} | {{ $item->color }} |
+                                {{ $item->stock }} | {{ $item->price }}</option>
+                        @endforeach
+                    </select>
+                    @if (session()->has('sizeError'))<small class="text-danger">{{ session()->get('sizeError') }}</small>@endif
+                </div>
+            </section>
 
-            <button type="submit" class="mt-5 btn btn-primary">Buy</button>
+            <section class="mt-3 d-flex flex-column">
+                <button type="submit" class="w-100 mt-3 p-3 btn btn-outline-primary" name="btn" value="cart">
+                    Tambahkan ke Keranjang
+                </button>
+                <button type="submit" class="w-100 mt-2 p-3 btn btn-primary" name="btn" value="order">
+                    Buy
+                </button>
+            </section>
         </form>
 
         {{-- JavaScripts --}}

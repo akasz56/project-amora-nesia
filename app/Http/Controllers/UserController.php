@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\UserCart;
 use App\Models\UserWishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +32,10 @@ class UserController extends Controller
 
     public function cartView()
     {
-        return view('user.cart');
+        $cart = UserCart::where('userID', Auth::user()->id)->get();
+        return view('user.cart', [
+            'cart' => $cart,
+        ]);
     }
 
     public function historyView()
@@ -77,13 +81,13 @@ class UserController extends Controller
         return back()->with('success', 'Alamat berhasil diubah');
     }
 
-    // -------------------------------------------------------- UserIdentity
+    // -------------------------------------------------------- UserWishlist
 
     public function addWishlist(Request $request)
     {
         $exists =
             UserWishlist::where('userID', Auth::user()->id)
-            ->where('productID', 5)
+            ->where('productID', $request->productID)
             ->first();
         if ($exists) {
             return back()->with('danger', 'Produk ini sudah ada dalam Wishlist');

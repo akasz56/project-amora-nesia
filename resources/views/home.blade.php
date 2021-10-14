@@ -86,12 +86,12 @@
             <?php $chunk = $products->split(2); ?>
             <div class="col-md-6">
                 @foreach ($chunk[0] as $item)
-                    @include('components.product-preview', ['item' => $item])
+                    @include('components.product-preview', ['item' => $item, 'class' => 'mb-3'])
                 @endforeach
             </div>
             <div class="col-md-6">
                 @foreach ($chunk[1] as $item)
-                    @include('components.product-preview', ['item' => $item])
+                    @include('components.product-preview', ['item' => $item, 'class' => 'mb-3'])
                 @endforeach
             </div>
         </section>

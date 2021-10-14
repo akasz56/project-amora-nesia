@@ -1,4 +1,4 @@
-<a class="card mb-3 text-decoration-none text-reset btn btn-light p-0 "
+<a class="card text-decoration-none text-reset btn btn-light p-0 {{ $var = isset($class) ? $class : '' }}"
     href="{{ route('product', ['shopURL' => $item->shop->url, 'prodName' => str_replace(' ', '-', $item->name)]) }}">
     <div class="row g-0">
         @if ($item->photos->isNotEmpty())
@@ -13,8 +13,16 @@
         @endif
         <div class="col-md-8">
             <div class="card-body">
-                <h3 class="card-title text-start fw-bold">{{ $item->name }}</h3>
-                <p class="card-text text-start">{{ substr($item->description, 0, 50) . '...' }}</p>
+                <h3 class="card-title text-start fw-bold">
+                    {{ $var = strlen($item->name) > (isset($titleLen) ? $titleLen : 25) ? substr($item->name, 0, isset($titleLen) ? $titleLen : 25) . '...' : $item->name }}
+                </h3>
+                <p class="card-text text-start">
+                    {{ $var = strlen($item->description) > (isset($descLen) ? $descLen : 50) ? substr($item->description, 0, isset($descLen) ? $descLen : 50) . '...' : $item->description }}
+                    @if (isset($cart))
+                        <br> {{ $cart->type->name }} | {{ $cart->wrap->name }} | {{ $cart->size->name }}
+                        <br> extras : no
+                    @endif
+                </p>
             </div>
         </div>
     </div>

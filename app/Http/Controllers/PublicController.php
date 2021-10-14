@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Shop;
-use Illuminate\Support\Facades\Auth;
 
 class PublicController extends Controller
 {

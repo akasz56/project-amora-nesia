@@ -13,11 +13,11 @@
         <h1>User Wishlist</h1>
         @if ($wishlist)
             @foreach ($wishlist as $item)
-                <form action="{{ route('user.wishlist.deleteWishlist') }}" method="POST" class="mt-5 position-relative">
+                <form action="{{ route('user.wishlist.delete') }}" method="POST" class="mt-5 position-relative">
                     @include('components.product-preview', ['item' => $item->product])
                     @csrf
                     <button type="submit" class="btn btn-danger wishlist-remove rounded-0" name="wishlistID"
-                        value="{{ $item->id }}">
+                        value="{{ $item->id }}" onclick="return confirm('Yakin menghapus produk dari wishlist?')">
                         Hapus dari Wishlist
                     </button>
                 </form>

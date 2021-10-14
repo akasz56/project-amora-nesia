@@ -8,15 +8,19 @@
             @csrf
 
             {{-- OrderInfo --}}
-            <h2>Konfirmasi 1 Pesanan : {{ $product->name }}</h2>
-            <input type="hidden" name="product" value="{{ $product->id }}">
+            <h2>Konfirmasi {{ $basket->count() }} Pesanan</h2>
             <hr>
-            <p>Jenis Bunga : {{ $type->name }}</p>
-            <input type="hidden" name="type" value="{{ $type->id }}">
-            <p>Bungkus Bucket : {{ $wrap->name }}</p>
-            <input type="hidden" name="wrap" value="{{ $wrap->id }}">
-            <p>Ukuran Bucket : {{ $size->name }}</p>
-            <input type="hidden" name="size" value="{{ $size->id }}">
+
+            <?php $i = 1; ?>
+            @foreach ($basket as $item)
+                @include('components.product-preview', ['item' => $item->product, 'cart' => $item, 'class' => 'mb-3'])
+                <input type="hidden" name="{{ 'productID-' . $i }}" value="{{ $item->product->id }}">
+                <input type="hidden" name="{{ 'typeID-' . $i }}" value="{{ $item->type->id }}">
+                <input type="hidden" name="{{ 'wrapID-' . $i }}" value="{{ $item->wrap->id }}">
+                <input type="hidden" name="{{ 'sizeID-' . $i }}" value="{{ $item->size->id }}">
+                <?php $i++; ?>
+            @endforeach
+
             <div class="col-6">
                 <label for="nameSend" class="form-label mt-2 form-required">Nama Tujuan / Untuk siapa?</label>
                 <input type="text" class="form-control" id="nameSend" name="nameSend" required>
@@ -30,11 +34,6 @@
                 <input type="number" class="form-control" id="whatsapp" name="whatsapp">
                 @error('whatsapp')<small class="text-danger">{{ $message }}</small>@enderror
             </div>
-
-            {{-- Extras --}}
-            <h2 class="mt-5">Extras</h2>
-            <hr>
-            <p>none</p>
 
             {{-- Promo Code --}}
             <h2 class="mt-5">Promo code</h2>

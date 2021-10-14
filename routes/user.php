@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,8 +31,15 @@ Route::prefix('u/')->middleware(['auth', 'verified'])
             ->name('wishlist.')
             ->group(function () {
                 Route::post('addWishlist/', [UserController::class, 'addWishlist'])
-                    ->name('addWishlist');
+                    ->name('add');
                 Route::post('deleteWishlist/', [UserController::class, 'deleteWishlist'])
-                    ->name('deleteWishlist');
+                    ->name('delete');
+            });
+
+        Route::prefix('cart/')
+            ->name('cart.')
+            ->group(function () {
+                Route::post('deleteCart/', [OrderController::class, 'deleteCart'])
+                    ->name('delete');
             });
     });

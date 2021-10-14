@@ -1,4 +1,9 @@
 # --------------- To Do
+## doing
+cart functions
+- clearCart
+order functions
+
 ## max
 Order Process including
 - opsi pembayaran
@@ -12,8 +17,6 @@ product extras functions
 ## med
 order CRUD for shop
 order CRUD for users
-cart functions
-wishlist functions
 kategori functions
 recommendations at home functions
 category recommendations at home functions
@@ -32,6 +35,8 @@ foto akun functions
 
 # --------------- Iterations
 add product bisa pake modal
+cart bisa digrup per toko
+confirm order bisa digrup per toko
 
 # --------------- Order Process
 # product page
