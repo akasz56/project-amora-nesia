@@ -14,7 +14,7 @@ class Reference extends Migration
      */
     public function up()
     {
-        Schema::create('ref_bank', function (Blueprint $table) {
+        Schema::create('ref_payment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
         });
@@ -34,10 +34,13 @@ class Reference extends Migration
             $table->string('name');
         });
 
-        $this->customSeed('ref_bank', [
+        $this->customSeed('ref_payment', [
             ['name' => 'Mandiri'],
             ['name' => 'BNI'],
             ['name' => 'BCA'],
+            ['name' => 'Gopay'],
+            ['name' => 'OVO'],
+            ['name' => 'Dana'],
         ]);
 
         $this->customSeed('ref_province', [

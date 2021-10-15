@@ -29,14 +29,14 @@ class Product extends Model
 
     public function types()
     {
-        return $this->hasMany(FlowerType::class, 'productID');
+        return $this->hasMany(ProductType::class, 'productID');
     }
     public function wraps()
     {
-        return $this->hasMany(FlowerWrap::class, 'productID');
+        return $this->hasMany(ProductWrap::class, 'productID');
     }
     public function sizes()
     {
-        return $this->hasMany(FlowerSize::class, 'productID');
+        return $this->hasMany(ProductSize::class, 'productID');
     }
 }

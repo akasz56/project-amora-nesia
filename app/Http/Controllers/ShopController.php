@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\FlowerSize;
-use App\Models\FlowerType;
-use App\Models\FlowerWrap;
+use App\Models\ProductSize;
+use App\Models\ProductType;
+use App\Models\ProductWrap;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -288,9 +288,9 @@ class ShopController extends Controller
 
     public function deleteProduct(Request $request)
     {
-        FlowerType::where('productID', $request->productID)->delete();
-        FlowerWrap::where('productID', $request->productID)->delete();
-        FlowerSize::where('productID', $request->productID)->delete();
+        ProductType::where('productID', $request->productID)->delete();
+        ProductWrap::where('productID', $request->productID)->delete();
+        ProductSize::where('productID', $request->productID)->delete();
 
         $product = Product::find($request->productID)->delete();
         if ($product == 0)
@@ -308,7 +308,7 @@ class ShopController extends Controller
         switch ($request->specification) {
             case 'type':
                 $spec = 'type';
-                $object = FlowerType::create([
+                $object = ProductType::create([
                     'productID' => $request->productID,
                     'name' => $request->name,
                     'color' => $request->variable,
@@ -318,7 +318,7 @@ class ShopController extends Controller
                 break;
             case 'wrap':
                 $spec = 'wrap';
-                $object = FlowerWrap::create([
+                $object = ProductWrap::create([
                     'productID' => $request->productID,
                     'name' => $request->name,
                     'color' => $request->variable,
@@ -328,7 +328,7 @@ class ShopController extends Controller
                 break;
             case 'size':
                 $spec = 'size';
-                $object = FlowerSize::create([
+                $object = ProductSize::create([
                     'productID' => $request->productID,
                     'name' => $request->name,
                     'flower_amount' => $request->variable,
@@ -372,7 +372,7 @@ class ShopController extends Controller
     {
         switch ($request->specification) {
             case 'type':
-                $spec = FlowerType::find($request->specID);
+                $spec = ProductType::find($request->specID);
                 $spec->name = $request->name;
                 $spec->color = $request->variable;
                 $spec->stock = $request->stock;
@@ -382,7 +382,7 @@ class ShopController extends Controller
                 break;
 
             case 'wrap':
-                $spec = FlowerWrap::find($request->specID);
+                $spec = ProductWrap::find($request->specID);
                 $spec->name = $request->name;
                 $spec->color = $request->variable;
                 $spec->stock = $request->stock;
@@ -392,7 +392,7 @@ class ShopController extends Controller
                 break;
 
             case 'size':
-                $spec = FlowerSize::find($request->specID);
+                $spec = ProductSize::find($request->specID);
                 $spec->name = $request->name;
                 $spec->flower_amount = $request->variable;
                 $spec->stock = $request->stock;
@@ -412,15 +412,15 @@ class ShopController extends Controller
     {
         switch ($spec) {
             case 'type':
-                FlowerType::find($id)->delete();
+                ProductType::find($id)->delete();
                 $message = 'type';
                 break;
             case 'wrap':
-                FlowerWrap::find($id)->delete();
+                ProductWrap::find($id)->delete();
                 $message = 'wrap';
                 break;
             case 'size':
-                FlowerSize::find($id)->delete();
+                ProductSize::find($id)->delete();
                 $message = 'size';
                 break;
 

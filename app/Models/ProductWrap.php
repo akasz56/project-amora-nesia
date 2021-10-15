@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FlowerType extends Model
+class ProductWrap extends Model
 {
     use HasFactory;
 

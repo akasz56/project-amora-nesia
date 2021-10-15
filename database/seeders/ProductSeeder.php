@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\FlowerSize;
-use App\Models\FlowerType;
-use App\Models\FlowerWrap;
+use App\Models\ProductSize;
+use App\Models\ProductType;
+use App\Models\ProductWrap;
 use App\Models\Product;
 use Illuminate\Database\Seeder;
 
@@ -21,31 +21,31 @@ class ProductSeeder extends Seeder
 
         for ($i = 1; $i <= $users; $i++) {
             for ($j = 1; $j <= 3; $j++) {
-                $prodID = Product::factory()->create([
+                $product = Product::factory()->create([
                     'shopID' => $i,
                 ]);
 
                 for ($k = 1; $k <= 3; $k++) {
-                    FlowerType::factory()->create([
-                        'productID' => $prodID,
+                    ProductType::factory()->create([
+                        'productID' => $product->id,
                     ]);
-                    FlowerWrap::factory()->create([
-                        'productID' => $prodID,
+                    ProductWrap::factory()->create([
+                        'productID' => $product->id,
                     ]);
                 }
 
-                FlowerSize::factory()->create([
-                    'productID' => $prodID,
+                ProductSize::factory()->create([
+                    'productID' => $product->id,
                     'name' => 'S',
                     'flower_amount' => rand(5, 7),
                 ]);
-                FlowerSize::factory()->create([
-                    'productID' => $prodID,
+                ProductSize::factory()->create([
+                    'productID' => $product->id,
                     'name' => 'M',
                     'flower_amount' => rand(8, 12),
                 ]);
-                FlowerSize::factory()->create([
-                    'productID' => $prodID,
+                ProductSize::factory()->create([
+                    'productID' => $product->id,
                     'name' => 'L',
                     'flower_amount' => rand(13, 15),
                 ]);

@@ -165,6 +165,7 @@ class OrderController extends Controller
         $order->rw = $address->rw;
         $order->address = $address->address;
         $order->postcode = $address->postcode;
+        dump($order);
 
         // OrderItems
         $productIDs = collect($request);
@@ -188,8 +189,7 @@ class OrderController extends Controller
             $orderitem->productSizeID = $request['sizeID-' . $i];
             dump($orderitem);
         }
-        dump($address);
-        dd($order);
+        dd($address);
 
         // $order = Order::create([
         //     'orderUUID' => Str::uuid(),

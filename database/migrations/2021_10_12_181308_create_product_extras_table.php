@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFlowerSizesTable extends Migration
+class CreateProductExtrasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateFlowerSizesTable extends Migration
      */
     public function up()
     {
-        Schema::create('flower_sizes', function (Blueprint $table) {
+        Schema::create('product_extras', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('productID');
-            $table->string('name')->unique();
-            $table->string('flower_amount')->nullable();
-            $table->unsignedInteger('stock');
-            $table->unsignedInteger('price');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ class CreateFlowerSizesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('flower_sizes');
+        Schema::dropIfExists('product_extras');
     }
 }

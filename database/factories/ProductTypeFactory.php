@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\FlowerType;
+use App\Models\ProductType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class FlowerTypeFactory extends Factory
+class ProductTypeFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = FlowerType::class;
+    protected $model = ProductType::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class FlowerTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->words(rand(1,4), true),
+            'name' => $this->faker->words(rand(1, 4), true),
             'color' => $this->faker->colorName(),
             'stock' => rand(0, 100),
             'price' => rand(10000, 500000),

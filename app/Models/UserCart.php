@@ -29,14 +29,14 @@ class UserCart extends Model
 
     public function type()
     {
-        return $this->hasOne(FlowerType::class, 'id', 'productTypeID');
+        return $this->hasOne(ProductType::class, 'id', 'productTypeID');
     }
     public function wrap()
     {
-        return $this->hasOne(FlowerWrap::class, 'id', 'productWrapID');
+        return $this->hasOne(ProductWrap::class, 'id', 'productWrapID');
     }
     public function size()
     {
-        return $this->hasOne(FlowerSize::class, 'id', 'productSizeID');
+        return $this->hasOne(ProductSize::class, 'id', 'productSizeID');
     }
 }

@@ -38,14 +38,14 @@ class OrderItem extends Model
     }
     public function product_type()
     {
-        return $this->hasOne(FlowerType::class, 'id', 'productTypeID');
+        return $this->hasOne(ProductType::class, 'id', 'productTypeID');
     }
     public function product_wrap()
     {
-        return $this->hasOne(FlowerWrap::class, 'id', 'productWrapID');
+        return $this->hasOne(ProductWrap::class, 'id', 'productWrapID');
     }
     public function product_size()
     {
-        return $this->hasOne(FlowerSize::class, 'id', 'productSizeID');
+        return $this->hasOne(ProductSize::class, 'id', 'productSizeID');
     }
 }

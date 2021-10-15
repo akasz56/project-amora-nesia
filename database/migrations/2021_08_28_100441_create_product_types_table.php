@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFlowerTypesTable extends Migration
+class CreateProductTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFlowerTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('flower_types', function (Blueprint $table) {
+        Schema::create('product_types', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('productID');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('color');
             $table->unsignedInteger('stock');
             $table->unsignedInteger('price');
@@ -31,6 +31,6 @@ class CreateFlowerTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('flower_types');
+        Schema::dropIfExists('product_types');
     }
 }
