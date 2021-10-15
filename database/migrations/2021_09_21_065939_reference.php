@@ -14,11 +14,6 @@ class Reference extends Migration
      */
     public function up()
     {
-        Schema::create('ref_payment', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-        });
-
         Schema::create('ref_province', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -29,19 +24,20 @@ class Reference extends Migration
             $table->string('name');
         });
 
-        Schema::create('ref_order_status', function (Blueprint $table) {
+        Schema::create('ref_payment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
         });
 
-        $this->customSeed('ref_payment', [
-            ['name' => 'Mandiri'],
-            ['name' => 'BNI'],
-            ['name' => 'BCA'],
-            ['name' => 'Gopay'],
-            ['name' => 'OVO'],
-            ['name' => 'Dana'],
-        ]);
+        Schema::create('ref_shipment', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+        });
+
+        Schema::create('ref_order_status', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+        });
 
         $this->customSeed('ref_province', [
             ['name' => 'Aceh'],
@@ -85,6 +81,21 @@ class Reference extends Migration
             ['name' => 'Perempuan'],
         ]);
 
+        $this->customSeed('ref_payment', [
+            ['name' => 'Mandiri'],
+            ['name' => 'BNI'],
+            ['name' => 'BCA'],
+            ['name' => 'Gopay'],
+            ['name' => 'OVO'],
+            ['name' => 'Dana'],
+        ]);
+
+        $this->customSeed('ref_shipment', [
+            ['name' => 'Kurir'],
+            ['name' => 'Agen'],
+            ['name' => 'COD'],
+        ]);
+
         $this->customSeed('ref_order_status', [
             ['name' => 'pending'],  // 1
             ['name' => 'menunggu'], // 2
@@ -106,9 +117,10 @@ class Reference extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ref_bank');
         Schema::dropIfExists('ref_province');
         Schema::dropIfExists('ref_gender');
+        Schema::dropIfExists('ref_payment');
+        Schema::dropIfExists('ref_shipment');
         Schema::dropIfExists('ref_order_status');
     }
 

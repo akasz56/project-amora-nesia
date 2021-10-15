@@ -25,6 +25,7 @@ class CreateShopsTable extends Migration
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('email')->nullable()->unique();
+            $table->boolean('is_CODable')->nullable();
             $table->timestamps();
         });
     }
