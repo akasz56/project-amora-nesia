@@ -44,24 +44,18 @@
             {{-- Payment --}}
             <h2 class="mt-5">Pembayaran</h2>
             <hr>
-            <input type="radio" name="payment" value="1" id="bank" onclick="togglePayment()" required>
-            <label for="bank">bank</label><br>
-            <div class="card" id="bankInfo" style="display: none">
-                <div class="card-body">
-                    Bank ipsum dolor, sit amet consectetur adipisicing elit. Illum quod aperiam distinctio, corrupti
-                    aspernatur laboriosam delectus quas at reprehenderit. Autem fuga totam sint! Accusamus deserunt sit
-                    repellat voluptate ut asperiores.
+            @foreach ($payment as $item)
+                <input type="radio" name="payment" value="{{ $item->id }}" id="{{ $item->name }}"
+                    onclick="togglePayment('{{ $item->name }}')" required>
+                <label for="{{ $item->name }}">{{ $item->name }}</label><br>
+                <div class="card" id="{{ $item->name . 'Info' }}" style="display: none">
+                    <div class="card-body">
+                        <p>{{ $item->noRek }}</p>
+                        <p>{{ $item->namaRek }}</p>
+                        <p>{{ $item->desc }}</p>
+                    </div>
                 </div>
-            </div>
-            <input type="radio" name="payment" value="2" id="ewallet" onclick="togglePayment()">
-            <label for="ewallet">ewallet</label><br>
-            <div class="card" id="ewalletInfo" style="display: none">
-                <div class="card-body">
-                    Ewallet ipsum dolor, sit amet consectetur adipisicing elit. Illum quod aperiam distinctio, corrupti
-                    aspernatur laboriosam delectus quas at reprehenderit. Autem fuga totam sint! Accusamus deserunt sit
-                    repellat voluptate ut asperiores.
-                </div>
-            </div>
+            @endforeach
 
             {{-- Pengiriman --}}
             <h2 class="mt-5">Pengiriman</h2>
@@ -135,15 +129,11 @@
                     "block";
             }
 
-            function togglePayment() {
-                let btn_bank = document.getElementById('bank');
-                let btn_ewallet = document.getElementById('ewallet');
+            function togglePayment(btn) {
+                let button = document.getElementById(btn);
+                let box = document.getElementById(btn.concat('Info'));
 
-                let box_bank = document.getElementById('bankInfo');
-                let box_ewallet = document.getElementById('ewalletInfo');
-
-                box_bank.style.display = (bank.checked) ? 'block' : 'none';
-                box_ewallet.style.display = (ewallet.checked) ? 'block' : 'none';
+                box.style.display = (button.checked) ? 'block' : 'none';
             }
         </script>
     </main>

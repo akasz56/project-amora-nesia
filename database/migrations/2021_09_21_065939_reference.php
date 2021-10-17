@@ -27,6 +27,9 @@ class Reference extends Migration
         Schema::create('ref_payment', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('noRek')->default("010292383474565");
+            $table->string('namaRek')->default("Amora Store Bank Acc");
+            $table->string('desc')->default("Lorem ipsum dolor, sit amet consectetur adipisicing elit. Illum quod aperiam distinctio, corrupti aspernatur laboriosam delectus quas at reprehenderit. Autem fuga totam sint! Accusamus deserunt sit repellat voluptate ut asperiores.");
         });
 
         Schema::create('ref_shipment', function (Blueprint $table) {

@@ -40,6 +40,9 @@ class PublicController extends Controller
     public function productView($shopURL, $prodName)
     {
         $shop = ShopController::searchShopbyURL($shopURL);
+        if ($shop === null) {
+            abort('404');
+        }
         $prodName = str_replace("-", " ", $prodName);
 
         $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();

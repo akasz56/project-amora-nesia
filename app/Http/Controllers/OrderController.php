@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\UserCart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class OrderController extends Controller
@@ -67,6 +68,8 @@ class OrderController extends Controller
 
         return view('order.confirm', [
             'basket' => $basket,
+            'payment' => DB::table('ref_payment')->select('*')->get()->toArray(),
+            'shipment' => DB::table('ref_shipment')->select('*')->get()->toArray(),
         ]);
     }
 
@@ -77,6 +80,8 @@ class OrderController extends Controller
 
         return view('order.confirm', [
             'basket' => $basket,
+            'payment' => DB::table('ref_payment')->select('*')->get()->toArray(),
+            'shipment' => DB::table('ref_shipment')->select('*')->get()->toArray(),
         ]);
     }
 
@@ -153,12 +158,14 @@ class OrderController extends Controller
         $order = new Order();
         $order->orderUUID = Str::uuid();
         $order->userID = $user->id;
-        $order->bankID = ($request->payment == 1) ? rand(1, 3) : 0;
-        $order->invoiceID = rand(111111, 999999);
+        $order->paymentID = '';
+        $order->shipmentID = '';
         $order->status = 1;
+
         $order->nameSend = $request->nameSend;
         $order->phone = $request->phone;
         $order->whatsapp = ($request->whatsapp) ? $request->whatsapp : null;
+
         $order->provinceID = $address->provinceID;
         $order->city = $address->city;
         $order->rt = $address->rt;

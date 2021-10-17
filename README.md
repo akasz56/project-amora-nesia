@@ -59,3 +59,17 @@ confirm order bisa digrup per toko
 # order status page
 - info seputar order
 - (test) nunggu 5 menit
+
+# --------------- AppServiceProvider global variables
+# province
+- register
+- registershop
+- confirm
+- dashboard
+- dashboard
+- orders
+- orderhistory
+
+# orderstatus
+- orders
+- orderhistory
