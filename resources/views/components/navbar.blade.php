@@ -12,27 +12,39 @@
                 </li>
 
                 @guest
-                <li class="nav-item text-center order-1 order-lg-2">
-                    <a class="nav-link" href="{{ route('login') }}">Masuk</a>
-                </li>
-                <li class="nav-item text-center order-2 order-lg-3">
-                    <a class="btn btn-primary" href="{{ route('register') }}">Daftar</a>
-                </li>
+                    <li class="nav-item text-center order-1 order-lg-2">
+                        <a class="nav-link" href="{{ route('login') }}">Masuk</a>
+                    </li>
+                    <li class="nav-item text-center order-2 order-lg-3">
+                        <a class="btn btn-primary" href="{{ route('register') }}">Daftar</a>
+                    </li>
                 @endguest
 
                 @auth
-                <li class="nav-item text-center order-1 order-lg-2">
-                    <a class="btn btn-primary ms-lg-3" href="{{ route('user.cart') }}">Cart</a>
-                </li>
-                <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
-                    <a class="btn btn-primary ms-lg-3" href="{{ route('shop.dashboard') }}">Toko Anda</a>
-                </li>
-                <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
-                    <a class="btn btn-primary ms-lg-3" href="{{ route('user.dashboard') }}">Akun Anda</a>
-                </li>
-                <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
-                    <a class="btn btn-danger ms-lg-3" href="{{ route('logout') }}">Keluar</a>
-                </li>
+                    <li class="nav-item text-center order-1 order-lg-2">
+                        <a class="btn btn-outline-light ms-lg-3" href="{{ route('user.cart') }}">
+                            <i class='bx bx-cart-alt'></i>
+                            Keranjang
+                        </a>
+                    </li>
+                    <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-primary ms-lg-3" href="{{ route('shop.dashboard') }}">
+                            <i class='bx bx-store-alt'></i>
+                            Toko Anda
+                        </a>
+                    </li>
+                    <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-primary ms-lg-3" href="{{ route('user.dashboard') }}">
+                            <i class='bx bx-user'></i>
+                            Akun Anda
+                        </a>
+                    </li>
+                    <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
+                        <a class="btn btn-outline-danger ms-lg-3" href="{{ route('logout') }}">
+                            <i class='bx bx-log-out'></i>
+                            Keluar
+                        </a>
+                    </li>
                 @endauth
 
                 <li class="nav-item text-center order-3 order-lg-1 mt-3 mt-lg-0 flex-grow-1">
