@@ -89,19 +89,6 @@ class OrderController extends Controller
 
     public function createOrder(Request $request)
     {
-        $request->validate([
-            'nameSend' => 'required|alpha',
-            'phone' => 'required|numeric',
-
-            'payment' => 'required|numeric',
-            'pengiriman' => 'required|numeric',
-        ]);
-
-        // Order Identity Check
-        if (isset($request->whatsapp)) {
-            $request->validate(['whatsapp' => 'required|numeric']);
-        }
-
         // Promo Code
         if ($request->promo) {
             dump("Promo Found");
@@ -122,57 +109,34 @@ class OrderController extends Controller
         }
 
         // Pembayaran
-        switch ($request->payment) {
-            case 1:
-                dump('Bank');
-                break;
-            case 2:
-                dump('Ewallet');
-                break;
-
-            default:
-                dd("Opsi Pengiriman not Found");
-                break;
+        if ($request->payment > DB::table('ref_payment')->count()) {
+            dd("Opsi Pembayaran not Found");
         }
 
         // Pengiriman
-        switch ($request->pengiriman) {
-            case 1:
-                dump('Kurir');
-                break;
-            case 2:
-                dump('Agen');
-                break;
-            case 3:
-                dump('COD');
-                // Cek bisa COD apa ngga
-                break;
-
-            default:
-                dd("Opsi Pengiriman not Found");
-                break;
+        if ($request->pengiriman > DB::table('ref_shipment')->count()) {
+            dd("Opsi Pengiriman not Found");
         }
 
         $user = Auth::user();
+        $order = Order::create([
+            'orderUUID' => Str::uuid(),
+            'userID' => $user->id,
+            'paymentID' => $request->payment,
+            'shipmentID' => $request->pengiriman,
+            'status' => 1,
 
-        $order = new Order();
-        $order->orderUUID = Str::uuid();
-        $order->userID = $user->id;
-        $order->paymentID = '';
-        $order->shipmentID = '';
-        $order->status = 1;
+            'nameSend' => $request->nameSend,
+            'phone' => $request->phone,
+            'whatsapp' => ($request->whatsapp) ? $request->whatsapp : null,
 
-        $order->nameSend = $request->nameSend;
-        $order->phone = $request->phone;
-        $order->whatsapp = ($request->whatsapp) ? $request->whatsapp : null;
-
-        $order->provinceID = $address->provinceID;
-        $order->city = $address->city;
-        $order->rt = $address->rt;
-        $order->rw = $address->rw;
-        $order->address = $address->address;
-        $order->postcode = $address->postcode;
-        dump($order);
+            'provinceID' => $address->provinceID,
+            'city' => $address->city,
+            'rt' => $address->rt,
+            'rw' => $address->rw,
+            'address' => $address->address,
+            'postcode' => $address->postcode,
+        ]);
 
         // OrderItems
         $productIDs = collect($request);
@@ -181,56 +145,22 @@ class OrderController extends Controller
         });
 
         // Each OrderItem
-        $orderitem = new OrderItem();
         for ($i = 1; $i <= $productIDs->count(); $i++) {
             $product = Product::find($request['productID-' . $i]);
-
-            $orderitem->statusID = 1;
-            $orderitem->orderID = $order->id;
-            $orderitem->orderUUID = $order->orderUUID;
-            $orderitem->userID = $order->userID;
-            $orderitem->shopID = $product->shopID;
-            $orderitem->productID = $product->id;
-            $orderitem->productTypeID = $request['typeID-' . $i];
-            $orderitem->productWrapID = $request['wrapID-' . $i];
-            $orderitem->productSizeID = $request['sizeID-' . $i];
-            dump($orderitem);
+            OrderItem::create([
+                'statusID' => 1,
+                'orderID' => $order->id,
+                'orderUUID' => $order->orderUUID,
+                'userID' => $order->userID,
+                'shopID' => $product->shopID,
+                'productID' => $product->id,
+                'productTypeID' => $request['typeID-' . $i],
+                'productWrapID' => $request['wrapID-' . $i],
+                'productSizeID' => $request['sizeID-' . $i],
+            ]);
         }
-        dd($address);
 
-        // $order = Order::create([
-        //     'orderUUID' => Str::uuid(),
-        //     'userID' => $user->id,
-        //     'bankID' => ($request->payment == 1) ? rand(1, 3) : 0,
-        //     'invoiceID' => rand(111111, 999999),
-        //     'status' => 1,
-        //     'nameSend' => $request->nameSend,
-        //     'phone' => $request->phone,
-        //     'whatsapp' => ($request->whatsapp) ? $request->whatsapp : null,
-        //     'provinceID' => $address->provinceID,
-        //     'city' => $address->city,
-        //     'rt' => $address->rt,
-        //     'rw' => $address->rw,
-        //     'address' => $address->address,
-        //     'postcode' => $address->postcode,
-        // ]);
-
-        // foreach(???????)
-
-        // $product = Product::find($request->product);
-        // OrderItem::create([
-        //     'statusID' => 1,
-        //     'orderID' => $order->id,
-        //     'orderUUID' => $order->orderUUID,
-        //     'userID' => $order->userID,
-        //     'shopID' => $product->shopID,
-        //     'productID' => $product->id,
-        //     'productTypeID' => $request->type,
-        //     'productWrapID' => $request->wrap,
-        //     'productSizeID' => $request->size,
-        // ]);
-
-        // return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);
+        return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);
     }
 
     public function cancelOrder(Request $request)
