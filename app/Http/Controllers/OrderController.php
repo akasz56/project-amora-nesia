@@ -27,10 +27,10 @@ class OrderController extends Controller
         return 1;
     }
 
-    public static function deleteAllCart(Request $request)
+    public static function clearCart(Request $request)
     {
-        dump("deleteAllCart");
-        dd($request);
+        $deletedRows = UserCart::where('userID', Auth::user()->id)->delete();
+        return $deletedRows;
     }
 
     // -------------------------------------------------------- Actions
@@ -293,5 +293,11 @@ class OrderController extends Controller
 
         $exists->delete();
         return back()->with('success', 'Produk berhasil dihapus dari Keranjang');
+    }
+
+    public function deleteAllCart(Request $request)
+    {
+        $deletedRows = $this->clearCart($request);
+        return back()->with('success', 'Keranjang berhasil dikosongkan');
     }
 }

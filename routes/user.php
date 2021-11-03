@@ -41,5 +41,7 @@ Route::prefix('u/')->middleware(['auth', 'verified'])
             ->group(function () {
                 Route::post('deleteCart/', [OrderController::class, 'deleteCart'])
                     ->name('delete');
+                Route::post('deleteAllCart/', [OrderController::class, 'deleteAllCart'])
+                    ->name('deleteAll');
             });
     });

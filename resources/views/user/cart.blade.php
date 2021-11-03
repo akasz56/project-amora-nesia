@@ -20,10 +20,11 @@
                         Checkout semua barang
                     </button>
                 </form>
-                <form action="#" method="POST" class="col-lg-6 p-3">
+                <form action="{{ route('user.cart.deleteAll') }}" method="POST" class="col-lg-6 p-3">
                     @csrf
-                    <button type="submit" class="btn btn-outline-primary w-100 p-3">
-                        Button Primary
+                    <button type="submit" class="btn btn-outline-danger w-100 p-3"
+                        onclick="return confirm('Yakin menghapus SEMUA produk dari keranjang?')">
+                        Kosongkan Keranjang
                     </button>
                 </form>
             </section>
