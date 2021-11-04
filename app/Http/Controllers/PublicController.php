@@ -51,6 +51,8 @@ class PublicController extends Controller
 
         return view('product', [
             'product' => $product,
+            'shop' => $shop,
+            'recommendations' => Product::inRandomOrder()->limit(20)->get(),
         ]);
     }
 }

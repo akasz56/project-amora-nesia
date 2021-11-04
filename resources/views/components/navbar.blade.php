@@ -1,4 +1,4 @@
-<nav class="navbar navbar navbar-dark bg-dark navbar-expand-lg">
+<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">AMORA</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -13,10 +13,16 @@
 
                 @guest
                     <li class="nav-item text-center order-1 order-lg-2">
-                        <a class="nav-link" href="{{ route('login') }}">Masuk</a>
+                        <a class="nav-link" href="{{ route('login') }}">
+                            <i class='bx bx-log-in'></i>
+                            Masuk
+                        </a>
                     </li>
                     <li class="nav-item text-center order-2 order-lg-3">
-                        <a class="btn btn-primary" href="{{ route('register') }}">Daftar</a>
+                        <a class="btn btn-primary" href="{{ route('register') }}">
+                            <i class='bx bxs-user'></i>
+                            Daftar
+                        </a>
                     </li>
                 @endguest
 

@@ -10,9 +10,16 @@
         @if (session()->has('danger'))
             <div class="alert alert-danger">{{ session()->get('danger') }}</div>
         @endif
-        {{-- nama --}}
-        <h1>{{ ucwords($product->name) }}</h1>
-        <a href="#">Ubah nama</a>
+
+        {{-- Nama --}}
+        <form action="#" method="POST" class="mt-5">
+            @csrf
+            <h1 class="d-inline lh-base">{{ ucwords($product->name) }}</h1>
+            <button type="submit" class="ms-3 btn btn-outline-dark" name="productID" value="{{ $product->id }}">
+                <i class='bx bx-edit-alt'></i>
+                Ubah Nama
+            </button>
+        </form>
         <hr>
 
         <div class="row">
@@ -22,12 +29,12 @@
 
         {{-- Foto --}}
         <h2 class="mt-5">Foto Produk</h2>
-        <div class="row">
+        <div class="d-flex">
             @foreach ($product->photos as $photo)
-                <div class="col-2">
-                    <button type="button" class="btn p-0" data-bs-toggle="modal"
+                <div>
+                    <button type="button" class="btn p-0 prod-photos me-3" data-bs-toggle="modal"
                         data-bs-target="{{ '#editPhoto' . $photo->id }}">
-                        <img src="{{ asset($photo->blob) }}" alt="Foto Produk" class="img-fluid">
+                        <img src="{{ asset($photo->blob) }}" alt="Foto Produk">
                     </button>
                 </div>
             @endforeach
@@ -47,7 +54,7 @@
             @else
                 <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
             @endif
-            <button type="submit" class="btn btn-success mt-2">Simpan Deskripsi</button>
+            <button type="submit" class="btn btn-primary mt-2">Simpan Deskripsi</button>
         </form>
 
 
@@ -67,9 +74,9 @@
                     <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="type">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-success">Simpan</button>
-                    <button type="submit" name="btn" value="delete" class="btn btn-danger"
-                        onclick="return confirm('Yakin menghapus?')">Hapus</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-outline-primary">Simpan</button>
+                    <button type="submit" name="btn" value="delete" class="btn btn-outline-danger"
+                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan dikembalikan')">Hapus</button>
                 </form>
             </div>
         @endforeach
@@ -100,9 +107,9 @@
                     <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="wrap">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-success">Simpan</button>
-                    <button type="submit" name="btn" value="delete" class="btn btn-danger"
-                        onclick="return confirm('Yakin menghapus?')">Hapus</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-outline-primary">Simpan</button>
+                    <button type="submit" name="btn" value="delete" class="btn btn-outline-danger"
+                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan dikembalikan')">Hapus</button>
                 </form>
             </div>
         @endforeach
@@ -133,9 +140,9 @@
                     <input type="number" name="price" class="col-2 me-2" value="{{ $item->price }}">
                     <input type="hidden" name="specification" value="size">
                     <input type="hidden" name="specID" value="{{ $item->id }}">
-                    <button type="submit" name="btn" value="edit" class="btn btn-success">Simpan</button>
-                    <button type="submit" name="btn" value="delete" class="btn btn-danger"
-                        onclick="return confirm('Yakin menghapus?')">Hapus</button>
+                    <button type="submit" name="btn" value="edit" class="btn btn-outline-primary">Simpan</button>
+                    <button type="submit" name="btn" value="delete" class="btn btn-outline-danger"
+                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan dikembalikan')">Hapus</button>
                 </form>
             </div>
         @endforeach
@@ -155,7 +162,8 @@
         <form action="{{ route('shop.product.delete') }}" method="POST">
             @csrf
             <input type="hidden" name="productID" value="{{ $product->id }}">
-            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin menghapus?')">Delete
+            <button type="submit" class="btn btn-danger"
+                onclick="return confirm('Yakin menghapus produk? Perubahan tidak akan dikembalikan')">Delete
                 Product</button>
         </form>
 
@@ -195,7 +203,7 @@
         @foreach ($product->photos as $photo)
             <div class="modal fade" id="{{ 'editPhoto' . $photo->id }}" tabindex="-1"
                 aria-labelledby="{{ 'editPhoto' . $photo->id . 'Label' }}" aria-hidden="true">
-                <div class="modal-dialog">
+                <div class="modal-dialog modal-xl">
                     <form action="{{ route('shop.product.photo.update') }}" method="POST" class="modal-content">
                         @csrf
                         <div class="modal-header">
@@ -223,5 +231,6 @@
             </div>
         @endforeach
 
+        <div style="height: 350px"></div>
     </main>
 @endsection

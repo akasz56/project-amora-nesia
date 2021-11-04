@@ -1,8 +1,6 @@
 # --------------- To Do
 ## doing
-cart functions
-- clearCart
-order functions
+kategori functions
 
 ## max
 Order Process including
@@ -17,11 +15,7 @@ product extras functions
 ## med
 order CRUD for shop
 order CRUD for users
-kategori functions
-recommendations at home functions
 category recommendations at home functions
-banner home functions
-foto produk functions
 search bar
 
 ## low

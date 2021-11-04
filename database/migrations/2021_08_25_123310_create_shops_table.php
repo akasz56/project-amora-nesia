@@ -21,7 +21,7 @@ class CreateShopsTable extends Migration
             // $table->foreignId('addressID')
             //     ->nullable()
             //     ->constrained('address');
-            $table->string('desc')->nullable();
+            $table->string('desc', 700)->nullable();
             $table->string('phone')->nullable();
             $table->string('whatsapp')->nullable();
             $table->string('email')->nullable()->unique();
