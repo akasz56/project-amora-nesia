@@ -4,6 +4,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PublicController;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__ . '/auth.php';
@@ -14,6 +15,19 @@ require __DIR__ . '/shop.php';
 /* -------------------------------------
 Test Routes
 ------------------------------------- */
+Route::get('acastest', function () {
+
+    dump("products");
+
+    $product = Product::inRandomOrder()->limit(3)->get();
+    foreach ($product as $item) {
+        dump($item->id);
+        foreach ($item->categories as $category) {
+            dump($category->name);
+        }
+    }
+});
+
 Route::get('/delete/{id}', function ($id) {
     $order = Order::find($id);
     if ($order) {
