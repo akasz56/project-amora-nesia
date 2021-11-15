@@ -51,6 +51,7 @@ Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/home', function () {
     return redirect('/');
 });
+Route::view('/about', 'about')->name('about');
 Route::get('/categories', [PublicController::class, 'categoriesView'])->name('categories');
 Route::get('/catalog', [PublicController::class, 'catalogView'])->name('catalog');
 

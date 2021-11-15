@@ -4,7 +4,7 @@
 
 @section('content')
     <main class="container">
-        <h2>Order Page</h2>
+        <h1>Order Page</h1>
         @include('order.details')
     </main>
 @endsection

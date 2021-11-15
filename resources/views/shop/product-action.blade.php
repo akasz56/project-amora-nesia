@@ -64,6 +64,12 @@
         @if (session()->has('typeDanger'))
             <div class="alert alert-danger">{{ session()->get('typeDanger') }}</div>
         @endif
+        <div class="row my-3">
+            <p class="col-2 me-2">Nama Produk</p>
+            <p class="col-2 me-2">Warna</p>
+            <p class="col-2 me-2">Stok Produk</p>
+            <p class="col-2 me-2">Harga</p>
+        </div>
         @foreach ($product->types as $item)
             <div class="row my-3">
                 <form action="{{ route('shop.product.spec.update') }}" method="POST">
@@ -76,7 +82,7 @@
                     <input type="hidden" name="specID" value="{{ $item->id }}">
                     <button type="submit" name="btn" value="edit" class="btn btn-outline-primary">Simpan</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-outline-danger"
-                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan dikembalikan')">Hapus</button>
+                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan bisa dikembalikan')">Hapus</button>
                 </form>
             </div>
         @endforeach
@@ -97,6 +103,12 @@
         @if (session()->has('wrapDanger'))
             <div class="alert alert-danger">{{ session()->get('wrapDanger') }}</div>
         @endif
+        <div class="row my-3">
+            <p class="col-2 me-2">Nama Produk</p>
+            <p class="col-2 me-2">Warna</p>
+            <p class="col-2 me-2">Stok Produk</p>
+            <p class="col-2 me-2">Harga</p>
+        </div>
         @foreach ($product->wraps as $item)
             <div class="row my-3">
                 <form action="{{ route('shop.product.spec.update') }}" method="POST">
@@ -109,7 +121,7 @@
                     <input type="hidden" name="specID" value="{{ $item->id }}">
                     <button type="submit" name="btn" value="edit" class="btn btn-outline-primary">Simpan</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-outline-danger"
-                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan dikembalikan')">Hapus</button>
+                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan bisa dikembalikan')">Hapus</button>
                 </form>
             </div>
         @endforeach
@@ -130,6 +142,12 @@
         @if (session()->has('sizeDanger'))
             <div class="alert alert-danger">{{ session()->get('sizeDanger') }}</div>
         @endif
+        <div class="row my-3">
+            <p class="col-2 me-2">Nama Produk</p>
+            <p class="col-2 me-2">Variable</p>
+            <p class="col-2 me-2">Stok Produk</p>
+            <p class="col-2 me-2">Harga</p>
+        </div>
         @foreach ($product->sizes as $item)
             <div class="row my-3">
                 <form action="{{ route('shop.product.spec.update') }}" method="POST">
@@ -142,7 +160,7 @@
                     <input type="hidden" name="specID" value="{{ $item->id }}">
                     <button type="submit" name="btn" value="edit" class="btn btn-outline-primary">Simpan</button>
                     <button type="submit" name="btn" value="delete" class="btn btn-outline-danger"
-                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan dikembalikan')">Hapus</button>
+                        onclick="return confirm('Yakin menghapus? Perubahan tidak akan bisa dikembalikan')">Hapus</button>
                 </form>
             </div>
         @endforeach
@@ -163,7 +181,7 @@
             @csrf
             <input type="hidden" name="productID" value="{{ $product->id }}">
             <button type="submit" class="btn btn-danger"
-                onclick="return confirm('Yakin menghapus produk? Perubahan tidak akan dikembalikan')">Delete
+                onclick="return confirm('Yakin menghapus produk? Perubahan tidak akan bisa dikembalikan')">Delete
                 Product</button>
         </form>
 
