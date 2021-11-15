@@ -65,49 +65,51 @@
                 </ul>
             </div>
 
-            @if (auth::user()->shopID)
-                <div class="col">
-                    <h5>Menu Toko</h5>
-                    <ul class="nav flex-column">
-                        <li class="nav-item mb-2">
-                            <a href="{{ route('shop.dashboard') }}" class="nav-link p-0 text-muted">
-                                <i class='bx bxs-dashboard'></i>
-                                Dashboard Toko
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="{{ route('shop.orders') }}" class="nav-link p-0 text-muted">
-                                <i class='bx bx-collection'></i>
-                                Pesanan
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="{{ route('shop.sales') }}" class="nav-link p-0 text-muted">
-                                <i class='bx bx-line-chart'></i>
-                                Penjualan
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="{{ route('shop.product.list') }}" class="nav-link p-0 text-muted">
-                                <i class='bx bx-store-alt'></i>
-                                Etalase
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="{{ route('shop.about') }}" class="nav-link p-0 text-muted">
-                                <i class='bx bx-id-card'></i>
-                                Identitas Toko
-                            </a>
-                        </li>
-                        <li class="nav-item mb-2">
-                            <a href="{{ route('shop.settings') }}" class="nav-link p-0 text-muted">
-                                <i class='bx bx-cog'></i>
-                                Pengaturan Toko
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            @endif
+            @auth
+                @if (auth::user()->shopID)
+                    <div class="col">
+                        <h5>Menu Toko</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('shop.dashboard') }}" class="nav-link p-0 text-muted">
+                                    <i class='bx bxs-dashboard'></i>
+                                    Dashboard Toko
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('shop.orders') }}" class="nav-link p-0 text-muted">
+                                    <i class='bx bx-collection'></i>
+                                    Pesanan
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('shop.sales') }}" class="nav-link p-0 text-muted">
+                                    <i class='bx bx-line-chart'></i>
+                                    Penjualan
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('shop.product.list') }}" class="nav-link p-0 text-muted">
+                                    <i class='bx bx-store-alt'></i>
+                                    Etalase
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('shop.about') }}" class="nav-link p-0 text-muted">
+                                    <i class='bx bx-id-card'></i>
+                                    Identitas Toko
+                                </a>
+                            </li>
+                            <li class="nav-item mb-2">
+                                <a href="{{ route('shop.settings') }}" class="nav-link p-0 text-muted">
+                                    <i class='bx bx-cog'></i>
+                                    Pengaturan Toko
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                @endif
+            @endauth
 
         </div>
     </div>
