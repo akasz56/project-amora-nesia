@@ -1,6 +1,6 @@
 # --------------- To Do
 ## doing
-kategori functions
+kategori functions CRUD Shops
 
 ## max
 Order Process including
@@ -8,14 +8,9 @@ Order Process including
 - opsi pengiriman
 
 ## high
-shop views
-product views
 product extras functions
 
 ## med
-order CRUD for shop
-order CRUD for users
-category recommendations at home functions
 search bar
 
 ## low

@@ -60,22 +60,18 @@
         {{-- Categories --}}
         <hr>
         <section class="d-flex justify-content-around">
-            <a href="#" class="category-card">
-                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
-                <p class="display-6">Category 1</p>
-            </a>
-            <a href="#" class="category-card">
-                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
-                <p class="display-6">Category 2</p>
-            </a>
-            <a href="#" class="category-card">
-                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
-                <p class="display-6">Category 3</p>
-            </a>
-            <a href="#" class="category-card">
-                <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }} alt="Logo">
-                <p class="display-6">Category 4</p>
-            </a>
+            @foreach ($categories as $item)
+                <a href="{{ route('category', ['key' => $item->name]) }}" class="category-card">
+                    @if ($item->logo_url)
+                        <img class="img-fluid" src={{ asset('/assets/category-logo/' . $item->logo_url) }}
+                            alt="Logo">
+                    @else
+                        <img class="img-fluid" src={{ asset('/assets/category-logo/category-dummy.png') }}
+                            alt="Logo">
+                    @endif
+                    <p class="display-6">{{ $item->name }}</p>
+                </a>
+            @endforeach
         </section>
         <hr>
 

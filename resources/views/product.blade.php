@@ -24,21 +24,25 @@
             {{-- MainCol --}}
             <section class="col-md-6">
                 {{-- Photo --}}
-                <?php $i = 1; ?>
-                @foreach ($product->photos as $photo)
-                    @if ($i)
-                        <button type="button" class="btn p-0 mb-2" data-bs-toggle="modal"
-                            data-bs-target="{{ '#editPhoto' . $photo->id }}">
-                            <img src="{{ asset($photo->blob) }}" alt="Foto Produk" class="img-fluid">
-                        </button>
-                        <?php $i--; ?>
-                    @else
-                        <button type="button" class="btn p-0 prod-photos" data-bs-toggle="modal"
-                            data-bs-target="{{ '#editPhoto' . $photo->id }}">
-                            <img src="{{ asset($photo->blob) }}" alt="Foto Produk">
-                        </button>
-                    @endif
-                @endforeach
+                @if ($product->photos->isNotEmpty())
+                    <?php $i = 1; ?>
+                    @foreach ($product->photos as $photo)
+                        @if ($i)
+                            <button type="button" class="btn p-0 mb-2" data-bs-toggle="modal"
+                                data-bs-target="{{ '#editPhoto' . $photo->id }}">
+                                <img src="{{ asset($photo->blob) }}" alt="Foto Produk" class="img-fluid">
+                            </button>
+                            <?php $i--; ?>
+                        @else
+                            <button type="button" class="btn p-0 prod-photos" data-bs-toggle="modal"
+                                data-bs-target="{{ '#editPhoto' . $photo->id }}">
+                                <img src="{{ asset($photo->blob) }}" alt="Foto Produk">
+                            </button>
+                        @endif
+                    @endforeach
+                @else
+                    <div class="d-block text-center border border-dark py-5">Tidak ada Foto</div>
+                @endif
 
                 {{-- Rating Viewers Wishlist --}}
                 <form action="{{ route('user.wishlist.add') }}" method="POST" class="d-flex align-items-center">
@@ -66,6 +70,12 @@
                 <h5 class="fw-bold">Deskripsi</h5>
                 <hr>
                 <p>{{ $product->description }}</p>
+                <h5 class="mt-5 fw-bold">Kategori</h5>
+                <hr>
+                @foreach ($product->categories as $categories)
+                    <a href="{{ route('category', ['key' => $categories->name]) }}"
+                        class="btn btn-outline-primary">{{ $categories->name }}</a>
+                @endforeach
 
                 {{-- Product Input --}}
                 <form action="{{ route('product.submit') }}" method="POST">

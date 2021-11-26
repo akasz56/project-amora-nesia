@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Shop;
 
@@ -9,15 +10,34 @@ class PublicController extends Controller
 {
     public function home()
     {
+        $categories = Category::inRandomOrder()->take(4)->get();
         $products = Product::orderBy('viewers', 'desc')->limit(20)->get();
         return view('home', [
             'products' => $products,
+            'categories' => $categories,
         ]);
+    }
+
+    public function aboutView()
+    {
+        return view('about');
     }
 
     public function categoriesView()
     {
-        return view('categories');
+        $categories = Category::inRandomOrder()->limit(10)->get();
+        return view('categories', [
+            'categories' => $categories,
+            'recommendations' => Product::orderBy('viewers', 'desc')->limit(20)->get(),
+        ]);
+    }
+
+    public function categoryView($key)
+    {
+        $category = Category::where('name', $key)->first();
+        return view('category', [
+            'category' => $category,
+        ]);
     }
 
     public function catalogView()
