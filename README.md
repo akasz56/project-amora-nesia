@@ -66,8 +66,7 @@ confirm order bisa digrup per toko
 
 # --------------- to no costumizations
 Read    Products as Buyer
--   Product page pas mau beli
--   Product View Components
+-   ada lg ga ya
 
 Create  Orders as Buyer
 -   Product page pas mau beli

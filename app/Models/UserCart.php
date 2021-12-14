@@ -12,9 +12,9 @@ class UserCart extends Model
     protected $fillable = [
         'userID',
         'productID',
-        'productTypeID',
-        'productWrapID',
-        'productSizeID',
+        // 'productTypeID',
+        // 'productWrapID',
+        // 'productSizeID',
     ];
 
     public function user()
@@ -27,16 +27,16 @@ class UserCart extends Model
         return $this->hasOne(Product::class, 'id', 'productID');
     }
 
-    public function type()
-    {
-        return $this->hasOne(ProductType::class, 'id', 'productTypeID');
-    }
-    public function wrap()
-    {
-        return $this->hasOne(ProductWrap::class, 'id', 'productWrapID');
-    }
-    public function size()
-    {
-        return $this->hasOne(ProductSize::class, 'id', 'productSizeID');
-    }
+    // public function type()
+    // {
+    //     return $this->hasOne(ProductType::class, 'id', 'productTypeID');
+    // }
+    // public function wrap()
+    // {
+    //     return $this->hasOne(ProductWrap::class, 'id', 'productWrapID');
+    // }
+    // public function size()
+    // {
+    //     return $this->hasOne(ProductSize::class, 'id', 'productSizeID');
+    // }
 }

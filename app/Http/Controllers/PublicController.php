@@ -66,6 +66,9 @@ class PublicController extends Controller
         $prodName = str_replace("-", " ", $prodName);
 
         $product = Product::where('shopID', $shop->id)->where('name', $prodName)->first();
+        if ($product === null) {
+            abort('404');
+        }
         $product->viewers++;
         $product->save();
 

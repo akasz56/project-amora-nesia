@@ -17,9 +17,9 @@ class CreateUserCartsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('userID');
             $table->unsignedBigInteger('productID');
-            $table->unsignedBigInteger('productTypeID');
-            $table->unsignedBigInteger('productWrapID');
-            $table->unsignedBigInteger('productSizeID');
+            // $table->unsignedBigInteger('productTypeID');
+            // $table->unsignedBigInteger('productWrapID');
+            // $table->unsignedBigInteger('productSizeID');
             $table->timestamps();
         });
     }

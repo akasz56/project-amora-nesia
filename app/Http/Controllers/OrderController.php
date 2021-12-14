@@ -37,9 +37,9 @@ class OrderController extends Controller
 
     public function submitOrderOrCart(Request $request)
     {
-        if ($request->type == 0) return back()->with('typeError', "Silahkan Pilih Jenis Bunga");
-        if ($request->wrap == 0) return back()->with('wrapError', "Silahkan Pilih Jenis Bungkus");
-        if ($request->size == 0) return back()->with('sizeError', "Silahkan Pilih Ukuran");
+        // if ($request->type == 0) return back()->with('typeError', "Silahkan Pilih Jenis Bunga");
+        // if ($request->wrap == 0) return back()->with('wrapError', "Silahkan Pilih Jenis Bungkus");
+        // if ($request->size == 0) return back()->with('sizeError', "Silahkan Pilih Ukuran");
 
         switch ($request->btn) {
             case 'order':
@@ -53,7 +53,8 @@ class OrderController extends Controller
                 return back()->with('danger', "No Action Found");
                 break;
         }
-        dd("Error Occured - OC101");
+        abort('400');
+        // dd("Error Occured - OC101");
     }
 
     public function confirmOrder(Request $request)
@@ -61,9 +62,9 @@ class OrderController extends Controller
         $basket = new UserCart();
         $basket->userID = Auth::user()->id;
         $basket->productID = $request->ID;
-        $basket->productTypeID = $request->type;
-        $basket->productWrapID = $request->wrap;
-        $basket->productSizeID = $request->size;
+        // $basket->productTypeID = $request->type;
+        // $basket->productWrapID = $request->wrap;
+        // $basket->productSizeID = $request->size;
         $basket = collect([$basket]);
 
         return view('order.confirm', [
@@ -263,9 +264,9 @@ class OrderController extends Controller
 
         $exists =
             $cart->where('productID', $request->ID)
-            ->where('productTypeID', $request->type)
-            ->where('productWrapID', $request->wrap)
-            ->where('productSizeID', $request->size)
+            // ->where('productTypeID', $request->type)
+            // ->where('productWrapID', $request->wrap)
+            // ->where('productSizeID', $request->size)
             ->first();
         if ($exists) {
             return back()->with('danger', 'Produk ini sudah ada dalam Keranjang');
@@ -274,9 +275,9 @@ class OrderController extends Controller
         $cart = UserCart::create([
             'userID' => Auth::user()->id,
             'productID' => $request->ID,
-            'productTypeID' => $request->type,
-            'productWrapID' => $request->wrap,
-            'productSizeID' => $request->size,
+            // 'productTypeID' => $request->type,
+            // 'productWrapID' => $request->wrap,
+            // 'productSizeID' => $request->size,
         ]);
         if ($cart) {
             return redirect()->route('user.cart')->with('success', 'Produk berhasil ditambahkan ke dalam Keranjang');

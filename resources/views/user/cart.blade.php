@@ -31,7 +31,7 @@
             <hr>
 
             @foreach ($cart as $item)
-                <form action="{{ route('user.cart.delete') }}" method="POST" class="mt-5 position-relative">
+                <form action="{{ route('user.cart.delete') }}" method="POST" class="mb-5 position-relative">
                     @include('components.product-preview', ['item' => $item->product, 'cart' => $item])
                     @csrf
                     <button type="submit" class="btn btn-danger wishlist-remove rounded-0" name="cartID"

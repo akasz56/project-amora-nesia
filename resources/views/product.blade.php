@@ -78,12 +78,12 @@
                 @endforeach
 
                 {{-- Product Input --}}
-                <form action="{{ route('product.submit') }}" method="POST">
+                <form action="{{ route('product.submit') }}" method="POST" class="mt-5">
                     <section class="row">
                         <input type="hidden" name="ID" value="{{ $product->id }}">
                         @csrf
 
-                        <div class="col-4">
+                        {{-- <div class="col-4">
                             <label for="type" class="mt-5 form-label">Jenis Bunga</label>
                             <select class="form-select" id="type" name="type" required>
                                 <option value="0" hidden>Pilih satu</option>
@@ -117,14 +117,15 @@
                                 @endforeach
                             </select>
                             @if (session()->has('sizeError'))<small class="text-danger">{{ session()->get('sizeError') }}</small>@endif
-                        </div>
+                        </div> --}}
                     </section>
 
                     <section class="mt-3 d-flex">
-                        <button type="submit" class="flex-fill py-2 btn btn-outline-primary" name="btn" value="cart">
-                            + Keranjang
+                        <button type="submit" class="flex-fill p-3 btn btn-outline-primary" name="btn" value="cart">
+                            <i class='bx bxs-cart-add bx-sm'></i>
+                            <span>Masukkan Keranjang</span>
                         </button>
-                        <button type="submit" class="flex-fill py-2 btn btn-primary ms-2" name="btn" value="order">
+                        <button type="submit" class="flex-fill p-3 btn btn-primary ms-2" name="btn" value="order">
                             Beli Langsung
                         </button>
                     </section>

@@ -18,10 +18,10 @@
                 </h3>
                 <p class="card-text text-start">
                     {{ $var = strlen($item->description) > (isset($descLen) ? $descLen : 50) ? substr($item->description, 0, isset($descLen) ? $descLen : 50) . '...' : $item->description }}
-                    @if (isset($cart))
+                    {{-- @if (isset($cart))
                         <br> {{ $cart->type->name }} | {{ $cart->wrap->name }} | {{ $cart->size->name }}
                         <br> extras : no
-                    @endif
+                    @endif --}}
                 </p>
             </div>
         </div>
