@@ -23,8 +23,8 @@
                     @foreach ($order->orderItems as $item)
                         <div class="border border-primary border-1 p-3">
                             <h3>{{ $item->product->name }}</h3>
-                            <p>{{ $item->product_type->name }} | {{ $item->product_wrap->name }} |
-                                {{ $item->product_size->name }}</p>
+                            {{-- <p>{{ $item->product_type->name }} | {{ $item->product_wrap->name }} |
+                                {{ $item->product_size->name }}</p> --}}
                             <h5>{{ $orderstatuses[$item->statusID - 1]->name }}</h5>
                         </div>
                     @endforeach

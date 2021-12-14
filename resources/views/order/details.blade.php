@@ -50,9 +50,8 @@
             </div> --}}
 
 
-        {{-- INI KENAPA GOBLOK --}}
         {{-- nanti masukin ke components.product-prev aja --}}
-        {{-- @if ($item->status == 4)
+        @if ($item->statusID == 4)
             <form action="{{ route('order.update') }}" method="POST" class="mt-3">
                 @csrf
                 <input type="hidden" name="uuid" value="{{ $order->orderUUID }}">
@@ -60,8 +59,8 @@
                     Sampai</button>
             </form>
 
-        @elseif ($item->status == 5)
+        @elseif ($item->statusID == 5)
             <h5 class="fw-bold mt-3">Pesanan Selesai</h5>
-        @endif --}}
+        @endif
     @endforeach
 </section>

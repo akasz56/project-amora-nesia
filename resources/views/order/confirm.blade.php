@@ -6,6 +6,9 @@
     <main class="container">
         <form action="{{ route('order.create') }}" method="POST" class="mt-5">
             @csrf
+            @if (isset($fromCart))
+                <input type="hidden" name="fromCart" value="true">
+            @endif
 
             {{-- OrderInfo --}}
             <h2>Konfirmasi {{ $basket->count() }} Pesanan</h2>

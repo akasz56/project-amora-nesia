@@ -18,9 +18,10 @@
         <hr>
         @foreach ($orderitems as $item)
             {{-- OrderItem Info --}}
-            <h3>{{ $item->product->name }}</h3>
-            <p>{{ $item->product_type->name }} | {{ $item->product_wrap->name }} | {{ $item->product_size->name }}
-            </p>
+            @include('components.product-preview', ['item' => $item->product, 'class' => 'mb-3'])
+            {{-- <h3>{{ $item->product->name }}</h3> --}}
+            {{-- <p>{{ $item->product_type->name }} | {{ $item->product_wrap->name }} | {{ $item->product_size->name }}
+            </p> --}}
 
             {{-- OrderItem Actions --}}
             @if ($item->statusID < 4)

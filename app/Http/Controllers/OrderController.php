@@ -27,7 +27,7 @@ class OrderController extends Controller
         return 1;
     }
 
-    public static function clearCart(Request $request)
+    public static function clearCart()
     {
         $deletedRows = UserCart::where('userID', Auth::user()->id)->delete();
         return $deletedRows;
@@ -80,6 +80,7 @@ class OrderController extends Controller
         $basket = collect($basket);
 
         return view('order.confirm', [
+            'fromCart' => true,
             'basket' => $basket,
             'payment' => DB::table('ref_payment')->select('*')->get()->toArray(),
             'shipment' => DB::table('ref_shipment')->select('*')->get()->toArray(),
@@ -159,6 +160,10 @@ class OrderController extends Controller
                 // 'productWrapID' => $request['wrapID-' . $i],
                 // 'productSizeID' => $request['sizeID-' . $i],
             ]);
+        }
+
+        if (isset($request->fromCart)) {
+            $this->clearCart();
         }
 
         return redirect()->route('order.actions', ['uuid' => $order->orderUUID]);

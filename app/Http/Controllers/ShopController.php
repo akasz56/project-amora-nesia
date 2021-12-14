@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Address;
-use App\Models\ProductSize;
-use App\Models\ProductType;
-use App\Models\ProductWrap;
+// use App\Models\ProductSize;
+// use App\Models\ProductType;
+// use App\Models\ProductWrap;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -193,7 +193,9 @@ class ShopController extends Controller
         foreach ($orderitems as $item) {
             $order = Order::find($item->orderID);
             $order->orderItems;
-            $orders[] = $order;
+            if (!in_array($order, $orders)) {
+                $orders[] = $order;
+            }
         }
         rsort($orders);
         return view('shop.orders', [
@@ -310,136 +312,136 @@ class ShopController extends Controller
 
     // -------------------------------------------------------- ProductSpecCRUD
 
-    public function createProductSpec(Request $request)
-    {
-        if ($request->price < 1000)
-            return back()->with($request->specification . 'Danger', 'Harga tidak boleh kurang dari Rp1000');
-        switch ($request->specification) {
-            case 'type':
-                $spec = 'type';
-                $object = ProductType::create([
-                    'productID' => $request->productID,
-                    'name' => $request->name,
-                    'color' => $request->variable,
-                    'stock' => $request->stock,
-                    'price' => $request->price,
-                ]);
-                break;
-            case 'wrap':
-                $spec = 'wrap';
-                $object = ProductWrap::create([
-                    'productID' => $request->productID,
-                    'name' => $request->name,
-                    'color' => $request->variable,
-                    'stock' => $request->stock,
-                    'price' => $request->price,
-                ]);
-                break;
-            case 'size':
-                $spec = 'size';
-                $object = ProductSize::create([
-                    'productID' => $request->productID,
-                    'name' => $request->name,
-                    'flower_amount' => $request->variable,
-                    'stock' => $request->stock,
-                    'price' => $request->price,
-                ]);
-                break;
+    // public function createProductSpec(Request $request)
+    // {
+    //     if ($request->price < 1000)
+    //         return back()->with($request->specification . 'Danger', 'Harga tidak boleh kurang dari Rp1000');
+    //     switch ($request->specification) {
+    //         case 'type':
+    //             $spec = 'type';
+    //             $object = ProductType::create([
+    //                 'productID' => $request->productID,
+    //                 'name' => $request->name,
+    //                 'color' => $request->variable,
+    //                 'stock' => $request->stock,
+    //                 'price' => $request->price,
+    //             ]);
+    //             break;
+    //         case 'wrap':
+    //             $spec = 'wrap';
+    //             $object = ProductWrap::create([
+    //                 'productID' => $request->productID,
+    //                 'name' => $request->name,
+    //                 'color' => $request->variable,
+    //                 'stock' => $request->stock,
+    //                 'price' => $request->price,
+    //             ]);
+    //             break;
+    //         case 'size':
+    //             $spec = 'size';
+    //             $object = ProductSize::create([
+    //                 'productID' => $request->productID,
+    //                 'name' => $request->name,
+    //                 'flower_amount' => $request->variable,
+    //                 'stock' => $request->stock,
+    //                 'price' => $request->price,
+    //             ]);
+    //             break;
 
-            default:
-                $spec = null;
-                $object = null;
-                break;
-        }
+    //         default:
+    //             $spec = null;
+    //             $object = null;
+    //             break;
+    //     }
 
-        if ($object)
-            return back()->with('success', "Produk " . $spec . " berhasil ditambahkan");
-        else
-            return back()->with('danger', "an Error occured");
-    }
+    //     if ($object)
+    //         return back()->with('success', "Produk " . $spec . " berhasil ditambahkan");
+    //     else
+    //         return back()->with('danger', "an Error occured");
+    // }
 
-    public function updateProductSpec(Request $request)
-    {
-        switch ($request->btn) {
-            case 'edit':
-                $return = $this->editProductSpec($request);
-                break;
-            case 'delete':
-                $return = $this->deleteProductSpec($request->specification, $request->specID);
-                break;
+    // public function updateProductSpec(Request $request)
+    // {
+    //     switch ($request->btn) {
+    //         case 'edit':
+    //             $return = $this->editProductSpec($request);
+    //             break;
+    //         case 'delete':
+    //             $return = $this->deleteProductSpec($request->specification, $request->specID);
+    //             break;
 
-            default:
-                return back()->with('danger', "No Action Found");
-                break;
-        }
+    //         default:
+    //             return back()->with('danger', "No Action Found");
+    //             break;
+    //     }
 
-        if ($return == -5) return back()->with('danger', "No Specification Found");
-        return back()->with('success', "Product " . ucwords($return) . " Successfully");
-    }
+    //     if ($return == -5) return back()->with('danger', "No Specification Found");
+    //     return back()->with('success', "Product " . ucwords($return) . " Successfully");
+    // }
 
-    public function editProductSpec($request)
-    {
-        switch ($request->specification) {
-            case 'type':
-                $spec = ProductType::find($request->specID);
-                $spec->name = $request->name;
-                $spec->color = $request->variable;
-                $spec->stock = $request->stock;
-                $spec->price = $request->price;
-                $spec->save();
-                $message = 'type';
-                break;
+    // public function editProductSpec($request)
+    // {
+    //     switch ($request->specification) {
+    //         case 'type':
+    //             $spec = ProductType::find($request->specID);
+    //             $spec->name = $request->name;
+    //             $spec->color = $request->variable;
+    //             $spec->stock = $request->stock;
+    //             $spec->price = $request->price;
+    //             $spec->save();
+    //             $message = 'type';
+    //             break;
 
-            case 'wrap':
-                $spec = ProductWrap::find($request->specID);
-                $spec->name = $request->name;
-                $spec->color = $request->variable;
-                $spec->stock = $request->stock;
-                $spec->price = $request->price;
-                $spec->save();
-                $message = 'wrap';
-                break;
+    //         case 'wrap':
+    //             $spec = ProductWrap::find($request->specID);
+    //             $spec->name = $request->name;
+    //             $spec->color = $request->variable;
+    //             $spec->stock = $request->stock;
+    //             $spec->price = $request->price;
+    //             $spec->save();
+    //             $message = 'wrap';
+    //             break;
 
-            case 'size':
-                $spec = ProductSize::find($request->specID);
-                $spec->name = $request->name;
-                $spec->flower_amount = $request->variable;
-                $spec->stock = $request->stock;
-                $spec->price = $request->price;
-                $spec->save();
-                $message = 'size';
-                break;
+    //         case 'size':
+    //             $spec = ProductSize::find($request->specID);
+    //             $spec->name = $request->name;
+    //             $spec->flower_amount = $request->variable;
+    //             $spec->stock = $request->stock;
+    //             $spec->price = $request->price;
+    //             $spec->save();
+    //             $message = 'size';
+    //             break;
 
-            default:
-                $message = '';
-                return -5;
-        }
-        return $message . " updated";
-    }
+    //         default:
+    //             $message = '';
+    //             return -5;
+    //     }
+    //     return $message . " updated";
+    // }
 
-    public function deleteProductSpec($spec, $id)
-    {
-        switch ($spec) {
-            case 'type':
-                ProductType::find($id)->delete();
-                $message = 'type';
-                break;
-            case 'wrap':
-                ProductWrap::find($id)->delete();
-                $message = 'wrap';
-                break;
-            case 'size':
-                ProductSize::find($id)->delete();
-                $message = 'size';
-                break;
+    // public function deleteProductSpec($spec, $id)
+    // {
+    //     switch ($spec) {
+    //         case 'type':
+    //             ProductType::find($id)->delete();
+    //             $message = 'type';
+    //             break;
+    //         case 'wrap':
+    //             ProductWrap::find($id)->delete();
+    //             $message = 'wrap';
+    //             break;
+    //         case 'size':
+    //             ProductSize::find($id)->delete();
+    //             $message = 'size';
+    //             break;
 
-            default:
-                return -5;
-                break;
-        }
+    //         default:
+    //             return -5;
+    //             break;
+    //     }
 
-        return $message . " deleted";
-    }
+    //     return $message . " deleted";
+    // }
 
     // -------------------------------------------------------- ProductPhotoCRUD
 

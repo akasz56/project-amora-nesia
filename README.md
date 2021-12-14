@@ -69,8 +69,3 @@ confirm order bisa digrup per toko
 # --------------- to no costumizations
 Read    Products as Buyer
 -   ada lg ga ya
-
-Read    Orders as Seller
--   Pesanan Toko
-Update  Orders as Seller
--   Pesanan Toko
