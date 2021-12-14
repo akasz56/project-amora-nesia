@@ -9,7 +9,9 @@ Order Process including
 - opsi pengiriman
 
 ## high
-product extras functions
+<!-- product extras functions -->
+user historynya pakein prod-view component
+ORDER STATUS DI DETAIL ORDER KENAPA AJG
 
 ## med
 search bar
@@ -50,7 +52,7 @@ confirm order bisa digrup per toko
 - info seputar order
 - (test) nunggu 5 menit
 
-# --------------- AppServiceProvider global variables
+# --------------- AppServiceProvider global variables in views
 # province
 - register
 - registershop
@@ -67,11 +69,6 @@ confirm order bisa digrup per toko
 # --------------- to no costumizations
 Read    Products as Buyer
 -   ada lg ga ya
-
-Create  Orders as Buyer
--   Product page pas mau beli
-Read    Orders as Buyer
--   Riwayat Pembelian
 
 Read    Orders as Seller
 -   Pesanan Toko

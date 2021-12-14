@@ -155,9 +155,9 @@ class OrderController extends Controller
                 'userID' => $order->userID,
                 'shopID' => $product->shopID,
                 'productID' => $product->id,
-                'productTypeID' => $request['typeID-' . $i],
-                'productWrapID' => $request['wrapID-' . $i],
-                'productSizeID' => $request['sizeID-' . $i],
+                // 'productTypeID' => $request['typeID-' . $i],
+                // 'productWrapID' => $request['wrapID-' . $i],
+                // 'productSizeID' => $request['sizeID-' . $i],
             ]);
         }
 
@@ -222,16 +222,18 @@ class OrderController extends Controller
         // Not found
         $order = Order::where('orderUUID', $uuid)->first();
         if ($order == null)
-            return view('order.error', [
-                'message' => "Order tidak ditemukan!",
-            ]);
+            abort('404');
+        // return view('order.error', [
+        //     'message' => "Order tidak ditemukan!",
+        // ]);
 
         // Doesnt belong to the user
         $userID = Auth::user()->id;
         if ($order->userID != $userID)
-            return view('order.error', [
-                'message' => "Ordernya tidak ditemukan!",
-            ]);
+            abort('404');
+        // return view('order.error', [
+        //     'message' => "Ordernya tidak ditemukan!",
+        // ]);
 
         // payment pending
         if ($order->status == 1) {

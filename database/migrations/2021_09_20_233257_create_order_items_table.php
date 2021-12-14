@@ -22,9 +22,9 @@ class CreateOrderItemsTable extends Migration
             $table->unsignedBigInteger('shopID');
             $table->unsignedBigInteger('shipmentID')->nullable();
             $table->unsignedBigInteger('productID');
-            $table->unsignedBigInteger('productTypeID');
-            $table->unsignedBigInteger('productWrapID');
-            $table->unsignedBigInteger('productSizeID');
+            // $table->unsignedBigInteger('productTypeID');
+            // $table->unsignedBigInteger('productWrapID');
+            // $table->unsignedBigInteger('productSizeID');
             $table->timestamps();
         });
     }

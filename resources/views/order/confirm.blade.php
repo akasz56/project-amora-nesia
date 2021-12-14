@@ -15,9 +15,9 @@
             @foreach ($basket as $item)
                 @include('components.product-preview', ['item' => $item->product, 'cart' => $item, 'class' => 'mb-3'])
                 <input type="hidden" name="{{ 'productID-' . $i }}" value="{{ $item->product->id }}">
-                <input type="hidden" name="{{ 'typeID-' . $i }}" value="{{ $item->type->id }}">
+                {{-- <input type="hidden" name="{{ 'typeID-' . $i }}" value="{{ $item->type->id }}">
                 <input type="hidden" name="{{ 'wrapID-' . $i }}" value="{{ $item->wrap->id }}">
-                <input type="hidden" name="{{ 'sizeID-' . $i }}" value="{{ $item->size->id }}">
+                <input type="hidden" name="{{ 'sizeID-' . $i }}" value="{{ $item->size->id }}"> --}}
                 <?php $i++; ?>
             @endforeach
 
