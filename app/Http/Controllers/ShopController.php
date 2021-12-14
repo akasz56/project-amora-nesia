@@ -258,6 +258,8 @@ class ShopController extends Controller
         $request->validate([
             'nama' => 'required|string|max:300',
             'desc' => 'required|string',
+            'stock' => 'required',
+            'price' => 'required',
         ]);
 
         $shop = $this->getShop();
@@ -266,21 +268,26 @@ class ShopController extends Controller
             'shopID' => $shop->id,
             'name' => $request->nama,
             'description' => $request->desc,
+            'stock' => $request->stock,
+            'price' => $request->price,
             'rating' => 0,
             'viewers' => 0,
         ]);
 
-        return redirect()->route('shop.product.byID', ['id' => $product->id]);
+        return redirect()->route('shop.product.byID', ['id' => $product->id])->with('success', 'Produk berhasil dibuat');
     }
 
     public function updateProduct(Request $request)
     {
         $product = Product::find($request->productID);
 
-        if (strcmp($product->description, $request->desc) == 0)
-            return back()->with('danger', "No changes found");
+        if ($product == NULL) {
+            return back()->with('danger', "Product Not Found");
+        }
 
         $product->description = $request->desc;
+        $product->stock = $request->stock;
+        $product->price = $request->price;
         $product->save();
 
         return back()->with('success', "Product " . $product->name . " sucessfully updated");
@@ -288,15 +295,17 @@ class ShopController extends Controller
 
     public function deleteProduct(Request $request)
     {
-        ProductType::where('productID', $request->productID)->delete();
-        ProductWrap::where('productID', $request->productID)->delete();
-        ProductSize::where('productID', $request->productID)->delete();
+        // ProductType::where('productID', $request->productID)->delete();
+        // ProductWrap::where('productID', $request->productID)->delete();
+        // ProductSize::where('productID', $request->productID)->delete();
+        ProductPhoto::where('productID', $request->productID)->delete();
+        DB::table('product_categories')->where('productID', $request->productID)->delete();
 
         $product = Product::find($request->productID)->delete();
         if ($product == 0)
             return "None Deleted";
 
-        return redirect()->route('shop.product.list');
+        return redirect()->route('shop.product.list')->with('success', 'Produk berhasil dihapus');
     }
 
     // -------------------------------------------------------- ProductSpecCRUD

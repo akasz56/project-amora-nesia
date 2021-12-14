@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             //     ->constrained('shops');
             $table->string('name');
             $table->text('description');
+            $table->unsignedInteger('stock');
+            $table->unsignedInteger('price');
             $table->unsignedBigInteger('rating')->nullable();
             $table->unsignedBigInteger('viewers')->nullable();
             $table->timestamps();

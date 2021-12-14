@@ -13,6 +13,8 @@ class Product extends Model
         'shopID',
         'name',
         'description',
+        'stock',
+        'price',
         'rating',
         'viewers',
     ];
@@ -27,18 +29,18 @@ class Product extends Model
         return $this->hasMany(ProductPhoto::class, 'productID');
     }
 
-    public function types()
-    {
-        return $this->hasMany(ProductType::class, 'productID');
-    }
-    public function wraps()
-    {
-        return $this->hasMany(ProductWrap::class, 'productID');
-    }
-    public function sizes()
-    {
-        return $this->hasMany(ProductSize::class, 'productID');
-    }
+    // public function types()
+    // {
+    //     return $this->hasMany(ProductType::class, 'productID');
+    // }
+    // public function wraps()
+    // {
+    //     return $this->hasMany(ProductWrap::class, 'productID');
+    // }
+    // public function sizes()
+    // {
+    //     return $this->hasMany(ProductSize::class, 'productID');
+    // }
 
     public function categories()
     {

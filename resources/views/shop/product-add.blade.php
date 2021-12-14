@@ -21,6 +21,20 @@
                     placeholder="Deskripsi Produk" rows="6"></textarea>
                 @error('desc')<small class="text-danger">{{ $message }}</small>@enderror
             </div>
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label for="stock" class="form-label">Stok Produk</label>
+                    <input type="number" class="form-control" name="stock" value="{{ old('stock') }}" required
+                        placeholder="Stok Produk">
+                    @error('stock')<small class="text-danger">{{ $message }}</small>@enderror
+                </div>
+                <div class="col-md-6">
+                    <label for="price" class="form-label">Harga Produk</label>
+                    <input type="number" class="form-control" name="price" value="{{ old('price') }}" required
+                        placeholder="Harga Produk">
+                    @error('price')<small class="text-danger">{{ $message }}</small>@enderror
+                </div>
+            </div>
             <div class="mt-2 mb-3 d-flex flex-column flex-md-row justify-content-end align-items-end">
                 <button type="submit" class="btn btn-primary">Tambahkan</button>
             </div>

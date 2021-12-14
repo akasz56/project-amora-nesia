@@ -1,8 +1,9 @@
 # --------------- To Do
 ## doing
-kategori functions CRUD Shops
+no product costumizations
 
 ## max
+no product costumizations
 Order Process including
 - opsi pembayaran
 - opsi pengiriman
@@ -28,10 +29,10 @@ cart bisa digrup per toko
 confirm order bisa digrup per toko
 
 # --------------- Order Process
-# product page
+<!-- # product page
 - pilih type
 - pilih wrap
-- pilih size
+- pilih size -->
 
 # order confirmation page
 - info seputar order
@@ -62,3 +63,38 @@ confirm order bisa digrup per toko
 # orderstatus
 - orders
 - orderhistory
+
+# --------------- to no costumizations
+Create  Products as Buyer   x
+Read    Products as Buyer
+-   Product page pas mau beli
+-   Homepage
+-   Category page
+-   Catalog page
+-   Recommendations
+-   apalagi?
+Update  Products as Buyer   x
+Delete  Products as Buyer   x
+
+Create  Products as Seller
+-   Etalase Toko
+Read    Products as Seller
+-   Etalase Toko
+Update  Products as Seller
+-   Etalase Toko
+Delete  Products as Seller
+-   Etalase Toko
+
+Create  Orders as Buyer
+-   Product page pas mau beli
+Read    Orders as Buyer
+-   Riwayat Pembelian
+Update  Orders as Buyer     x
+Delete  Orders as Buyer     x
+
+Create  Orders as Seller    x
+Read    Orders as Seller
+-   Pesanan Toko
+Update  Orders as Seller
+-   Pesanan Toko
+Delete  Orders as Seller    x

@@ -27,6 +27,13 @@
             <div class="col-6">Rating Produk : {{ $product->rating }}</div>
         </div>
 
+        {{-- Kategori --}}
+        <h2 class="mt-5">Kategori Produk</h2>
+        @foreach ($product->categories as $category)
+            <a href="{{ route('category', ['key' => $category->name]) }}"
+                class="btn btn-outline-primary">{{ $category->name }}</a>
+        @endforeach
+
         {{-- Foto --}}
         <h2 class="mt-5">Foto Produk</h2>
         <div class="d-flex">
@@ -43,23 +50,37 @@
             + Tambah Foto Produk
         </button>
 
-        {{-- deskripsi --}}
         <h2 class="mt-5">Deskripsi Produk</h2>
         <form action="{{ route('shop.product.update') }}" method="POST">
             @csrf
             <input type="hidden" name="productID" value="{{ $product->id }}">
+            {{-- deskripsi --}}
             @if (isset($product->description))
                 <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk"
                     rows="6">{{ $product->description }}</textarea>
             @else
                 <textarea class="form-control" name="desc" required placeholder="Deskripsi Produk" rows="6"></textarea>
             @endif
-            <button type="submit" class="btn btn-primary mt-2">Simpan Deskripsi</button>
+
+            {{-- Stock & Harga --}}
+            <section class="row mt-3">
+                <div class="col-md-6">
+                    <h2>Stok Produk</h2>
+                    <input type="number" class="form-control" name="stock" value="{{ $product->stock }}" required
+                        placeholder="Stok Produk">
+                </div>
+                <div class="col-md-6">
+                    <h2>Harga Produk</h2>
+                    <input type="number" class="form-control" name="price" value="{{ $product->price }}" required
+                        placeholder="Harga Produk">
+                </div>
+            </section>
+
+            <button type="submit" class="btn btn-primary mt-3 p-3">Simpan Info Produk</button>
         </form>
 
 
-        {{-- type --}}
-        <h2 class="mt-5">Jenis Bunga</h2>
+        {{-- <h2 class="mt-5">Jenis Bunga</h2>
         <hr>
         @if (session()->has('typeDanger'))
             <div class="alert alert-danger">{{ session()->get('typeDanger') }}</div>
@@ -97,7 +118,6 @@
             <button class="btn btn-primary" type="submit">+ Tambah Jenis Bunga</button>
         </form>
 
-        {{-- wrap --}}
         <h2 class="mt-5">Jenis Bungkus</h2>
         <hr>
         @if (session()->has('wrapDanger'))
@@ -136,7 +156,6 @@
             <button class="btn btn-primary" type="submit">+ Tambah Jenis Bungkus</button>
         </form>
 
-        {{-- size --}}
         <h2 class="mt-5">Ukuran</h2>
         <hr>
         @if (session()->has('sizeDanger'))
@@ -173,7 +192,7 @@
             <input type="number" name="stock" class="col-2 me-2" placeholder="Stok Barang">
             <input type="number" name="price" class="col-2 me-2" placeholder="Harga">
             <button class="btn btn-primary" type="submit">+ Tambah Ukuran</button>
-        </form>
+        </form> --}}
 
         <h2 class="mt-5">Danger Zone</h2>
         <hr>
