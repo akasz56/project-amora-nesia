@@ -29,7 +29,8 @@
             <a href="{{ route('shop', ['shopURL' => $item->shop->url]) }}">
                 <strong>{{ $item->shop->name }}</strong>
             </a> --}}
-        @include('components.product-preview', ['item' => $item->product, 'class' => 'mb-3'])
+        @include('components.product-preview', ['item' => $item->product, 'class' => 'mb-3', 'orderStatus' =>
+        $item->statusID, 'role' => 'user'])
 
         {{-- <div class="row mt-3">
                 <div class="col-4">
@@ -48,19 +49,5 @@
                     Jumlah Bunga : {{ $item->product_size->flower_amount }}
                 </div>
             </div> --}}
-
-
-        {{-- nanti masukin ke components.product-prev aja --}}
-        @if ($item->statusID == 4)
-            <form action="{{ route('order.update') }}" method="POST" class="mt-3">
-                @csrf
-                <input type="hidden" name="uuid" value="{{ $order->orderUUID }}">
-                <button type="submit" name="status" value="done" class="btn btn-primary">Pesanan sudah
-                    Sampai</button>
-            </form>
-
-        @elseif ($item->statusID == 5)
-            <h5 class="fw-bold mt-3">Pesanan Selesai</h5>
-        @endif
     @endforeach
 </section>

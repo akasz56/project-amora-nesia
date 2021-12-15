@@ -8,6 +8,27 @@
 
 body {
     background-color: #FFF8EE;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 51rem;
+}
+
+@media (min-width: 576px) {
+    body {
+        padding-bottom: 35rem;
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        padding-bottom: 25rem;
+    }
+}
+
+@media (min-width: 992px) {
+    body {
+        padding-bottom: 20rem;
+    }
 }
 
 /*------------------------------------- home */
@@ -233,6 +254,11 @@ body {
 }
 
 /*------------------------------------- footer */
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
 
 /*------------------------------------- users */
 .dashboard-nav {

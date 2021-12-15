@@ -69,3 +69,13 @@ confirm order bisa digrup per toko
 # --------------- to no costumizations
 Read    Products as Buyer
 -   ada lg ga ya
+
+# --------------- Midtrans steps
+# ini snap apa bukan? :/
+https://www.youtube.com/watch?v=2pdo6JN8Y-k&
+create order (params)
+send params
+generated token & url payment
+milih method pembayaran
+bayar -> masuk ke db payment
+paymentController results

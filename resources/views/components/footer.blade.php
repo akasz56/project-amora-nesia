@@ -1,4 +1,4 @@
-<footer class="bg-dark text-light">
+<footer id="footer" class="bg-dark text-light">
     <div class="container">
         <div class="row row-cols-1 row-cols-sm-3 row-cols-md-5 py-5 border-top">
             <div class="col">
@@ -115,6 +115,10 @@
     </div>
 </footer>
 
-<script>
-
-</script>
+{{-- <script>
+    if (document.getElementById('content').scrollHeight < document.body.clientHeight) {
+        document.getElementById('footer').style.bottom = "0";
+        console.log("2");
+    }
+    console.log("1");
+</script> --}}

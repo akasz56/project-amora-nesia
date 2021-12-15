@@ -22,11 +22,60 @@
                         <br> {{ $cart->type->name }} | {{ $cart->wrap->name }} | {{ $cart->size->name }}
                         <br> extras : no
                     @endif --}}
+
+                    {{-- Statuses --}}
+                    @if (isset($orderStatus) && isset($role))
+
+                        @if ($role == 'user')
+                            @if ($orderStatus == 1)
+                                <div class="alert alert-primary">Menunggu Pembayaran</div>
+                            @elseif ($orderStatus == 2)
+                                <div class="alert alert-primary">Menunggu Diproses</div>
+                            @elseif ($orderStatus == 3)
+                                <div class="alert alert-primary">Menunggu Dikirim</div>
+                            @elseif ($orderStatus == 4)
+                                <form action="{{ route('order.update') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="uuid" value="{{ $order->orderUUID }}">
+                                    <button type="submit" name="status" value="done" class="btn btn-primary">Pesanan
+                                        sudah Sampai</button>
+                                </form>
+                            @elseif ($orderStatus == 5)
+                                <div class="alert alert-success">Pesanan Selesai</div>
+                            @endif
+
+                        @elseif ($role == 'shop')
+                            @if ($orderStatus < 4)
+                                <form action="{{ route('shop.orderAction', ['uuid' => $order->orderUUID]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <input type="hidden" name="orderItemID" value="{{ $orderItemID }}">
+                                    @if ($orderStatus == 1)
+                                        <div class="alert alert-primary">Menunggu Pembayaran</div>
+                                    @elseif ($orderStatus == 2)
+                                        <button type="submit" name="statusID" value="3" class="btn btn-primary">Proses
+                                            Pesanan</button>
+                                    @elseif ($orderStatus == 3)
+                                        <button type="submit" name="statusID" value="4" class="btn btn-primary">Kirim
+                                            Pesanan</button>
+                                    @endif
+                                    <button type="submit" name="statusID" value="10" class="btn btn-danger"
+                                        onclick="return confirm('Yakin utk membatalkan pesanan?')">Batalkan
+                                        Pesanan</button>
+                                </form>
+                            @else
+                                @if ($orderStatus == 4)
+                                    <div class="alert alert-success">Produk dalam Perjalanan</div>
+                                @elseif ($orderStatus == 5)
+                                    <div class="alert alert-success">Pesanan Selesai</div>
+                                @elseif ($orderStatus == 10)
+                                    <div class="alert alert-danger">Pesanan dibatalkan</div>
+                                @endif
+                            @endif
+                        @endif
+                    @endif
                 </p>
             </div>
         </div>
     </div>
 </a>
-
-
-{{-- perlu nambahin Text buat status di order items --}}
