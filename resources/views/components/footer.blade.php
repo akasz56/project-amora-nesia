@@ -114,11 +114,3 @@
         </div>
     </div>
 </footer>
-
-{{-- <script>
-    if (document.getElementById('content').scrollHeight < document.body.clientHeight) {
-        document.getElementById('footer').style.bottom = "0";
-        console.log("2");
-    }
-    console.log("1");
-</script> --}}

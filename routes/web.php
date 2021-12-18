@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,7 +23,7 @@ Route::get('/home', function () {
 });
 Route::get('/about', [PublicController::class, 'aboutView'])->name('about');
 Route::get('/categories', [PublicController::class, 'categoriesView'])->name('categories');
-Route::get('/category/{key}', [PublicController::class, 'categoryView'])->name('category');
+Route::get('/categories/{key}', [PublicController::class, 'categoryView'])->name('category');
 Route::get('/catalog', [PublicController::class, 'catalogView'])->name('catalog');
 
 
@@ -37,6 +38,15 @@ Route::middleware('auth')->group(function () {
     Route::post('/order/update', [OrderController::class, 'updateOrder'])->name('order.update');
     Route::get('/order/{uuid}', [OrderController::class, 'orderActions'])->name('order.actions');
 });
+
+
+/* -------------------------------------
+Payment Routes
+------------------------------------- */
+Route::post('/payments/notification', [PaymentController::class, 'notification']);
+Route::get('/payments/completed', [PaymentController::class, 'completed']);
+Route::get('/payments/unfinish', [PaymentController::class, 'unfinish']);
+Route::get('/payments/failed', [PaymentController::class, 'failed']);
 
 
 /* -------------------------------------

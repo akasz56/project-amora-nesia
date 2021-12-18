@@ -16,14 +16,19 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->uuid('orderUUID');
-            $table->unsignedBigInteger('userID');
-            $table->unsignedBigInteger('paymentID');
-            $table->unsignedBigInteger('shipmentID');
             $table->unsignedBigInteger('status');
+            $table->unsignedBigInteger('userID');
+            $table->unsignedBigInteger('shipmentID');
+
+            $table->string('payment_token')->nullable();
+            $table->string('payment_url')->nullable();
 
             $table->string('nameSend');
             $table->string('phone');
             $table->string('whatsapp')->nullable();
+
+            $table->decimal('grand_total', 16, 2);
+            $table->decimal('ongkir', 16, 2);
 
             $table->unsignedBigInteger('provinceID');
             $table->string('city');

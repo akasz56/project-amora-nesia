@@ -1,20 +1,15 @@
 # --------------- To Do
 ## doing
-no product costumizations
+order payment
 
 ## max
-no product costumizations
-Order Process including
-- opsi pembayaran
-- opsi pengiriman
+Order Payment
+- Tambah kolom harga & ongkir pls functionsnya
 
 ## high
-<!-- product extras functions -->
-user historynya pakein prod-view component
-ORDER STATUS DI DETAIL ORDER KENAPA AJG
+search bar
 
 ## med
-search bar
 
 ## low
 promo code
@@ -73,6 +68,7 @@ Read    Products as Buyer
 # --------------- Midtrans steps
 # ini snap apa bukan? :/
 https://www.youtube.com/watch?v=2pdo6JN8Y-k&
+39:17
 create order (params)
 send params
 generated token & url payment

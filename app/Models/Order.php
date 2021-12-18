@@ -11,13 +11,16 @@ class Order extends Model
 
     protected $fillable = [
         'orderUUID',
-        'userID',
-        'paymentID',
-        'shipmentID',
         'status',
+        'userID',
+        'shipmentID',
+        'payment_token',
+        'payment_url',
         'nameSend',
         'phone',
         'whatsapp',
+        'grand_total',
+        'ongkir',
         'provinceID',
         'city',
         'rt',
@@ -39,5 +42,10 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'userID');
+    }
+
+    public function isPaid()
+    {
+        return $this->status > 1;
     }
 }

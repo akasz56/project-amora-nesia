@@ -9,7 +9,7 @@
         <form action="{{ route('order.update') }}" method="POST">
             @csrf
             <input type="hidden" name="uuid" value="{{ $order->orderUUID }}">
-            <button type="submit" name="status" value="paid" class="btn btn-primary">Pay</button>
+            <button type="submit" name="status" value="pay" class="btn btn-primary">Pay</button>
         </form>
         @include('order.details')
     </main>

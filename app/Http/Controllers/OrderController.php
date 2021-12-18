@@ -33,6 +33,59 @@ class OrderController extends Controller
         return $deletedRows;
     }
 
+    private function _generatePaymentToken($order)
+    {
+        $this->initPaymentGateway();
+
+        $params = [
+            'enable_payments' => [
+                "credit_card",
+                "gopay",
+                "shopeepay",
+                "permata_va",
+                "bca_va",
+                "bni_va",
+                "bri_va",
+                "echannel",
+                "other_va",
+                "danamon_online",
+                "mandiri_clickpay",
+                "cimb_clicks",
+                "bca_klikbca",
+                "bca_klikpay",
+                "bri_epay",
+                "xl_tunai",
+                "indosat_dompetku",
+                "kioson",
+                "Indomaret",
+                "alfamart",
+                "akulaku"
+            ],
+            'transaction_details' => [
+                'order_id' => $order->orderUUID,
+                'gross_amount' => ($order->grand_total),
+            ],
+            'customer_details' => [
+                'first_name' => $order->user->name,
+                'email' => $order->user->email,
+                'phone' => $order->user->phone,
+            ],
+            'expiry' => [
+                'start_time' => date('Y-m-d H:i:s T'),
+                'duration' => 1,
+                'unit' => 'days',
+            ],
+        ];
+
+        $snap = \Midtrans\Snap::createTransaction($params);
+
+        if ($snap->token) {
+            $order->payment_token = $snap->token;
+            $order->payment_url = $snap->redirect_url;
+            $order->save();
+        }
+    }
+
     // -------------------------------------------------------- Actions
 
     public function submitOrderOrCart(Request $request)
@@ -101,6 +154,10 @@ class OrderController extends Controller
         if (isset($request->sendToAcc)) {
             $address = Address::find(Auth::user()->addressID);
         } else {
+            $galengkap = empty($request->provinceID) && empty($request->city) && empty($request->rt) && empty($request->rw) && empty($request->address) && empty($request->postcode);
+            if ($galengkap)
+                return back()->with('danger', 'Alamat belum terisi penuh');
+
             $address = new Address();
             $address->provinceID = $request->provinceID;
             $address->city = $request->city;
@@ -110,10 +167,10 @@ class OrderController extends Controller
             $address->postcode = $request->postcode;
         }
 
-        // Pembayaran
-        if ($request->payment > DB::table('ref_payment')->count()) {
-            dd("Opsi Pembayaran not Found");
-        }
+        // // Pembayaran
+        // if ($request->payment > DB::table('ref_payment')->count()) {
+        //     dd("Opsi Pembayaran not Found");
+        // }
 
         // Pengiriman
         if ($request->pengiriman > DB::table('ref_shipment')->count()) {
@@ -122,15 +179,19 @@ class OrderController extends Controller
 
         $user = Auth::user();
         $order = Order::create([
+            // $order = new Order([
             'orderUUID' => Str::uuid(),
             'userID' => $user->id,
-            'paymentID' => $request->payment,
+            'paymentID' => 0,
             'shipmentID' => $request->pengiriman,
             'status' => 1,
 
             'nameSend' => $request->nameSend,
             'phone' => $request->phone,
             'whatsapp' => ($request->whatsapp) ? $request->whatsapp : null,
+
+            'grand_total' => $request->grandtotal,
+            'ongkir' => 0,
 
             'provinceID' => $address->provinceID,
             'city' => $address->city,
@@ -149,7 +210,8 @@ class OrderController extends Controller
         // Each OrderItem
         for ($i = 1; $i <= $productIDs->count(); $i++) {
             $product = Product::find($request['productID-' . $i]);
-            OrderItem::create([
+            // $orderitem = new OrderItem([
+            $orderitem = OrderItem::create([
                 'statusID' => 1,
                 'orderID' => $order->id,
                 'orderUUID' => $order->orderUUID,
@@ -161,6 +223,8 @@ class OrderController extends Controller
                 // 'productSizeID' => $request['sizeID-' . $i],
             ]);
         }
+
+        $this->_generatePaymentToken($order);
 
         if (isset($request->fromCart)) {
             $this->clearCart();
@@ -187,8 +251,11 @@ class OrderController extends Controller
     public function updateOrder(Request $request)
     {
         switch ($request->status) {
-            case 'paid':
-                $status = 2;
+            case 'pay':
+                $order = Order::where('orderUUID', $request->uuid)->first();
+                dd($order);
+                // $this->_generatePaymentToken($order);
+                // $status = (PaymentController::Pay($request)) ? 2 : 1;
                 break;
 
             case 'accepted':
@@ -240,21 +307,21 @@ class OrderController extends Controller
         //     'message' => "Ordernya tidak ditemukan!",
         // ]);
 
-        // payment pending
+        // Payment pending
         if ($order->status == 1) {
             return view('order.payment', [
                 'order' => $order,
             ]);
         }
 
-        // order canceled page
+        // Order canceled page
         if ($order->status == 10) {
             return view('order.page', [
                 'order' => $order,
             ]);
         }
 
-        // order details page
+        // Order details page
         return view('order.page', [
             'order' => $order,
         ]);
@@ -305,7 +372,7 @@ class OrderController extends Controller
 
     public function deleteAllCart(Request $request)
     {
-        $deletedRows = $this->clearCart($request);
+        $this->clearCart($request);
         return back()->with('success', 'Keranjang berhasil dikosongkan');
     }
 }

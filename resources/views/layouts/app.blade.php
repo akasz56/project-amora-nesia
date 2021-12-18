@@ -28,6 +28,7 @@
     {{-- Script --}}
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    @yield('scripts')
 </body>
 
 </html>

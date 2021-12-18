@@ -297,3 +297,11 @@ body {
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
+
+/*  */
+.box-frame {
+    margin-top: 3rem;
+    padding: 3rem;
+    border-radius: 2rem;
+    background-color: #fff;
+}
