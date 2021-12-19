@@ -71,8 +71,8 @@ class PaymentController extends Controller
             $paymentStatus = 'cancel';
         }
 
-        // $payment = Payment::create([
-        $payment = new Payment([
+        // $payment = new Payment([
+        $payment = Payment::create([
             'order_id' => $order->id,
             'number' => 00110011,
             'amount' => $paymentNotification->gross_amount,
@@ -89,7 +89,6 @@ class PaymentController extends Controller
 
 
         if ($paymentStatus && $payment) {
-            dump("bayar");
             if ($payment->status == 'success' || $payment->status == 'settlement') {
                 $order->status = 2;
                 $order->save();

@@ -34,7 +34,7 @@
                     <span class="links_name">Riwayat Pembelian</span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="{{ route('user.account-settings') }}">
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Pengaturan Akun</span>
@@ -45,7 +45,7 @@
                     <i class='bx bx-bell'></i>
                     <span class="links_name">Pengaturan Notifikasi</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </section>
 

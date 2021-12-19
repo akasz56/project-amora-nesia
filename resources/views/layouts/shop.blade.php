@@ -38,7 +38,7 @@ use App\Http\Controllers\ShopController;
                     <span class="links_name">Etalase Toko</span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="{{ route('shop.about') }}">
                     <i class='bx bx-id-card'></i>
                     <span class="links_name">Identitas Toko</span>
@@ -49,7 +49,7 @@ use App\Http\Controllers\ShopController;
                     <i class='bx bx-cog'></i>
                     <span class="links_name">Pengaturan Toko</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </section>
 

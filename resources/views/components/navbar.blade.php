@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+<nav class="navbar navbar-dark bg-amora-dark navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">AMORA</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -28,25 +28,25 @@
 
                 @auth
                     <li class="nav-item text-center order-1 order-lg-2">
-                        <a class="btn btn-outline-light ms-lg-3" href="{{ route('user.cart') }}">
+                        <a class="btn btn-light ms-lg-3" href="{{ route('user.cart') }}">
                             <i class='bx bx-cart-alt'></i>
-                            Keranjang
+                            <span class="amora-nav-text">Keranjang</span>
                         </a>
                     </li>
                     <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
-                        <a class="btn btn-outline-primary ms-lg-3" href="{{ route('shop.dashboard') }}">
+                        <a class="btn btn-light ms-lg-3" href="{{ route('shop.dashboard') }}">
                             <i class='bx bx-store-alt'></i>
-                            Toko Anda
+                            <span class="amora-nav-text">Toko Anda</span>
                         </a>
                     </li>
                     <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
-                        <a class="btn btn-outline-primary ms-lg-3" href="{{ route('user.dashboard') }}">
+                        <a class="btn btn-light ms-lg-3" href="{{ route('user.dashboard') }}">
                             <i class='bx bx-user'></i>
-                            Akun Anda
+                            <span class="amora-nav-text">Akun Anda</span>
                         </a>
                     </li>
                     <li class="nav-item text-center order-2 order-lg-3 mt-2 mt-lg-0">
-                        <a class="btn btn-outline-danger ms-lg-3" href="{{ route('logout') }}">
+                        <a class="btn btn-danger ms-lg-3" href="{{ route('logout') }}">
                             <i class='bx bx-log-out'></i>
                             Keluar
                         </a>
