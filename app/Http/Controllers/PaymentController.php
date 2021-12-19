@@ -118,7 +118,6 @@ class PaymentController extends Controller
 
     public function unfinish(Request $request)
     {
-        dd($request);
         $code = $request->query('order_id');
         $order = Order::where('orderUUID', $code)->firstOrFail();
 
@@ -127,7 +126,6 @@ class PaymentController extends Controller
 
     public function failed(Request $request)
     {
-        dd($request);
         $code = $request->query('order_id');
         $order = Order::where('orderUUID', $code)->firstOrFail();
 
