@@ -16,6 +16,7 @@ class Payment extends Model
         'number',
         'amount',
         'method',
+        'status',
         'token',
         'payloads',
         'payment_type',
@@ -23,11 +24,6 @@ class Payment extends Model
         'vendor_name',
         'biller_code',
         'bill_key',
-        'order_id',
-        'number',
-        'method',
-        'token',
-        'payment_type',
     ];
 
     public static function generateCode()

@@ -91,6 +91,11 @@ class PaymentController extends Controller
             if ($payment->status == 'success' || $payment->status == 'settlement') {
                 $order->status = 2;
                 $order->save();
+
+                foreach ($order->orderitems as $item) {
+                    $item->statusID = 2;
+                    $item->save();
+                }
             }
         }
 

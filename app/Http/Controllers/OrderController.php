@@ -251,13 +251,6 @@ class OrderController extends Controller
     public function updateOrder(Request $request)
     {
         switch ($request->status) {
-            case 'pay':
-                $order = Order::where('orderUUID', $request->uuid)->first();
-                dd($order);
-                // $this->_generatePaymentToken($order);
-                // $status = (PaymentController::Pay($request)) ? 2 : 1;
-                break;
-
             case 'accepted':
                 $status = 3;
                 break;
