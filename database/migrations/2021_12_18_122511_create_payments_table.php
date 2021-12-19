@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->string('number')->unique();
             $table->decimal('amount', 16, 2)->default(0);
             $table->string('method');
+            $table->string('status');
             $table->string('token')->nullable();
             $table->json('payloads')->nullable();
             $table->string('payment_type')->nullable();

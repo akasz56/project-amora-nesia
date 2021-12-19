@@ -71,10 +71,9 @@ class PaymentController extends Controller
             $paymentStatus = 'cancel';
         }
 
-        // $payment = new Payment([
         $payment = Payment::create([
             'order_id' => $order->id,
-            'number' => 00110011,
+            'number' => Payment::generateCode(),
             'amount' => $paymentNotification->gross_amount,
             'method' => 'midtrans',
             'status' => $paymentStatus,
@@ -119,6 +118,7 @@ class PaymentController extends Controller
 
     public function unfinish(Request $request)
     {
+        dd($request);
         $code = $request->query('order_id');
         $order = Order::where('orderUUID', $code)->firstOrFail();
 
@@ -127,6 +127,7 @@ class PaymentController extends Controller
 
     public function failed(Request $request)
     {
+        dd($request);
         $code = $request->query('order_id');
         $order = Order::where('orderUUID', $code)->firstOrFail();
 

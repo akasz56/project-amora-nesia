@@ -47,7 +47,7 @@
                 {{-- Rating Viewers Wishlist --}}
                 <form action="{{ route('user.wishlist.add') }}" method="POST" class="d-flex align-items-center">
                     @csrf
-                    <div class="me-auto">
+                    {{-- <div class="me-auto">
                         @for ($i = 0; $i < 5; $i++)
                             @if ($i < $product->rating)
                                 <i class='bx bxs-star bx-sm'></i>
@@ -55,7 +55,7 @@
                                 <i class='bx bx-star bx-sm'></i>
                             @endif
                         @endfor
-                    </div>
+                    </div> --}}
                     <div class="me-auto">Viewers : {{ $product->viewers }}</div>
                     <button type="submit" class="py-2 btn fw-bold" name="productID" value="{{ $product->id }}">
                         <i class='bx bx-bookmark-plus'></i>
@@ -66,24 +66,31 @@
 
             {{-- MainCol --}}
             <section class="col-md-6">
+
                 {{-- Description --}}
                 <h5 class="fw-bold">Deskripsi</h5>
                 <hr>
                 <p>{{ $product->description }}</p>
-                <h5 class="mt-5 fw-bold">Kategori</h5>
+
+                {{-- Categories --}}
+                <h5 class="mt-4 fw-bold">Kategori</h5>
                 <hr>
                 @foreach ($product->categories as $categories)
                     <a href="{{ route('category', ['key' => $categories->name]) }}"
                         class="btn btn-outline-primary">{{ $categories->name }}</a>
                 @endforeach
 
+                {{-- Harga --}}
+                <h5 class="mt-4 fw-bold">Harga Produk</h5>
+                <hr>
+                <p class="fw-bold fs-3">Rp{{ number_format($product->price) }}</p>
+
                 {{-- Product Input --}}
                 <form action="{{ route('product.submit') }}" method="POST" class="mt-5">
-                    <section class="row">
-                        <input type="hidden" name="ID" value="{{ $product->id }}">
-                        @csrf
-
-                        {{-- <div class="col-4">
+                    @csrf
+                    <input type="hidden" name="ID" value="{{ $product->id }}">
+                    {{-- <section class="row">
+                        <div class="col-4">
                             <label for="type" class="mt-5 form-label">Jenis Bunga</label>
                             <select class="form-select" id="type" name="type" required>
                                 <option value="0" hidden>Pilih satu</option>
@@ -117,8 +124,8 @@
                                 @endforeach
                             </select>
                             @if (session()->has('sizeError'))<small class="text-danger">{{ session()->get('sizeError') }}</small>@endif
-                        </div> --}}
-                    </section>
+                        </div>
+                    </section> --}}
 
                     <section class="mt-3 d-flex">
                         <button type="submit" class="flex-fill p-3 btn btn-outline-primary" name="btn" value="cart">

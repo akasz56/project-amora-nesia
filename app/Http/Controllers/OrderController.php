@@ -295,17 +295,11 @@ class OrderController extends Controller
         $order = Order::where('orderUUID', $uuid)->first();
         if ($order == null)
             abort('404');
-        // return view('order.error', [
-        //     'message' => "Order tidak ditemukan!",
-        // ]);
 
         // Doesnt belong to the user
         $userID = Auth::user()->id;
         if ($order->userID != $userID)
             abort('404');
-        // return view('order.error', [
-        //     'message' => "Ordernya tidak ditemukan!",
-        // ]);
 
         // Payment pending
         if ($order->status == 1) {

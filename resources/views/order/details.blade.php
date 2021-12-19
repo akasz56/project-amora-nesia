@@ -1,22 +1,32 @@
-<section>
+<section class="box-frame mb-5">
 
-    <h3 class="mt-5">Details</h3>
-    @dump($order->toArray())
-    <p>{{ $order->orderUUID }}</p>
-    <p><strong>Invoice ID :</strong> {{ $order->invoiceID }}</p>
-
-    <h3 class="mt-5">Pembeli</h3>
+    <h2 class="position-relative">
+        Rincian Pesanan
+        <span class="fs-6 position-absolute end-0 bottom-0">{{ $order->orderUUID }}</span>
+    </h2>
     <hr>
-    <p><strong>Nama :</strong> {{ $order->user->name }}</p>
-    <p><strong>Email :</strong> {{ $order->user->email }}</p>
-    <p><strong>Phone :</strong> {{ $order->user->phone }}</p>
-    <p><strong>Whatsapp :</strong> {{ $order->user->whatsapp }}</p>
+    {{-- @dump($order->toArray()) --}}
 
-    <h3 class="mt-5">Penerima</h3>
-    <hr>
-    <p><strong>Nama :</strong> {{ $order->nameSend }}</p>
-    <p><strong>Phone :</strong> {{ $order->phone }}</p>
-    <p><strong>Whatsapp :</strong> {{ $order->whatsapp }}</p>
+    <section class="row">
+        <div class="col-md-6">
+            <h3 class="fw-bold">Pembeli</h3>
+            <h5>
+                {{ $order->user->name }}
+                <span class="fs-6">({{ $order->user->email }})</span>
+            </h5>
+            <p>{{ $order->user->phone }} {{ $var = $order->user->whatsapp ? ' | ' . $order->user->whatsapp : '' }}
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h3 class="fw-bold">Penerima</h3>
+            <h5>{{ $order->nameSend }}</h5>
+            <p>{{ $order->phone }} {{ $var = $order->whatsapp ? ' | ' . $order->whatsapp : '' }}</p>
+            <span class="d-block fw-bold">Alamat Tujuan</span>
+            {{ $provinces[$order->provinceID]->name }}, {{ $order->city }},
+            {{ $order->address }} {{ $order->postcode }}
+            RT : {{ $order->rt }} | RW : {{ $order->rw }}
+        </div>
+    </section>
 
     <h3 class="mt-5">Item Pesanan</h3>
     <hr>

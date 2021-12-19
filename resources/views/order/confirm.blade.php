@@ -133,7 +133,7 @@
                 </div>
 
                 <input type="hidden" name="grandtotal" value="{{ $subtotal + $ongkir }}">
-                <button type="submit" class="btn btn-primary p-3 w-100 my-5">Bayar</button>
+                <button type="submit" class="btn btn-primary p-3 w-100 mt-3">Checkout</button>
             </section>
         </form>
 

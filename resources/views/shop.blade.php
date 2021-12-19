@@ -12,7 +12,9 @@
             <div class="col-md-11">
                 <h1 class="fw-bold mt-4 mt-md-0">{{ $shop->name }}</h1>
                 <hr>
-                <h6>{{ $provinces[$shop->address->provinceID]->name }}, {{ $shop->address->city }}</h6>
+                <h6>{{ $provinces[$shop->address->provinceID]->name }}, {{ $shop->address->city }},
+                    {{ $shop->address->address }} {{ $shop->address->postcode }}
+                    RT {{ $shop->address->rt }} RW {{ $shop->address->rw }}</h6>
             </div>
         </section>
 
